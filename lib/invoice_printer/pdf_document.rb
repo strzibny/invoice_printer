@@ -79,59 +79,51 @@ module InvoicePrinter
       # business
       @pdf.stroke_color '000000'
       @pdf.fill_color '000000'
-      unless @invoice.issuer
-        @pdf.text_box labels[:purchaser], size: 10, at: [10, 660], width: 240
-      else
-        @pdf.text_box labels[:provider], size: 10, at: [10, 660], width: 240
-      end
+      @pdf.text_box labels[:provider], size: 10, at: [10, 660], width: 240
       @pdf.fill_color '000000'
-      @pdf.text_box @invoice.business_name, size: 14, at: [10, 640], width: 240
-      @pdf.text_box "#{@invoice.business_street}    #{@invoice.business_street_number}", size: 10, at: [10, 620], width: 240
-      @pdf.text_box @invoice.business_postcode, size: 10, at: [10, 605], width: 240
-      @pdf.text_box @invoice.business_city, size: 10, at: [60, 605], width: 240
-      @pdf.text_box @invoice.business_city_part, size: 10, at: [60, 590], width: 240
-      @pdf.text_box @invoice.business_extra_customer_line, size: 10, at: [10, 575], width: 240
+      @pdf.text_box @invoice.provider_name, size: 14, at: [10, 640], width: 240
+      @pdf.text_box "#{@invoice.provider_street}    #{@invoice.provider_street_number}", size: 10, at: [10, 620], width: 240
+      @pdf.text_box @invoice.provider_postcode, size: 10, at: [10, 605], width: 240
+      @pdf.text_box @invoice.provider_city, size: 10, at: [60, 605], width: 240
+      @pdf.text_box @invoice.provider_city_part, size: 10, at: [60, 590], width: 240
+      @pdf.text_box @invoice.provider_extra_address_line, size: 10, at: [10, 575], width: 240
 
       # @pdf.fill_color "000000"
       # if there is extra address line, move
-      @pdf.text_box "#{labels[:ic]}    #{@invoice.business_ic}", size: 10, at: [10, 550], width: 240
+      @pdf.text_box "#{labels[:ic]}    #{@invoice.provider_ic}", size: 10, at: [10, 550], width: 240
       # move if there is dic
-      @pdf.text_box "#{labels[:dic]}    #{@invoice.business_dic}", size: 10, at: [10, 535], width: 240
+      @pdf.text_box "#{labels[:dic]}    #{@invoice.provider_dic}", size: 10, at: [10, 535], width: 240
     end
 
     def build_purchaser_box
       # Customer
       @pdf.fill_color '000000'
-      unless @invoice.issuer
-        @pdf.text_box labels[:provider], size: 10, at: [290, 660], width: 240
-      else
-        @pdf.text_box labels[:purchaser], size: 10, at: [290, 660], width: 240
-      end
+      @pdf.text_box labels[:purchaser], size: 10, at: [290, 660], width: 240
       @pdf.fill_color '000000'
-      @pdf.text_box @invoice.customer_name, size: 14, at: [290, 640], width: 240
-      @pdf.text_box "#{@invoice.customer_street}    #{@invoice.customer_street_number}", size: 10, at: [290, 620], width: 240
-      @pdf.text_box @invoice.customer_postcode, size: 10, at: [290, 605], width: 240
-      @pdf.text_box @invoice.customer_city, size: 10, at: [340, 605], width: 240
-      @pdf.text_box @invoice.customer_city_part, size: 10, at: [340, 590], width: 240
-      @pdf.text_box @invoice.customer_extra_customer_line, size: 10, at: [290, 575], width: 240
+      @pdf.text_box @invoice.purchaser_name, size: 14, at: [290, 640], width: 240
+      @pdf.text_box "#{@invoice.purchaser_street}    #{@invoice.purchaser_street_number}", size: 10, at: [290, 620], width: 240
+      @pdf.text_box @invoice.purchaser_postcode, size: 10, at: [290, 605], width: 240
+      @pdf.text_box @invoice.purchaser_city, size: 10, at: [340, 605], width: 240
+      @pdf.text_box @invoice.purchaser_city_part, size: 10, at: [340, 590], width: 240
+      @pdf.text_box @invoice.purchaser_extra_address_line, size: 10, at: [290, 575], width: 240
 
       move_down = 0
 
-      move_down += 15 unless @invoice.customer_city_part.nil?
+      move_down += 15 unless @invoice.purchaser_city_part.nil?
 
-      move_down += 15 unless @invoice.customer_extra_customer_line.nil?
+      move_down += 15 unless @invoice.purchaser_extra_address_line.nil?
 
       @pdf.stroke_rounded_rectangle [0, 670], 270, 150, 6
       @pdf.stroke_rounded_rectangle [280, 670], 270, 150, 6
 
       # @pdf.fill_color "000000"
-      if @invoice.customer_ic.nil? && @invoice.customer_dic.nil?
-      elsif !@invoice.customer_dic.nil?
-        @pdf.text_box "#{labels[:dic]}    #{@invoice.customer_dic}", size: 10, at: [290, 565 - move_down], width: 240
-      elsif !@invoice.customer_ic.nil?
-        @pdf.text_box "#{labels[:ic]}    #{@invoice.customer_ic}", size: 10, at: [290, 565 - move_down], width: 240
+      if @invoice.purchaser_ic.nil? && @invoice.purchaser_dic.nil?
+      elsif !@invoice.purchaser_dic.nil?
+        @pdf.text_box "#{labels[:dic]}    #{@invoice.purchaser_dic}", size: 10, at: [290, 565 - move_down], width: 240
+      elsif !@invoice.purchaser_ic.nil?
+        @pdf.text_box "#{labels[:ic]}    #{@invoice.purchaser_ic}", size: 10, at: [290, 565 - move_down], width: 240
       else
-        @pdf.text_box "#{labels[:ic]}    #{@invoice.customer_ic}    #{labels[:dic]}:    #{@invoice.customer_dic}", size: 10, at: [290, 565], width: 240
+        @pdf.text_box "#{labels[:ic]}    #{@invoice.purchaser_ic}    #{labels[:dic]}:    #{@invoice.purchaser_dic}", size: 10, at: [290, 565], width: 240
       end
     end
 

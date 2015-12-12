@@ -1,30 +1,28 @@
 module InvoicePrinter
   class Document
     attr_accessor :number,
-                  # User fields
-                  :business_name,
-                  :business_ic,
-                  :business_dic,
-                  # User address fields
-                  :business_street,
-                  :business_street_number,
-                  :business_postcode,
-                  :business_city,
-                  :business_city_part,
-                  :business_extra_customer_line,
-                  # Customer fields
-                  :customer_name,
-                  :customer_ic,
-                  :customer_dic,
-                  # Customer address fields
-                  :customer_street,
-                  :customer_street_number,
-                  :customer_postcode,
-                  :customer_city,
-                  :customer_city_part,
-                  :customer_extra_customer_line,
-                  # Are we the ones creating the invoice?
-                  :issuer,
+                  # Provider fields
+                  :provider_name,
+                  :provider_ic,
+                  :provider_dic,
+                  # Provider address fields
+                  :provider_street,
+                  :provider_street_number,
+                  :provider_postcode,
+                  :provider_city,
+                  :provider_city_part,
+                  :provider_extra_address_line,
+                  # Purchaser fields
+                  :purchaser_name,
+                  :purchaser_ic,
+                  :purchaser_dic,
+                  # Purchaser address fields
+                  :purchaser_street,
+                  :purchaser_street_number,
+                  :purchaser_postcode,
+                  :purchaser_city,
+                  :purchaser_city_part,
+                  :purchaser_extra_address_line,
                   :purchaser,
                   :provider,
                   :issue_date,
@@ -38,24 +36,24 @@ module InvoicePrinter
                   :items
 
     def initialize(number: nil,
-                   business_name: nil,
-                   business_ic: nil,
-                   business_dic: nil,
-                   business_street: nil,
-                   business_street_number: nil,
-                   business_postcode: nil,
-                   business_city: nil,
-                   business_city_part: nil,
-                   business_extra_customer_line: nil,
-                   customer_name: nil,
-                   customer_ic: nil,
-                   customer_dic: nil,
-                   customer_street: nil,
-                   customer_street_number: nil,
-                   customer_postcode: nil,
-                   customer_city: nil,
-                   customer_city_part: nil,
-                   customer_extra_customer_line: nil,
+                   provider_name: nil,
+                   provider_ic: nil,
+                   provider_dic: nil,
+                   provider_street: nil,
+                   provider_street_number: nil,
+                   provider_postcode: nil,
+                   provider_city: nil,
+                   provider_city_part: nil,
+                   provider_extra_address_line: nil,
+                   purchaser_name: nil,
+                   purchaser_ic: nil,
+                   purchaser_dic: nil,
+                   purchaser_street: nil,
+                   purchaser_street_number: nil,
+                   purchaser_postcode: nil,
+                   purchaser_city: nil,
+                   purchaser_city_part: nil,
+                   purchaser_extra_address_line: nil,
                    issuer: true,
                    purchaser: nil,
                    provider: nil,
@@ -67,24 +65,24 @@ module InvoicePrinter
                    account_swift: nil,
                    items: nil)
       @number = number
-      @business_name = business_name
-      @business_ic = business_ic
-      @business_dic = business_dic
-      @business_street = business_street
-      @business_street_number = business_street_number
-      @business_postcode = business_postcode
-      @business_city = business_city
-      @business_city_part = business_city_part
-      @business_extra_customer_line = business_extra_customer_line
-      @customer_name = customer_name
-      @customer_ic = customer_ic
-      @customer_dic = customer_dic
-      @customer_street = customer_street
-      @customer_street_number = customer_street_number
-      @customer_postcode = customer_postcode
-      @customer_city = customer_city
-      @customer_city_part = customer_city_part
-      @customer_extra_customer_line = customer_extra_customer_line
+      @provider_name = provider_name
+      @provider_ic = provider_ic
+      @provider_dic = provider_dic
+      @provider_street = provider_street
+      @provider_street_number = provider_street_number
+      @provider_postcode = provider_postcode
+      @provider_city = provider_city
+      @provider_city_part = provider_city_part
+      @provider_extra_address_line = provider_extra_address_line
+      @purchaser_name = purchaser_name
+      @purchaser_ic = purchaser_ic
+      @purchaser_dic = purchaser_dic
+      @purchaser_street = purchaser_street
+      @purchaser_street_number = purchaser_street_number
+      @purchaser_postcode = purchaser_postcode
+      @purchaser_city = purchaser_city
+      @purchaser_city_part = purchaser_city_part
+      @purchaser_extra_address_line = purchaser_extra_address_line
       @issuer = issuer
       @purchaser = purchaser
       @provider = provider
