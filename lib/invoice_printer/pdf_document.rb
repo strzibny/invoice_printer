@@ -2,6 +2,12 @@ require 'prawn'
 require 'prawn/table'
 
 module InvoicePrinter
+  # Prawn PDF representation of InvoicePrinter::Document
+  #
+  # Example:
+  #
+  #   invoice = InvoicePrinter::Document.new(...)
+  #   InvoicePrinter::PDFDocument.new(invoice).print('invoice.pdf')
   class PDFDocument
     attr_reader :invoice, :file_name
 
@@ -27,6 +33,7 @@ module InvoicePrinter
       @@labels
     end
 
+    # Override default English labels with a given hash
     def self.labels=(labels)
       @@labels = @@labels.merge(labels)
     end
@@ -44,6 +51,7 @@ module InvoicePrinter
       PDFDocument.labels
     end
 
+    # Create PDF file named +file_name+
     def print(file_name = 'invoice.pdf')
       @pdf.render_file file_name
     end

@@ -3,6 +3,27 @@ require 'invoice_printer/document/item'
 require 'invoice_printer/pdf_document'
 
 module InvoicePrinter
+  # Override default English labels with a given hash
+  #
+  # Example:
+  #
+  #   InvoicePrinter.labels = {
+  #     provider: 'Provider',
+  #     purchaser: 'Purchaser',
+  #     payment: 'Payment',
+  #     payment_by_transfer: 'Payment by bank transfer on the account below:',
+  #     payment_in_cash: 'Payment in cash',
+  #     account_number: 'Account NO:',
+  #     swift: 'SWIFT:',
+  #     iban: 'IBAN:',
+  #     issue_date: 'Issue date:',
+  #     due_date: 'Due date:',
+  #     item: 'Item',
+  #     quantity: 'Quantity',
+  #     unit: 'Unit',
+  #     price_per_item: 'Price per item',
+  #     amount: 'Amount'
+  #   }
   def self.labels=(labels)
     PDFDocument.labels = labels
   end
