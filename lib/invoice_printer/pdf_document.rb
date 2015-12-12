@@ -7,7 +7,7 @@ module InvoicePrinter
   # Example:
   #
   #   invoice = InvoicePrinter::Document.new(...)
-  #   InvoicePrinter::PDFDocument.new(invoice).print('invoice.pdf')
+  #   invoice_pdf = InvoicePrinter::PDFDocument.new(invoice)
   class PDFDocument
     attr_reader :invoice, :file_name
 

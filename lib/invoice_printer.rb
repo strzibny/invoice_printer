@@ -2,6 +2,12 @@ require 'invoice_printer/version'
 require 'invoice_printer/document/item'
 require 'invoice_printer/pdf_document'
 
+# Create PDF versions of invoices or receipts using Prawn
+#
+# Example:
+#
+#   invoice = InvoicePrinter::Document.new(...)
+#   InvoicePrinter.print(invoice, 'invoice.pdf')
 module InvoicePrinter
   # Override default English labels with a given hash
   #
@@ -28,6 +34,7 @@ module InvoicePrinter
     PDFDocument.labels = labels
   end
 
+  # Print the given InvoicePrinter::Document to PDF
   def self.print(invoice, file_name)
     PDFDocument.new(invoice).print(file_name)
   end
