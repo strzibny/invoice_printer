@@ -2,6 +2,20 @@ require 'invoice_printer/document'
 
 module InvoicePrinter
   class Document
+    # Line items for InvoicePrinter::Document
+    #
+    # Example:
+    #
+    #  item = InvoicePrinter::Document::Item.new(
+    #    name: 'UX consultation',
+    #    number: '4',
+    #    unit: 'hours',
+    #    price: '$ 25',
+    #    amount: '$ 100'
+    #  )
+    #
+    # +amount+ should equal the +number+ times +price+,
+    # but this is not enforced.
     class Item
       attr_accessor :name,
                     :number,
