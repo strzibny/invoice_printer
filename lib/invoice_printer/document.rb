@@ -1,5 +1,5 @@
 module InvoicePrinter
-  class Invoice
+  class Document
     attr_accessor :number,
                   # User fields
                   :business_name,

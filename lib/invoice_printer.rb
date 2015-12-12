@@ -1,13 +1,13 @@
 require 'invoice_printer/version'
-require 'invoice_printer/invoice/item'
-require 'invoice_printer/invoice_pdf'
+require 'invoice_printer/document/item'
+require 'invoice_printer/pdf_document'
 
 module InvoicePrinter
   def self.labels=(labels)
-    InvoicePDF.labels = labels
+    PDFDocument.labels = labels
   end
 
   def self.print(invoice, file_name)
-    InvoicePDF.new(invoice).print(file_name)
+    PDFDocument.new(invoice).print(file_name)
   end
 end

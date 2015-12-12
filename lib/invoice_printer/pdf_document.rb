@@ -2,7 +2,7 @@ require 'prawn'
 require 'prawn/table'
 
 module InvoicePrinter
-  class InvoicePDF
+  class PDFDocument
     attr_reader :invoice, :file_name
 
     @@labels = {
@@ -41,7 +41,7 @@ module InvoicePrinter
     end
 
     def labels
-      InvoicePDF.labels
+      PDFDocument.labels
     end
 
     def print(file_name = 'invoice.pdf')
