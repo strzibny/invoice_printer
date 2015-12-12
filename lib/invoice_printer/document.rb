@@ -1,4 +1,44 @@
 module InvoicePrinter
+  # Invoice and receipt representation
+  #
+  # Example:
+  #
+  #   invoice = InvoicePrinter::Document.new(
+  #     number: '198900000001',
+  #     provider_name: 'Business s.r.o.',
+  #     provider_ic: '56565656',
+  #     provider_dic: '465454',
+  #     provider_street: 'Rolnicka',
+  #     provider_street_number: '1',
+  #     provider_postcode: '747 05',
+  #     provider_city: 'Opava',
+  #     provider_city_part: 'Katerinky',
+  #     provider_extra_address_line: 'Czech Republic',
+  #     purchaser_name: 'Adam',
+  #     purchaser_ic: '',
+  #     purchaser_dic: '',
+  #     purchaser_street: 'Ostravska',
+  #     purchaser_street_number: '1',
+  #     purchaser_postcode: '747 70',
+  #     purchaser_city: 'Opava',
+  #     purchaser_city_part: '',
+  #     purchaser_extra_address_line: '',
+  #     purchaser: 'Odberatel',
+  #     provider: "NecoDodavatel",
+  #     issue_date: '19/03/3939',
+  #     due_date: '19/03/3939',
+  #     amount: '$ 200',
+  #     bank_account_number: '156546546465',
+  #     account_iban: 'IBAN464545645',
+  #     account_swift: 'SWIFT5456',
+  #     items: [
+  #       InvoicePrinter::Document::Item.new,
+  #       InvoicePrinter::Document::Item.new
+  #     ]
+  #   )
+  #
+  # +amount should equal the sum of all item's +amount+,
+  # but this is not enforced.
   class Document
     attr_accessor :number,
                   # Provider fields
@@ -54,7 +94,6 @@ module InvoicePrinter
                    purchaser_city: nil,
                    purchaser_city_part: nil,
                    purchaser_extra_address_line: nil,
-                   issuer: true,
                    purchaser: nil,
                    provider: nil,
                    issue_date: nil,
@@ -83,7 +122,6 @@ module InvoicePrinter
       @purchaser_city = purchaser_city
       @purchaser_city_part = purchaser_city_part
       @purchaser_extra_address_line = purchaser_extra_address_line
-      @issuer = issuer
       @purchaser = purchaser
       @provider = provider
       @issue_date = issue_date
