@@ -173,24 +173,51 @@ module InvoicePrinter
       @pdf.text_box @invoice.due_date, size: 10, at: [390, 515 - @push_down], width: 240
     end
 
+    # Build the following table for document items:
+    #
+    # |================================================|
+    # |Item|Quantity|Unit|Price per item|Total per item|
+    # |------------------------------------------------|
+    # | x  | 2      | hr | $ 2          | $ 4          |
+    # |================================================|
+    #
+    # If a specific column miss data, it's omittted.
     def build_items
       @pdf.move_down(25 + @push_down)
+
+      # Sections of the table to show
+      names = false
+      numbers = false
+      units = false
+      prices = false
+      amounts = false
+
+      @invoice.items.each { |i| if i.name; names = true; break; end }
+      @invoice.items.each { |i| if i.number; numbers = true; break; end }
+      @invoice.items.each { |i| if i.unit; units = true; break; end }
+      @invoice.items.each { |i| if i.price; prices = true; break; end }
+      @invoice.items.each { |i| if i.amount; amounts = true; break; end }
+
+      # Include only relevant items
       items = @invoice.items.map do |item|
-        [
-          item.name,
-          item.number,
-          item.unit,
-          item.price,
-          item.amount
-        ]
+        line = []
+        line << item.name if names
+        line << item.number if numbers
+        line << item.unit if units
+        line << item.price if prices
+        line << item.amount if amounts
+        line
       end
 
-      @pdf.table(items, headers:
-        [{ text: labels[:item] },
-         { text: labels[:quantity] },
-         { text: labels[:unit] },
-         { text: labels[:price_per_item] },
-         { text: labels[:amount] }]) do |_table|
+      # Include only relevant headers
+      headers = []
+      headers << { text: labels[:item] } if names
+      headers << { text: labels[:quantity] } if numbers
+      headers << { text: labels[:unit] } if units
+      headers << { text: labels[:price_per_item] } if prices
+      headers << { text: labels[:amount] } if amounts
+
+      @pdf.table(items, headers: headers) do |_table|
       end
     end
 
