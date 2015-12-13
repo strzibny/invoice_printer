@@ -8,28 +8,28 @@ module InvoicePrinter
     #
     #  item = InvoicePrinter::Document::Item.new(
     #    name: 'UX consultation',
-    #    number: '4',
+    #    quantity: '4',
     #    unit: 'hours',
     #    price: '$ 25',
     #    amount: '$ 100'
     #  )
     #
-    # +amount+ should equal the +number+ times +price+,
+    # +amount+ should equal the +quantity+ times +price+,
     # but this is not enforced.
     class Item
       attr_accessor :name,
-                    :number,
+                    :quantity,
                     :unit,
                     :price,
                     :amount
 
       def initialize(name: nil,
-                     number: nil,
+                     quantity: nil,
                      unit: nil,
                      price: nil,
                      amount: nil)
         @name = name
-        @number = number
+        @quantity = quantity
         @unit = unit
         @price = price
         @amount = amount

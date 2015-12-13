@@ -187,22 +187,24 @@ module InvoicePrinter
 
       # Sections of the table to show
       names = false
-      numbers = false
+      quantities = false
       units = false
       prices = false
       amounts = false
 
-      @invoice.items.each { |i| if i.name; names = true; break; end }
-      @invoice.items.each { |i| if i.number; numbers = true; break; end }
-      @invoice.items.each { |i| if i.unit; units = true; break; end }
-      @invoice.items.each { |i| if i.price; prices = true; break; end }
-      @invoice.items.each { |i| if i.amount; amounts = true; break; end }
+      @invoice.items.each do |item|
+        names = true if item.name
+        quantities = true if item.quantity
+        units = true if item.unit
+        prices = true if item.price
+        amounts = true if item.amount
+      end
 
       # Include only relevant items
       items = @invoice.items.map do |item|
         line = []
         line << item.name if names
-        line << item.number if numbers
+        line << item.quantity if quantities
         line << item.unit if units
         line << item.price if prices
         line << item.amount if amounts
@@ -212,7 +214,7 @@ module InvoicePrinter
       # Include only relevant headers
       headers = []
       headers << { text: labels[:item] } if names
-      headers << { text: labels[:quantity] } if numbers
+      headers << { text: labels[:quantity] } if quantities
       headers << { text: labels[:unit] } if units
       headers << { text: labels[:price_per_item] } if prices
       headers << { text: labels[:amount] } if amounts
