@@ -66,6 +66,7 @@ module InvoicePrinter
     private
 
     def build_pdf
+      @pdf.fill_color '000000'
       build_header
       build_provider_box
       build_purchaser_box
@@ -78,13 +79,12 @@ module InvoicePrinter
 
     def build_header
       @pdf.text 'Faktura', size: 20
-
-      @pdf.fill_color '000000'
-      @pdf.text_box @invoice.number, size: 20, at: [240, 720], width: 300, align: :right
-
+      @pdf.text_box @invoice.number,
+                    size: 20,
+                    at: [240, 720],
+                    width: 300,
+                    align: :right
       @pdf.move_down(250)
-
-      @pdf.fill_color '000000'
     end
 
     def build_provider_box
@@ -187,13 +187,23 @@ module InvoicePrinter
     end
 
     def build_info_box
-      # Info
-
       @pdf.stroke_rounded_rectangle [280, 540 - @push_down], 270, 45, 6
-      @pdf.text_box labels[:issue_date], size: 10, at: [290, 530 - @push_down], width: 240
-      @pdf.text_box @invoice.issue_date, size: 10, at: [390, 530 - @push_down], width: 240
-      @pdf.text_box labels[:due_date], size: 10, at: [290, 515 - @push_down], width: 240
-      @pdf.text_box @invoice.due_date, size: 10, at: [390, 515 - @push_down], width: 240
+      @pdf.text_box labels[:issue_date],
+                    size: 10,
+                    at: [290, 530 - @push_down],
+                    width: 240
+      @pdf.text_box @invoice.issue_date,
+                    size: 10,
+                    at: [390, 530 - @push_down],
+                    width: 240
+      @pdf.text_box labels[:due_date],
+                    size: 10,
+                    at: [290, 515 - @push_down],
+                    width: 240
+      @pdf.text_box @invoice.due_date,
+                    size: 10,
+                    at: [390, 515 - @push_down],
+                    width: 240
     end
 
     # Build the following table for document items:
