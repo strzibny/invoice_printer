@@ -185,42 +185,51 @@ module InvoicePrinter
     def build_items
       @pdf.move_down(25 + @push_down)
 
-      # Sections of the table to show
-      names = false
-      quantities = false
-      units = false
-      prices = false
-      amounts = false
-
-      @invoice.items.each do |item|
-        names = true if item.name
-        quantities = true if item.quantity
-        units = true if item.unit
-        prices = true if item.price
-        amounts = true if item.amount
-      end
-
-      # Include only relevant items
-      items = @invoice.items.map do |item|
-        line = []
-        line << item.name if names
-        line << item.quantity if quantities
-        line << item.unit if units
-        line << item.price if prices
-        line << item.amount if amounts
-        line
-      end
-
-      # Include only relevant headers
-      headers = []
-      headers << { text: labels[:item] } if names
-      headers << { text: labels[:quantity] } if quantities
-      headers << { text: labels[:unit] } if units
-      headers << { text: labels[:price_per_item] } if prices
-      headers << { text: labels[:amount] } if amounts
+      items_params = determine_items_structure
+      items = build_items_data(items_params)
+      headers = build_items_header(items_params)
 
       @pdf.table(items, headers: headers) do |_table|
       end
+    end
+
+    # Determine sections of the items table to show based on provided data
+    def determine_items_structure
+      items_params = {}
+
+      @invoice.items.each do |item|
+        items_params[:names] = true if item.name
+        items_params[:quantities] = true if item.quantity
+        items_params[:units] = true if item.unit
+        items_params[:prices] = true if item.price
+        items_params[:amounts] = true if item.amount
+      end
+
+      items_params
+    end
+
+    # Include only items params with provided data
+    def build_items_data(items_params)
+      @invoice.items.map do |item|
+        line = []
+        line << item.name if items_params[:names]
+        line << item.quantity if items_params[:quantities]
+        line << item.unit if items_params[:units]
+        line << item.price if items_params[:prices]
+        line << item.amount if items_params[:amounts]
+        line
+      end
+    end
+
+    # Include only relevant headers
+    def build_items_header(items_params)
+      headers = []
+      headers << { text: labels[:item] } if items_params[:names]
+      headers << { text: labels[:quantity] } if items_params[:quantities]
+      headers << { text: labels[:unit] } if items_params[:units]
+      headers << { text: labels[:price_per_item] } if items_params[:prices]
+      headers << { text: labels[:amount] } if items_params[:amounts]
+      headers
     end
 
     def build_total
