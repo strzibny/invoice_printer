@@ -27,7 +27,9 @@ module InvoicePrinter
   #     provider: "NecoDodavatel",
   #     issue_date: '19/03/3939',
   #     due_date: '19/03/3939',
-  #     amount: '$ 200',
+  #     subtotal: '$ 150',
+  #     tax: '$ 50',
+  #     total: '$ 200',
   #     bank_account_number: '156546546465',
   #     account_iban: 'IBAN464545645',
   #     account_swift: 'SWIFT5456',
@@ -68,7 +70,11 @@ module InvoicePrinter
                   :issue_date,
                   :due_date,
                   # Account details
-                  :amount,
+                  :subtotal,
+                  :tax,
+                  :tax2,
+                  :tax3,
+                  :total,
                   :bank_account_number,
                   :account_iban,
                   :account_swift,
@@ -98,7 +104,11 @@ module InvoicePrinter
                    provider: nil,
                    issue_date: nil,
                    due_date: nil,
-                   amount: nil,
+                   subtotal: nil,
+                   tax: nil,
+                   tax2: nil,
+                   tax3: nil,
+                   total: nil,
                    bank_account_number: nil,
                    account_iban: nil,
                    account_swift: nil,
@@ -126,7 +136,11 @@ module InvoicePrinter
       @provider = provider
       @issue_date = issue_date
       @due_date = due_date
-      @amount = amount
+      @subtotal = subtotal
+      @tax = tax
+      @tax2 = tax2
+      @tax3 = tax3
+      @total = total
       @bank_account_number = bank_account_number
       @account_iban = account_iban
       @account_swift = account_swift

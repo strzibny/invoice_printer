@@ -26,10 +26,12 @@ module InvoicePrinter
       quantity: 'Quantity',
       unit: 'Unit',
       price_per_item: 'Price per item',
+      subtotal: 'Subtotal',
       tax: 'Tax',
       tax2: 'Tax 2',
       tax3: 'Tax 3',
-      amount: 'Amount'
+      amount: 'Amount',
+      total: 'Amount'
     }
 
     def self.labels
@@ -205,9 +207,9 @@ module InvoicePrinter
         items_params[:quantities] = true if item.quantity
         items_params[:units] = true if item.unit
         items_params[:prices] = true if item.price
-        items_params[:tax] = true if item.tax
-        items_params[:tax2] = true if item.tax2
-        items_params[:tax3] = true if item.tax3
+        items_params[:taxes] = true if item.tax
+        items_params[:taxes2] = true if item.tax2
+        items_params[:taxes3] = true if item.tax3
         items_params[:amounts] = true if item.amount
       end
 
@@ -222,9 +224,9 @@ module InvoicePrinter
         line << item.quantity if items_params[:quantities]
         line << item.unit if items_params[:units]
         line << item.price if items_params[:prices]
-        line << item.tax if items_params[:tax]
-        line << item.tax2 if items_params[:tax2]
-        line << item.tax3 if items_params[:tax3]
+        line << item.tax if items_params[:taxes]
+        line << item.tax2 if items_params[:taxes2]
+        line << item.tax3 if items_params[:taxes3]
         line << item.amount if items_params[:amounts]
         line
       end
@@ -237,15 +239,19 @@ module InvoicePrinter
       headers << { text: labels[:quantity] } if items_params[:quantities]
       headers << { text: labels[:unit] } if items_params[:units]
       headers << { text: labels[:price_per_item] } if items_params[:prices]
-      headers << { text: labels[:tax] } if items_params[:tax]
-      headers << { text: labels[:tax2] } if items_params[:tax2]
-      headers << { text: labels[:tax3] } if items_params[:tax3]
+      headers << { text: labels[:tax] } if items_params[:taxes]
+      headers << { text: labels[:tax2] } if items_params[:taxes2]
+      headers << { text: labels[:tax3] } if items_params[:taxes3]
       headers << { text: labels[:amount] } if items_params[:amounts]
       headers
     end
 
     def build_total
-      @pdf.text @invoice.amount, size: 16, style: :bold
+      @pdf.text "#{labels[:subtotal]}: #{@invoice.subtotal}", size: 14
+      @pdf.text "#{labels[:tax]}: #{@invoice.tax}", size: 14
+      @pdf.text "#{labels[:tax2]}: #{@invoice.tax2}", size: 14
+      @pdf.text "#{labels[:tax3]}: #{@invoice.tax3}", size: 14
+      @pdf.text @invoice.total, size: 16, style: :bold
     end
 
     def build_footer
