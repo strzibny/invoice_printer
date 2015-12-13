@@ -14,6 +14,8 @@ module InvoicePrinter
     @@labels = {
       provider: 'Provider',
       purchaser: 'Purchaser',
+      ic: 'Identification number',
+      dic: 'Identification number',
       payment: 'Payment',
       payment_by_transfer: 'Payment by bank transfer on the account below:',
       payment_in_cash: 'Payment in cash',
@@ -70,10 +72,7 @@ module InvoicePrinter
       build_payment_method_box
       build_info_box
       build_items
-
-      @pdf.move_down(25)
       build_total
-
       build_footer
     end
 
@@ -89,23 +88,42 @@ module InvoicePrinter
     end
 
     def build_provider_box
-      # business
-      @pdf.stroke_color '000000'
-      @pdf.fill_color '000000'
-      @pdf.text_box labels[:provider], size: 10, at: [10, 660], width: 240
-      @pdf.fill_color '000000'
-      @pdf.text_box @invoice.provider_name, size: 14, at: [10, 640], width: 240
-      @pdf.text_box "#{@invoice.provider_street}    #{@invoice.provider_street_number}", size: 10, at: [10, 620], width: 240
-      @pdf.text_box @invoice.provider_postcode, size: 10, at: [10, 605], width: 240
-      @pdf.text_box @invoice.provider_city, size: 10, at: [60, 605], width: 240
-      @pdf.text_box @invoice.provider_city_part, size: 10, at: [60, 590], width: 240
-      @pdf.text_box @invoice.provider_extra_address_line, size: 10, at: [10, 575], width: 240
-
-      # @pdf.fill_color "000000"
-      # if there is extra address line, move
-      @pdf.text_box "#{labels[:ic]}    #{@invoice.provider_ic}", size: 10, at: [10, 550], width: 240
-      # move if there is dic
-      @pdf.text_box "#{labels[:dic]}    #{@invoice.provider_dic}", size: 10, at: [10, 535], width: 240
+      @pdf.text_box labels[:provider],
+                    size: 10,
+                    at: [10, 660],
+                    width: 240
+      @pdf.text_box @invoice.provider_name,
+                    size: 14,
+                    at: [10, 640],
+                    width: 240
+      @pdf.text_box "#{@invoice.provider_street}    #{@invoice.provider_street_number}",
+                    size: 10,
+                    at: [10, 620],
+                    width: 240
+      @pdf.text_box @invoice.provider_postcode,
+                    size: 10,
+                    at: [10, 605],
+                    width: 240
+      @pdf.text_box @invoice.provider_city,
+                    size: 10,
+                    at: [60, 605],
+                    width: 240
+      @pdf.text_box @invoice.provider_city_part,
+                    size: 10,
+                    at: [60, 590],
+                    width: 240
+      @pdf.text_box @invoice.provider_extra_address_line,
+                    size: 10,
+                    at: [10, 575],
+                    width: 240
+      @pdf.text_box "#{labels[:ic]}    #{@invoice.provider_ic}",
+                    size: 10,
+                    at: [10, 550],
+                    width: 240
+      @pdf.text_box "#{labels[:dic]}    #{@invoice.provider_dic}",
+                    size: 10,
+                    at: [10, 535],
+                    width: 240
     end
 
     def build_purchaser_box
@@ -247,6 +265,7 @@ module InvoicePrinter
     end
 
     def build_total
+      @pdf.move_down(25)
       @pdf.text "#{labels[:subtotal]}: #{@invoice.subtotal}", size: 14
       @pdf.text "#{labels[:tax]}: #{@invoice.tax}", size: 14
       @pdf.text "#{labels[:tax2]}: #{@invoice.tax2}", size: 14
