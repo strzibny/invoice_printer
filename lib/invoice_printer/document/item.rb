@@ -11,7 +11,8 @@ module InvoicePrinter
     #    quantity: '4',
     #    unit: 'hours',
     #    price: '$ 25',
-    #    amount: '$ 100'
+    #    tax: '$ 5'
+    #    amount: '$ 120'
     #  )
     #
     # +amount+ should equal the +quantity+ times +price+,
@@ -21,17 +22,26 @@ module InvoicePrinter
                     :quantity,
                     :unit,
                     :price,
+                    :tax,
+                    :tax2,
+                    :tax3,
                     :amount
 
       def initialize(name: nil,
                      quantity: nil,
                      unit: nil,
                      price: nil,
+                     tax: nil,
+                     tax2: nil,
+                     tax3: nil,
                      amount: nil)
         @name = name
         @quantity = quantity
         @unit = unit
         @price = price
+        @tax = tax
+        @tax2 = tax2
+        @tax3 = tax3
         @amount = amount
       end
     end

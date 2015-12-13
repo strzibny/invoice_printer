@@ -26,6 +26,9 @@ module InvoicePrinter
       quantity: 'Quantity',
       unit: 'Unit',
       price_per_item: 'Price per item',
+      tax: 'Tax',
+      tax2: 'Tax 2',
+      tax3: 'Tax 3',
       amount: 'Amount'
     }
 
@@ -175,11 +178,11 @@ module InvoicePrinter
 
     # Build the following table for document items:
     #
-    # |================================================|
-    # |Item|Quantity|Unit|Price per item|Total per item|
-    # |------------------------------------------------|
-    # | x  | 2      | hr | $ 2          | $ 4          |
-    # |================================================|
+    # |===============================================================|
+    # |Item | Quantity | Unit | Price per item | Tax | Total per item |
+    # |-----|----------|------|----------------|-----|----------------|
+    # | x   | 2        | hr   | $ 2            | $1  | $ 4            |
+    # |===============================================================|
     #
     # If a specific column miss data, it's omittted.
     def build_items
@@ -202,6 +205,9 @@ module InvoicePrinter
         items_params[:quantities] = true if item.quantity
         items_params[:units] = true if item.unit
         items_params[:prices] = true if item.price
+        items_params[:tax] = true if item.tax
+        items_params[:tax2] = true if item.tax2
+        items_params[:tax3] = true if item.tax3
         items_params[:amounts] = true if item.amount
       end
 
@@ -216,6 +222,9 @@ module InvoicePrinter
         line << item.quantity if items_params[:quantities]
         line << item.unit if items_params[:units]
         line << item.price if items_params[:prices]
+        line << item.tax if items_params[:tax]
+        line << item.tax2 if items_params[:tax2]
+        line << item.tax3 if items_params[:tax3]
         line << item.amount if items_params[:amounts]
         line
       end
@@ -228,6 +237,9 @@ module InvoicePrinter
       headers << { text: labels[:quantity] } if items_params[:quantities]
       headers << { text: labels[:unit] } if items_params[:units]
       headers << { text: labels[:price_per_item] } if items_params[:prices]
+      headers << { text: labels[:tax] } if items_params[:tax]
+      headers << { text: labels[:tax2] } if items_params[:tax2]
+      headers << { text: labels[:tax3] } if items_params[:tax3]
       headers << { text: labels[:amount] } if items_params[:amounts]
       headers
     end
