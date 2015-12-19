@@ -377,7 +377,14 @@ module InvoicePrinter
       @pdf.text @invoice.total, size: 16, style: :bold
     end
 
+    # Include page numbers if we got more than one page
     def build_footer
+      @pdf.number_pages '<page> / <total>',
+                        start_count_at: 1,
+                        page_filter: ->(page) { page != 4 },
+                        at: [@pdf.bounds.right - 50, 0],
+                        align: :right,
+                        size: 12
     end
   end
 end
