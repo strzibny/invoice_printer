@@ -277,7 +277,20 @@ module InvoicePrinter
       items = build_items_data(items_params)
       headers = build_items_header(items_params)
 
-      @pdf.table(items, headers: headers)
+      styles = {  headers: headers,
+                  align: {
+                    0 => :left,
+                    1 => :right,
+                    2 => :right,
+                    3 => :right,
+                    4 => :right,
+                    5 => :right,
+                    6 => :right,
+                    7 => :right
+                  }
+               }
+
+      @pdf.table(items, styles)
     end
 
     # Determine sections of the items table to show based on provided data
