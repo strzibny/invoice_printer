@@ -263,11 +263,11 @@ module InvoicePrinter
 
     # Build the following table for document items:
     #
-    # |===============================================================|
-    # |Item | Quantity | Unit | Price per item | Tax | Total per item |
-    # |-----|----------|------|----------------|-----|----------------|
-    # | x   | 2        | hr   | $ 2            | $1  | $ 4            |
-    # |===============================================================|
+    #   |===============================================================|
+    #   |Item | Quantity | Unit | Price per item | Tax | Total per item |
+    #   |-----|----------|------|----------------|-----|----------------|
+    #   | x   | 2        | hr   | $ 2            | $1  | $ 4            |
+    #   |===============================================================|
     #
     # If a specific column miss data, it's omittted.
     def build_items
@@ -277,8 +277,7 @@ module InvoicePrinter
       items = build_items_data(items_params)
       headers = build_items_header(items_params)
 
-      @pdf.table(items, headers: headers) do |_table|
-      end
+      @pdf.table(items, headers: headers)
     end
 
     # Determine sections of the items table to show based on provided data
@@ -329,12 +328,39 @@ module InvoicePrinter
       headers
     end
 
+    # Build the following summary:
+    #
+    #   Subtotal: 175
+    #        Tax: 5
+    #      Tax 2: 10
+    #      Tax 3: 20
+    #
+    #      Total: $ 200
+    #
+    # The first part is implemented as a table without borders.
     def build_total
       @pdf.move_down(25)
-      @pdf.text "#{labels[:subtotal]}: #{@invoice.subtotal}", size: 14
-      @pdf.text "#{labels[:tax]}: #{@invoice.tax}", size: 14
-      @pdf.text "#{labels[:tax2]}: #{@invoice.tax2}", size: 14
-      @pdf.text "#{labels[:tax3]}: #{@invoice.tax3}", size: 14
+
+      items = []
+      items << [labels[:subtotal],  @invoice.subtotal]
+      items << [labels[:subtotal], @invoice.subtotal]
+      items << [labels[:tax], @invoice.tax]
+      items << [labels[:tax2], @invoice.tax2]
+      items << [labels[:tax3], @invoice.tax3]
+
+      styles = {  border_width: 0,
+                  align: {
+                    0 => :right,
+                    1 => :left
+                  }
+               }
+
+      # TODO: this bounding box needs to be rendered based on number of items
+      @pdf.bounding_box([400, 250], width: 250, height: 150) do
+        @pdf.table(items, styles)
+      end
+
+      @pdf.move_down(5)
       @pdf.text @invoice.total, size: 16, style: :bold
     end
 
