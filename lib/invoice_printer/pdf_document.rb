@@ -368,20 +368,23 @@ module InvoicePrinter
                   }
                }
 
-      # TODO: this bounding box needs to be rendered based on number of items
-      @pdf.bounding_box([400, 250], width: 250, height: 150) do
+      # TODO: count the width by largest label and value combination
+      @pdf.span(150, position: :right) do
         @pdf.table(items, styles)
       end
 
-      @pdf.move_down(5)
-      @pdf.text @invoice.total, size: 16, style: :bold
+      @pdf.move_down(10)
+
+      @pdf.span(88, position: :right) do
+        @pdf.text @invoice.total, size: 16, style: :bold
+      end
     end
 
     # Include page numbers if we got more than one page
     def build_footer
       @pdf.number_pages '<page> / <total>',
                         start_count_at: 1,
-                        page_filter: ->(page) { page != 4 },
+                        page_filter: ->(page) { page != 0 },
                         at: [@pdf.bounds.right - 50, 0],
                         align: :right,
                         size: 12
