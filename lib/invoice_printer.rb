@@ -40,7 +40,7 @@ module InvoicePrinter
   end
 
   # Render the PDF document InvoicePrinter::Document to PDF directly
-  def self.render(document:, file_name:, labels: {})
+  def self.render(document:, labels: {})
     PDFDocument.new(document: document, labels: labels).render
   end
 end
