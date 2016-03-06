@@ -56,6 +56,11 @@ module InvoicePrinter
       @pdf.render_file file_name
     end
 
+    # Directly render the PDF
+    def render
+      @pdf.render
+    end
+
     private
 
     def build_pdf
