@@ -1,6 +1,9 @@
 # InvoicePrinter
 
-TODO: Write a gem description
+Super simple PDF invoicing with pure Ruby (based on Prawn library).
+
+InvoicePrinter does not impose any validations nor calculations on you. It is
+designed only to provide an interface to build the PDF version of these documents.
 
 ## Installation
 
