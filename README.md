@@ -97,7 +97,7 @@ overrides:
 
 ```ruby
 InvoicePrinter.labels = {
-  provider: 'muj label provider'
+  provider: 'Dodavatel'
 }
 
 labels = {

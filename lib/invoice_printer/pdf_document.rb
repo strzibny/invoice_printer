@@ -37,16 +37,16 @@ module InvoicePrinter
     }
 
     def self.labels
-      @@labels || DEFAULT_LABELS
+      @@labels ||= DEFAULT_LABELS
     end
 
     def self.labels=(labels)
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Invoice.new, labels: nil)
+    def initialize(document: Invoice.new, labels: {})
       @document = document
-      @labels = @@labels.merge(labels)
+      @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
       build_pdf
     end

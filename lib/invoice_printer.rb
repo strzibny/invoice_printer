@@ -35,7 +35,7 @@ module InvoicePrinter
   end
 
   # Print the given InvoicePrinter::Document to PDF
-  def self.print(document:, file_name:, labels: nil)
+  def self.print(document:, file_name:, labels: {})
     PDFDocument.new(document: document, labels: labels).print(file_name)
   end
 end
