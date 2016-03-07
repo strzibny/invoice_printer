@@ -32,16 +32,24 @@ class ItemsTableTest < Minitest::Test
   private
 
   def test_ommiting_column(column:, label:)
-    item = InvoicePrinter::Document::Item.new(
-      default_document_item_params.merge("#{column}": nil)
-    )
-    invoice = InvoicePrinter::Document.new(
-      default_document_params.merge(items: [item])
-    )
+    invoice = invoice_without_item_column(column)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
     assert_equal false, pdf_analysis.strings.include?(InvoicePrinter.labels[label])
+
     strings = InvoicePrinter::PDFDocument.new(document: invoice).to_a
     assert_equal strings, pdf_analysis.strings
+  end
+
+  def invoice_without_item_column(column)
+    InvoicePrinter::Document.new(
+      default_document_params.merge(
+        items: [
+          InvoicePrinter::Document::Item.new(
+            default_document_item_params.merge("#{column}": nil)
+          )
+        ]
+      )
+    )
   end
 end
