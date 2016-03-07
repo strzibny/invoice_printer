@@ -36,6 +36,10 @@ module InvoicePrinter
     PDFDocument.labels = labels
   end
 
+  def self.labels
+    PDFDocument.labels
+  end
+
   # Print the given InvoicePrinter::Document to PDF file named +file_name+
   def self.print(document:, file_name:, labels: {})
     PDFDocument.new(document: document, labels: labels).print(file_name)

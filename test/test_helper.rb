@@ -52,12 +52,12 @@ module InvoicePrinter
       strings << @labels[:due_date]
       strings << @document.due_date
 
-      strings << @labels[:item]
-      #strings << @labels[:quantity]
-      strings << @labels[:unit]
-      strings << @labels[:price_per_item]
-      strings << @labels[:tax]
-      strings << @labels[:amount]
+      strings << @labels[:item] if determine_items_structure[:names]
+      strings << @labels[:quantity] if determine_items_structure[:quantities]
+      strings << @labels[:unit] if determine_items_structure[:units]
+      strings << @labels[:price_per_item] if determine_items_structure[:prices]
+      strings << @labels[:tax] if determine_items_structure[:taxes]
+      strings << @labels[:amount] if determine_items_structure[:amounts]
       strings << items_to_a(@document.items)
 
       strings << @labels[:subtotal]
@@ -141,7 +141,7 @@ module InvoicePrinterHelpers
   def default_document_item_params
     {
       name: 'Web consultation',
-      quantity: nil,
+      quantity: '2',
       unit: 'hours',
       price: '$ 25',
       tax: '$ 1',
