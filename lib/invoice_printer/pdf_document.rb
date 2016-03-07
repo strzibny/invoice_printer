@@ -12,6 +12,7 @@ module InvoicePrinter
     attr_reader :invoice, :labels, :file_name
 
     DEFAULT_LABELS = {
+      name: 'Invoice',
       provider: 'Provider',
       purchaser: 'Purchaser',
       ic: 'Identification number',
@@ -44,7 +45,7 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Invoice.new, labels: {})
+    def initialize(document: Document.new, labels: {})
       @document = document
       @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
@@ -77,7 +78,7 @@ module InvoicePrinter
     end
 
     def build_header
-      @pdf.text 'Faktura', size: 20
+      @pdf.text @labels[:name], size: 20
       @pdf.text_box @document.number,
                     size: 20,
                     at: [240, 720],
@@ -355,7 +356,6 @@ module InvoicePrinter
 
       items = []
       items << [@labels[:subtotal],  @document.subtotal]
-      items << [@labels[:subtotal], @document.subtotal]
       items << [@labels[:tax], @document.tax]
       items << [@labels[:tax2], @document.tax2]
       items << [@labels[:tax3], @document.tax3]

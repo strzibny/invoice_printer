@@ -23,8 +23,6 @@ module InvoicePrinter
   #     purchaser_city: 'Opava',
   #     purchaser_city_part: '',
   #     purchaser_extra_address_line: '',
-  #     purchaser: 'Odberatel',
-  #     provider: "NecoDodavatel",
   #     issue_date: '19/03/3939',
   #     due_date: '19/03/3939',
   #     subtotal: '$ 150',
@@ -65,8 +63,6 @@ module InvoicePrinter
                   :purchaser_city,
                   :purchaser_city_part,
                   :purchaser_extra_address_line,
-                  :purchaser,
-                  :provider,
                   :issue_date,
                   :due_date,
                   # Account details
@@ -100,8 +96,6 @@ module InvoicePrinter
                    purchaser_city: nil,
                    purchaser_city_part: nil,
                    purchaser_extra_address_line: nil,
-                   purchaser: nil,
-                   provider: nil,
                    issue_date: nil,
                    due_date: nil,
                    subtotal: nil,
@@ -132,8 +126,6 @@ module InvoicePrinter
       @purchaser_city = purchaser_city
       @purchaser_city_part = purchaser_city_part
       @purchaser_extra_address_line = purchaser_extra_address_line
-      @purchaser = purchaser
-      @provider = provider
       @issue_date = issue_date
       @due_date = due_date
       @subtotal = subtotal

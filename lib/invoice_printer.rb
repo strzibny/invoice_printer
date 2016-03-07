@@ -14,6 +14,8 @@ module InvoicePrinter
   # Example:
   #
   #   InvoicePrinter.labels = {
+  #     name: 'Invoice',
+  #     number: '201604030001'
   #     provider: 'Provider',
   #     purchaser: 'Purchaser',
   #     payment: 'Payment',
