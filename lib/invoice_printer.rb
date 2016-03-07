@@ -14,6 +14,8 @@ module InvoicePrinter
   # Example:
   #
   #   InvoicePrinter.labels = {
+  #     name: 'Invoice',
+  #     number: '201604030001'
   #     provider: 'Provider',
   #     purchaser: 'Purchaser',
   #     payment: 'Payment',
@@ -32,6 +34,10 @@ module InvoicePrinter
   #   }
   def self.labels=(labels)
     PDFDocument.labels = labels
+  end
+
+  def self.labels
+    PDFDocument.labels
   end
 
   # Print the given InvoicePrinter::Document to PDF file named +file_name+

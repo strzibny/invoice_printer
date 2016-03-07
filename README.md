@@ -55,7 +55,7 @@ item = InvoicePrinter::Document::Item.new(
 )
 
 invoice = InvoicePrinter::Document.new(
-  number: '198900000001',
+  number: '201604030001'
   provider_name: 'Business s.r.o.',
   provider_ic: '56565656',
   provider_dic: '465454',
@@ -116,6 +116,7 @@ to `initializers/invoice_printer.rb` if you are using Rails.
 
 ```ruby
 InvoicePrinter.labels = {
+  name: 'Invoice'
   provider: 'Provider',
   purchaser: 'Purchaser',
   ic: 'Identification number',

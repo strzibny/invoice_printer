@@ -12,6 +12,7 @@ module InvoicePrinter
     attr_reader :invoice, :labels, :file_name
 
     DEFAULT_LABELS = {
+      name: 'Invoice',
       provider: 'Provider',
       purchaser: 'Purchaser',
       ic: 'Identification number',
@@ -44,7 +45,7 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Invoice.new, labels: {})
+    def initialize(document: Document.new, labels: {})
       @document = document
       @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
@@ -77,187 +78,258 @@ module InvoicePrinter
     end
 
     def build_header
-      @pdf.text 'Faktura', size: 20
-      @pdf.text_box @document.number,
-                    size: 20,
-                    at: [240, 720],
-                    width: 300,
-                    align: :right
+      @pdf.text @labels[:name], size: 20
+      @pdf.text_box(
+        @document.number,
+        size: 20,
+        at: [240, 720],
+        width: 300,
+        align: :right
+      )
       @pdf.move_down(250)
     end
 
     def build_provider_box
-      @pdf.text_box @labels[:provider],
-                    size: 10,
-                    at: [10, 660],
-                    width: 240
-      @pdf.text_box @document.provider_name,
-                    size: 14,
-                    at: [10, 640],
-                    width: 240
-      @pdf.text_box "#{@document.provider_street}    #{@document.provider_street_number}",
-                    size: 10,
-                    at: [10, 620],
-                    width: 240
-      @pdf.text_box @document.provider_postcode,
-                    size: 10,
-                    at: [10, 605],
-                    width: 240
-      @pdf.text_box @document.provider_city,
-                    size: 10,
-                    at: [60, 605],
-                    width: 240
-      @pdf.text_box @document.provider_city_part,
-                    size: 10,
-                    at: [60, 590],
-                    width: 240
-      @pdf.text_box @document.provider_extra_address_line,
-                    size: 10,
-                    at: [10, 575],
-                    width: 240
-      @pdf.text_box "#{@labels[:ic]}    #{@document.provider_ic}",
-                    size: 10,
-                    at: [10, 550],
-                    width: 240
-      @pdf.text_box "#{@labels[:dic]}    #{@document.provider_dic}",
-                    size: 10,
-                    at: [10, 535],
-                    width: 240
+      @pdf.text_box(
+        @labels[:provider],
+        size: 10,
+        at: [10, 660],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.provider_name,
+        size: 14,
+        at: [10, 640],
+        width: 240
+      )
+      @pdf.text_box(
+        "#{@document.provider_street}    #{@document.provider_street_number}",
+        size: 10,
+        at: [10, 620],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.provider_postcode,
+        size: 10,
+        at: [10, 605],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.provider_city,
+        size: 10,
+        at: [60, 605],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.provider_city_part,
+        size: 10,
+        at: [60, 590],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.provider_extra_address_line,
+        size: 10,
+        at: [10, 575],
+        width: 240
+      )
+      @pdf.text_box(
+        "#{@labels[:ic]}    #{@document.provider_ic}",
+        size: 10,
+        at: [10, 550],
+        width: 240
+      )
+      @pdf.text_box(
+        "#{@labels[:dic]}    #{@document.provider_dic}",
+        size: 10,
+        at: [10, 535],
+        width: 240
+      )
     end
 
     def build_purchaser_box
-      @pdf.text_box @labels[:purchaser],
-                    size: 10,
-                    at: [290, 660],
-                    width: 240
-      @pdf.text_box @document.purchaser_name,
-                    size: 14,
-                    at: [290, 640],
-                    width: 240
-      @pdf.text_box "#{@document.purchaser_street}    #{@document.purchaser_street_number}",
-                    size: 10,
-                    at: [290, 620],
-                    width: 240
-      @pdf.text_box @document.purchaser_postcode,
-                    size: 10,
-                    at: [290, 605],
-                    width: 240
-      @pdf.text_box @document.purchaser_city,
-                    size: 10,
-                    at: [340, 605],
-                    width: 240
-      @pdf.text_box @document.purchaser_city_part,
-                    size: 10,
-                    at: [340, 590],
-                    width: 240
-      @pdf.text_box @document.purchaser_extra_address_line,
-                    size: 10,
-                    at: [290, 575],
-                    width: 240
+      @pdf.text_box(
+        @labels[:purchaser],
+        size: 10,
+        at: [290, 660],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.purchaser_name,
+        size: 14,
+        at: [290, 640],
+        width: 240
+      )
+      @pdf.text_box(
+        "#{@document.purchaser_street}    #{@document.purchaser_street_number}",
+        size: 10,
+        at: [290, 620],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.purchaser_postcode,
+        size: 10,
+        at: [290, 605],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.purchaser_city,
+        size: 10,
+        at: [340, 605],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.purchaser_city_part,
+        size: 10,
+        at: [340, 590],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.purchaser_extra_address_line,
+        size: 10,
+        at: [290, 575],
+        width: 240
+      )
 
       move_down = 0
       move_down += 15 unless @document.purchaser_city_part.nil?
       move_down += 15 unless @document.purchaser_extra_address_line.nil?
 
-      @pdf.stroke_rounded_rectangle [0, 670], 270, 150, 6
-      @pdf.stroke_rounded_rectangle [280, 670], 270, 150, 6
+      @pdf.stroke_rounded_rectangle([0, 670], 270, 150, 6)
+      @pdf.stroke_rounded_rectangle([280, 670], 270, 150, 6)
 
       if @document.purchaser_ic.nil? && @document.purchaser_dic.nil?
+        # Just skip for now
       elsif !@document.purchaser_dic.nil?
-        @pdf.text_box "#{@labels[:dic]}    #{@document.purchaser_dic}",
-                      size: 10,
-                      at: [290, 565 - move_down],
-                      width: 240
+        @pdf.text_box(
+          "#{@labels[:dic]}    #{@document.purchaser_dic}",
+          size: 10,
+          at: [290, 565 - move_down],
+          width: 240
+        )
       elsif !@document.purchaser_ic.nil?
-        @pdf.text_box "#{@labels[:ic]}    #{@document.purchaser_ic}",
-                      size: 10,
-                      at: [290, 565 - move_down],
-                      width: 240
+        @pdf.text_box(
+          "#{@labels[:ic]}    #{@document.purchaser_ic}",
+          size: 10,
+          at: [290, 565 - move_down],
+          width: 240
+        )
       else
-        @pdf.text_box "#{@labels[:ic]}    #{@document.purchaser_ic}    #{@labels[:dic]}:    #{@document.purchaser_dic}",
-                      size: 10,
-                      at: [290, 565],
-                      width: 240
+        @pdf.text_box(
+          "#{@labels[:ic]}    #{@document.purchaser_ic}    #{@labels[:dic]}:    #{@document.purchaser_dic}",
+          size: 10,
+          at: [290, 565],
+          width: 240
+        )
       end
     end
 
     def build_payment_method_box
       if @document.bank_account_number.nil?
-        @pdf.stroke_rounded_rectangle [0, 540 - @push_down], 270, 45, 6
-        @pdf.text_box @labels[:payment],
-                      size: 10,
-                      at: [10, 530 - @push_down],
-                      width: 240
-        @pdf.text_box @labels[:payment_in_cash],
-                      size: 10,
-                      at: [10, 515 - @push_down],
-                      width: 240
+        @pdf.stroke_rounded_rectangle([0, 540 - @push_down], 270, 45, 6)
+        @pdf.text_box(
+          @labels[:payment],
+          size: 10,
+          at: [10, 530 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @labels[:payment_in_cash],
+          size: 10,
+          at: [10, 515 - @push_down],
+          width: 240
+        )
         return
       end
 
-      # @pdf.text @document.bank_account_number
+      # TODO: @pdf.text @document.bank_account_number
 
       if @document.account_swift.nil? || @document.account_swift.nil?
-        @pdf.stroke_rounded_rectangle [0, 540 - @push_down], 270, 45, 6
-        @pdf.text_box @labels[:payment],
-                      size: 10,
-                      at: [10, 530 - @push_down],
-                      width: 240
-        @pdf.text_box @document.account_name,
-                      size: 10,
-                      at: [10, 515 - @push_down],
-                      width: 240
+        @pdf.stroke_rounded_rectangle([0, 540 - @push_down], 270, 45, 6)
+        @pdf.text_box(
+          @labels[:payment],
+          size: 10,
+          at: [10, 530 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @document.account_name,
+          size: 10,
+          at: [10, 515 - @push_down],
+          width: 240
+        )
       else
-        @pdf.stroke_rounded_rectangle [0, 540 - @push_down], 270, 75, 6
-        @pdf.text_box @labels[:payment_by_transfer],
-                      size: 10,
-                      at: [10, 530 - @push_down],
-                      width: 240
-        @pdf.text_box @labels[:account_number],
-                      size: 10,
-                      at: [10, 515 - @push_down],
-                      width: 240
-        @pdf.text_box @document.bank_account_number,
-                      size: 10,
-                      at: [75, 515 - @push_down],
-                      width: 240
-        @pdf.text_box @labels[:swift],
-                      size: 10,
-                      at: [10, 500 - @push_down],
-                      width: 240
-        @pdf.text_box @document.account_swift,
-                      size: 10,
-                      at: [75, 500 - @push_down],
-                      width: 240
-        @pdf.text_box @labels[:iban],
-                      size: 10,
-                      at: [10, 485 - @push_down],
-                      width: 240
-        @pdf.text_box @document.account_iban,
-                      size: 10,
-                      at: [75, 485 - @push_down],
-                      width: 240
+        @pdf.stroke_rounded_rectangle([0, 540 - @push_down], 270, 75, 6)
+        @pdf.text_box(
+          @labels[:payment_by_transfer],
+          size: 10,
+          at: [10, 530 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @labels[:account_number],
+          size: 10,
+          at: [10, 515 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @document.bank_account_number,
+          size: 10,
+          at: [75, 515 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @labels[:swift],
+          size: 10,
+          at: [10, 500 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @document.account_swift,
+          size: 10,
+          at: [75, 500 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @labels[:iban],
+          size: 10,
+          at: [10, 485 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @document.account_iban,
+          size: 10,
+          at: [75, 485 - @push_down],
+          width: 240
+        )
       end
     end
 
     def build_info_box
-      @pdf.stroke_rounded_rectangle [280, 540 - @push_down], 270, 45, 6
-      @pdf.text_box @labels[:issue_date],
-                    size: 10,
-                    at: [290, 530 - @push_down],
-                    width: 240
-      @pdf.text_box @document.issue_date,
-                    size: 10,
-                    at: [390, 530 - @push_down],
-                    width: 240
-      @pdf.text_box @labels[:due_date],
-                    size: 10,
-                    at: [290, 515 - @push_down],
-                    width: 240
-      @pdf.text_box @document.due_date,
-                    size: 10,
-                    at: [390, 515 - @push_down],
-                    width: 240
+      @pdf.stroke_rounded_rectangle([280, 540 - @push_down], 270, 45, 6)
+      @pdf.text_box(
+        @labels[:issue_date],
+        size: 10,
+        at: [290, 530 - @push_down],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.issue_date,
+        size: 10,
+        at: [390, 530 - @push_down],
+        width: 240
+      )
+      @pdf.text_box(
+        @labels[:due_date],
+        size: 10,
+        at: [290, 515 - @push_down],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.due_date,
+        size: 10,
+        at: [390, 515 - @push_down],
+        width: 240
+      )
     end
 
     # Build the following table for document items:
@@ -269,6 +341,7 @@ module InvoicePrinter
     #   |===============================================================|
     #
     # If a specific column miss data, it's omittted.
+    # Tax2 and tax3 fields can be added as well if necessary.
     def build_items
       @pdf.move_down(25 + @push_down)
 
@@ -276,18 +349,19 @@ module InvoicePrinter
       items = build_items_data(items_params)
       headers = build_items_header(items_params)
 
-      styles = {  headers: headers,
-                  align: {
-                    0 => :left,
-                    1 => :right,
-                    2 => :right,
-                    3 => :right,
-                    4 => :right,
-                    5 => :right,
-                    6 => :right,
-                    7 => :right
-                  }
-               }
+      styles = {
+        headers: headers,
+        align: {
+          0 => :left,
+          1 => :right,
+          2 => :right,
+          3 => :right,
+          4 => :right,
+          5 => :right,
+          6 => :right,
+          7 => :right
+        }
+      }
 
       @pdf.table(items, styles)
     end
@@ -355,17 +429,17 @@ module InvoicePrinter
 
       items = []
       items << [@labels[:subtotal],  @document.subtotal]
-      items << [@labels[:subtotal], @document.subtotal]
       items << [@labels[:tax], @document.tax]
       items << [@labels[:tax2], @document.tax2]
       items << [@labels[:tax3], @document.tax3]
 
-      styles = {  border_width: 0,
-                  align: {
-                    0 => :right,
-                    1 => :left
-                  }
-               }
+      styles = {
+        border_width: 0,
+        align: {
+          0 => :right,
+          1 => :left
+        }
+      }
 
       # TODO: count the width by largest label and value combination
       @pdf.span(150, position: :right) do
@@ -375,18 +449,20 @@ module InvoicePrinter
       @pdf.move_down(10)
 
       @pdf.span(88, position: :right) do
-        @pdf.text @document.total, size: 16, style: :bold
+        @pdf.text(@document.total, size: 16, style: :bold)
       end
     end
 
     # Include page numbers if we got more than one page
     def build_footer
-      @pdf.number_pages '<page> / <total>',
-                        start_count_at: 1,
-                        page_filter: ->(page) { page != 0 },
-                        at: [@pdf.bounds.right - 50, 0],
-                        align: :right,
-                        size: 12
+      @pdf.number_pages(
+        '<page> / <total>',
+        start_count_at: 1,
+        page_filter: ->(page) { page != 0 },
+        at: [@pdf.bounds.right - 50, 0],
+        align: :right,
+        size: 12
+      )
     end
   end
 end
