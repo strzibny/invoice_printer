@@ -39,9 +39,9 @@ class ItemsTableTest < Minitest::Test
       default_document_params.merge(items: [item])
     )
     rendered_pdf = InvoicePrinter.render(document: invoice)
-    pdf = PDF::Inspector::Text.analyze(rendered_pdf)
-    assert_equal false, pdf.strings.include?(InvoicePrinter.labels[label])
+    pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
+    assert_equal false, pdf_analysis.strings.include?(InvoicePrinter.labels[label])
     strings = InvoicePrinter::PDFDocument.new(document: invoice).to_a
-    assert_equal strings, pdf.strings
+    assert_equal strings, pdf_analysis.strings
   end
 end

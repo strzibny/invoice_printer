@@ -9,10 +9,10 @@ class LabelsTest < Minitest::Test
 
     invoice = InvoicePrinter::Document.new(default_document_params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
-    doc_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
+    pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
-    assert_equal true, doc_analysis.strings.include?('Default Provider')
-    assert_equal true, doc_analysis.strings.include?('Default Purchaser')
+    assert_equal true, pdf_analysis.strings.include?('Default Provider')
+    assert_equal true, pdf_analysis.strings.include?('Default Purchaser')
   end
 
   def test_setting_instant_labels
@@ -20,9 +20,9 @@ class LabelsTest < Minitest::Test
 
     invoice = InvoicePrinter::Document.new(default_document_params)
     rendered_pdf = InvoicePrinter.render(document: invoice, labels: labels)
-    doc_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
+    pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
-    assert_equal true, doc_analysis.strings.include?('Current Provider')
-    assert_equal true, doc_analysis.strings.include?('Current Purchaser')
+    assert_equal true, pdf_analysis.strings.include?('Current Provider')
+    assert_equal true, pdf_analysis.strings.include?('Current Purchaser')
   end
 end
