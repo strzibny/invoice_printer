@@ -99,7 +99,7 @@ end
 
 # Helpers for easy-to-build @documents
 module InvoicePrinterHelpers
-  def default_document
+  def default_document_params
     {
       number: '198900000001',
       provider_name: 'Business s.r.o.',
@@ -131,14 +131,14 @@ module InvoicePrinterHelpers
       account_iban: 'IBAN464545645',
       account_swift: 'SWIFT5456',
       items: [
-        InvoicePrinter::Document::Item.new(default_document_item),
-        InvoicePrinter::Document::Item.new(default_document_item),
-        InvoicePrinter::Document::Item.new(default_document_item)
+        InvoicePrinter::Document::Item.new(default_document_item_params),
+        InvoicePrinter::Document::Item.new(default_document_item_params),
+        InvoicePrinter::Document::Item.new(default_document_item_params)
       ]
     }
   end
 
-  def default_document_item
+  def default_document_item_params
     {
       name: 'Web consultation',
       quantity: nil,

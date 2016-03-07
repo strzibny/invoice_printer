@@ -4,7 +4,7 @@ class InvoicePrinterTest < Minitest::Test
   include InvoicePrinterHelpers
 
   def test_render_document
-    invoice = InvoicePrinter::Document.new(default_document)
+    invoice = InvoicePrinter::Document.new(default_document_params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     doc_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -16,7 +16,7 @@ class InvoicePrinterTest < Minitest::Test
     labels = { provider: 'Default Provider', purchaser: 'Default Purchaser' }
     InvoicePrinter.labels = labels
 
-    invoice = InvoicePrinter::Document.new(default_document)
+    invoice = InvoicePrinter::Document.new(default_document_params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     doc_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -27,7 +27,7 @@ class InvoicePrinterTest < Minitest::Test
   def test_setting_instant_labels
     labels = { provider: 'Current Provider', purchaser: 'Current Purchaser' }
 
-    invoice = InvoicePrinter::Document.new(default_document)
+    invoice = InvoicePrinter::Document.new(default_document_params)
     rendered_pdf = InvoicePrinter.render(document: invoice, labels: labels)
     doc_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
