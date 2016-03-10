@@ -7,7 +7,11 @@ require 'invoice_printer/pdf_document'
 # Example:
 #
 #   invoice = InvoicePrinter::Document.new(...)
-#   InvoicePrinter.print(invoice, 'invoice.pdf')
+#   InvoicePrinter.print(
+#     document: invoice,
+#     font: 'path-to-font-file.ttf'
+#     file_name: 'invoice.pdf'
+#   )
 module InvoicePrinter
   # Override default English labels with a given hash
   #
@@ -41,12 +45,16 @@ module InvoicePrinter
   end
 
   # Print the given InvoicePrinter::Document to PDF file named +file_name+
-  def self.print(document:, file_name:, labels: {})
-    PDFDocument.new(document: document, labels: labels).print(file_name)
+  def self.print(document:, file_name:, labels: {}, font: nil)
+    PDFDocument.new(
+      document: document,
+      labels: labels,
+      font: font
+    ).print(file_name)
   end
 
   # Render the PDF document InvoicePrinter::Document to PDF directly
-  def self.render(document:, labels: {})
-    PDFDocument.new(document: document, labels: labels).render
+  def self.render(document:, labels: {}, font: nil)
+    PDFDocument.new(document: document, labels: labels, font: font).render
   end
 end

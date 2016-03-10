@@ -7,7 +7,11 @@ module InvoicePrinter
   # Example:
   #
   #   invoice = InvoicePrinter::Document.new(...)
-  #   invoice_pdf = InvoicePrinter::PDFDocument.new(invoice)
+  #   invoice_pdf = InvoicePrinter::PDFDocument.new(
+  #     document: invoice,
+  #     labels: {},
+  #     font: 'font.ttf'
+  #   )
   class PDFDocument
     attr_reader :invoice, :labels, :file_name
 
@@ -45,10 +49,12 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Document.new, labels: {})
+
+    def initialize(document: Document.new, labels: {}, font: nil)
       @document = document
       @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
+      set_fonts(font) if font
       build_pdf
     end
 
@@ -63,6 +69,17 @@ module InvoicePrinter
     end
 
     private
+
+    def set_fonts(font)
+      font_name = Pathname.new(font).basename
+      @pdf.font_families.update("#{font_name}" => {
+        normal: font,
+        italic: font,
+        bold: font,
+        bold_italic: font
+      })
+      @pdf.font(font_name)
+    end
 
     def build_pdf
       @push_down = 40

@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-The simplest way how to create your invoice PDF is to create an Invoice object
+The simplest way how to create your invoice PDF is to create an invoice object
 and pass it to printer:
 
 ```ruby
@@ -142,9 +142,21 @@ InvoicePrinter.labels = {
 }
 ```
 
+To support specific characters you might need to specify a TTF font to be used:
+
+```
+InvoicePrinter.print(
+  ...
+  font: File.expand_path('../Overpass-Regular.ttf', __FILE__)
+)
+```
+
+We recommend you DejaVuSans and Overpass fonts.
+
 ## Contributing
 
-Contributions are welcome!
+Contributions are welcome! If you need to extend InvoicePrinter to handle
+other specific cases consider sending us a patch.
 
 1. Fork it ( https://github.com/[my-github-username]/invoice_printer/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
