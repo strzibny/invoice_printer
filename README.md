@@ -57,7 +57,7 @@ item = InvoicePrinter::Document::Item.new(
 )
 
 invoice = InvoicePrinter::Document.new(
-  number: '201604030001'
+  number: '201604030001',
   provider_name: 'Business s.r.o.',
   provider_ic: '56565656',
   provider_dic: '465454',
@@ -76,8 +76,6 @@ invoice = InvoicePrinter::Document.new(
   purchaser_city: 'Opava',
   purchaser_city_part: '',
   purchaser_extra_address_line: '',
-  purchaser: 'Odberatel',
-  provider: 'NecoDodavatel',
   issue_date: '19/03/3939',
   due_date: '19/03/3939',
   subtotal: '175',
