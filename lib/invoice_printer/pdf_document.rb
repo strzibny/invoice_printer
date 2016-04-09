@@ -445,10 +445,10 @@ module InvoicePrinter
       @pdf.move_down(25)
 
       items = []
-      items << [@labels[:subtotal],  @document.subtotal]
-      items << [@labels[:tax], @document.tax]
-      items << [@labels[:tax2], @document.tax2]
-      items << [@labels[:tax3], @document.tax3]
+      items << [@labels[:subtotal], @document.subtotal] if @document.subtotal
+      items << [@labels[:tax], @document.tax] if @document.tax
+      items << [@labels[:tax2], @document.tax2] if @document.tax2
+      items << [@labels[:tax3], @document.tax3] if @document.tax3
 
       styles = {
         border_width: 0,
