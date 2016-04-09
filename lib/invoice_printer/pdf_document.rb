@@ -137,18 +137,22 @@ module InvoicePrinter
         at: [60, 605],
         width: 240
       )
-      @pdf.text_box(
-        @document.provider_city_part,
-        size: 10,
-        at: [60, 590],
-        width: 240
-      )
-      @pdf.text_box(
-        @document.provider_extra_address_line,
-        size: 10,
-        at: [10, 575],
-        width: 240
-      )
+      if @document.provider_city_part && !@document.provider_city_part.empty?
+        @pdf.text_box(
+          @document.provider_city_part,
+          size: 10,
+          at: [60, 590],
+          width: 240
+        )
+      end
+      if @document.provider_extra_address_line && !@document.provider_extra_address_line.empty?
+        @pdf.text_box(
+          @document.provider_extra_address_line,
+          size: 10,
+          at: [10, 575],
+          width: 240
+        )
+      end
       if @document.provider_ic && !@document.provider_ic.empty?
         @pdf.text_box(
           "#{@labels[:ic]}    #{@document.provider_ic}",
@@ -198,18 +202,22 @@ module InvoicePrinter
         at: [340, 605],
         width: 240
       )
-      @pdf.text_box(
-        @document.purchaser_city_part,
-        size: 10,
-        at: [340, 590],
-        width: 240
-      )
-      @pdf.text_box(
-        @document.purchaser_extra_address_line,
-        size: 10,
-        at: [290, 575],
-        width: 240
-      )
+      if @document.purchaser_city_part && !@document.purchaser_city_part.empty?
+        @pdf.text_box(
+          @document.purchaser_city_part,
+          size: 10,
+          at: [340, 590],
+          width: 240
+        )
+      end
+      if @document.purchaser_extra_address_line && !@document.purchaser_extra_address_line.empty?
+        @pdf.text_box(
+          @document.purchaser_extra_address_line,
+          size: 10,
+          at: [290, 575],
+          width: 240
+        )
+      end
       @pdf.stroke_rounded_rectangle([0, 670], 270, 150, 6)
       @pdf.stroke_rounded_rectangle([280, 670], 270, 150, 6)
       if @document.purchaser_dic && !@document.purchaser_dic.empty?
