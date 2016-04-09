@@ -303,30 +303,34 @@ module InvoicePrinter
 
     def build_info_box
       @pdf.stroke_rounded_rectangle([280, 540 - @push_down], 270, 45, 6)
-      @pdf.text_box(
-        @labels[:issue_date],
-        size: 10,
-        at: [290, 530 - @push_down],
-        width: 240
-      )
-      @pdf.text_box(
-        @document.issue_date,
-        size: 10,
-        at: [390, 530 - @push_down],
-        width: 240
-      )
-      @pdf.text_box(
-        @labels[:due_date],
-        size: 10,
-        at: [290, 515 - @push_down],
-        width: 240
-      )
-      @pdf.text_box(
-        @document.due_date,
-        size: 10,
-        at: [390, 515 - @push_down],
-        width: 240
-      )
+      if @document.issue_date && !@document.issue_date.empty?
+        @pdf.text_box(
+          @labels[:issue_date],
+          size: 10,
+          at: [290, 530 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @document.issue_date,
+          size: 10,
+          at: [390, 530 - @push_down],
+          width: 240
+        )
+      end
+      if @document.due_date && @document.due_date.empty?
+        @pdf.text_box(
+          @labels[:due_date],
+          size: 10,
+          at: [290, 515 - @push_down],
+          width: 240
+        )
+        @pdf.text_box(
+          @document.due_date,
+          size: 10,
+          at: [390, 515 - @push_down],
+          width: 240
+        )
+      end
     end
 
     # Build the following table for document items:
