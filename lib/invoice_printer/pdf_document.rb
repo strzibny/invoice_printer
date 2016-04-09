@@ -247,43 +247,27 @@ module InvoicePrinter
         )
         return
       end
-
-      # TODO: @pdf.text @document.bank_account_number
-
-      if @document.account_swift.nil? || @document.account_swift.nil?
-        @pdf.stroke_rounded_rectangle([0, 540 - @push_down], 270, 45, 6)
-        @pdf.text_box(
-          @labels[:payment],
-          size: 10,
-          at: [10, 530 - @push_down],
-          width: 240
-        )
-        @pdf.text_box(
-          @document.account_name,
-          size: 10,
-          at: [10, 515 - @push_down],
-          width: 240
-        )
-      else
-        @pdf.stroke_rounded_rectangle([0, 540 - @push_down], 270, 75, 6)
-        @pdf.text_box(
-          @labels[:payment_by_transfer],
-          size: 10,
-          at: [10, 530 - @push_down],
-          width: 240
-        )
-        @pdf.text_box(
-          @labels[:account_number],
-          size: 10,
-          at: [10, 515 - @push_down],
-          width: 240
-        )
-        @pdf.text_box(
-          @document.bank_account_number,
-          size: 10,
-          at: [75, 515 - @push_down],
-          width: 240
-        )
+      box_height = 45
+      push_iban = 0
+      @pdf.text_box(
+        @labels[:payment_by_transfer],
+        size: 10,
+        at: [10, 530 - @push_down],
+        width: 240
+      )
+      @pdf.text_box(
+        @labels[:account_number],
+        size: 10,
+        at: [10, 515 - @push_down],
+        width: 240
+      )
+      @pdf.text_box(
+        @document.bank_account_number,
+        size: 10,
+        at: [75, 515 - @push_down],
+        width: 240
+      )
+      if @document.account_swift && !@document.account_swift.empty?
         @pdf.text_box(
           @labels[:swift],
           size: 10,
@@ -296,19 +280,25 @@ module InvoicePrinter
           at: [75, 500 - @push_down],
           width: 240
         )
+        box_height += 15
+        push_iban = 15
+      end
+      if @document.account_iban && !@document.account_iban.empty?
         @pdf.text_box(
           @labels[:iban],
           size: 10,
-          at: [10, 485 - @push_down],
+          at: [10, 500 - push_iban - @push_down],
           width: 240
         )
         @pdf.text_box(
           @document.account_iban,
           size: 10,
-          at: [75, 485 - @push_down],
+          at: [75, 500 - push_iban - @push_down],
           width: 240
         )
+        box_height += 15
       end
+      @pdf.stroke_rounded_rectangle([0, 540 - @push_down], 270, box_height, 6)
     end
 
     def build_info_box
