@@ -368,6 +368,7 @@ module InvoicePrinter
 
       styles = {
         headers: headers,
+        width: 550,
         align: {
           0 => :left,
           1 => :right,
