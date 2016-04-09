@@ -302,8 +302,9 @@ module InvoicePrinter
     end
 
     def build_info_box
-      @pdf.stroke_rounded_rectangle([280, 540 - @push_down], 270, 45, 6)
-      if @document.issue_date && !@document.issue_date.empty?
+      issue_date_present = @document.issue_date && !@document.issue_date.empty?
+      due_date_present = @document.due_date && !@document.due_date.empty?
+      if issue_date_present
         @pdf.text_box(
           @labels[:issue_date],
           size: 10,
@@ -317,19 +318,24 @@ module InvoicePrinter
           width: 240
         )
       end
-      if @document.due_date && @document.due_date.empty?
+      if due_date_present
+        position = issue_date_present ? 515 : 530
         @pdf.text_box(
           @labels[:due_date],
           size: 10,
-          at: [290, 515 - @push_down],
+          at: [290, position - @push_down],
           width: 240
         )
         @pdf.text_box(
           @document.due_date,
           size: 10,
-          at: [390, 515 - @push_down],
+          at: [390, position - @push_down],
           width: 240
         )
+      end
+      if issue_date_present || due_date_present
+        height = (issue_date_present && due_date_present) ? 45 : 30
+        @pdf.stroke_rounded_rectangle([280, 540 - @push_down], 270, height, 6)
       end
     end
 
