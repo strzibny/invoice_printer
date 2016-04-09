@@ -13,7 +13,7 @@ designed only to provide an interface to build the PDF version of these document
 - Purchaser and provider boxes with addresses and identificaton numbers
 - Payment method box showing banking details including SWIFT and IBAN fields
 - Issue/due dates box
-- Items' table with item description, quantity, unit, price per unit, tax and item's total amount fields (configurable)
+- Configurable items' table with item description, quantity, unit, price per unit, tax and item's total amount fields
 - Final subtotal/tax/total info box
 - Page numbers
 - Configurable labels
