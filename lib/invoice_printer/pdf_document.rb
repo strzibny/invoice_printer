@@ -368,6 +368,7 @@ module InvoicePrinter
 
       styles = {
         headers: headers,
+        row_colors: ['F5F5F5', nil],
         width: 550,
         align: {
           0 => :left,
