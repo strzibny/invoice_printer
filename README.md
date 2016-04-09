@@ -7,6 +7,18 @@ designed only to provide an interface to build the PDF version of these document
 
 **This project is still in development. 0.0.x versions are all development versions.**
 
+## Features
+
+- Invoice/document name and number
+- Purchaser and provider boxes with addresses and identificaton numbers
+- Payment method box showing banking details including SWIFT and IBAN fields
+- Issue/due dates box
+- Items' table with item description, quantity, unit, price per unit, tax and item's total amount fields (configurable)
+- Final subtotal/tax/total info box
+- Page numbers
+- Configurable labels
+- Configurable font file
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -153,13 +165,6 @@ InvoicePrinter.print(
 
 We recommend you DejaVuSans and Overpass fonts.
 
-## Contributing
+## Copyright
 
-Contributions are welcome! If you need to extend InvoicePrinter to handle
-other specific cases consider sending us a patch.
-
-1. Fork it ( https://github.com/[my-github-username]/invoice_printer/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+Copyright 2016 &copy; Josef Strzibny
