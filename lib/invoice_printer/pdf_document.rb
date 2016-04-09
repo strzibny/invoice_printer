@@ -149,18 +149,22 @@ module InvoicePrinter
         at: [10, 575],
         width: 240
       )
-      @pdf.text_box(
-        "#{@labels[:ic]}    #{@document.provider_ic}",
-        size: 10,
-        at: [10, 550],
-        width: 240
-      )
-      @pdf.text_box(
-        "#{@labels[:dic]}    #{@document.provider_dic}",
-        size: 10,
-        at: [10, 535],
-        width: 240
-      )
+      if @document.provider_ic && !@document.provider_ic.empty?
+        @pdf.text_box(
+          "#{@labels[:ic]}    #{@document.provider_ic}",
+          size: 10,
+          at: [10, 550],
+          width: 240
+        )
+      end
+      if @document.provider_dic && !@document.provider_dic.empty?
+        @pdf.text_box(
+          "#{@labels[:dic]}    #{@document.provider_dic}",
+          size: 10,
+          at: [10, 535],
+          width: 240
+        )
+      end
     end
 
     def build_purchaser_box
@@ -206,35 +210,21 @@ module InvoicePrinter
         at: [290, 575],
         width: 240
       )
-
-      move_down = 0
-      move_down += 15 unless @document.purchaser_city_part.nil?
-      move_down += 15 unless @document.purchaser_extra_address_line.nil?
-
       @pdf.stroke_rounded_rectangle([0, 670], 270, 150, 6)
       @pdf.stroke_rounded_rectangle([280, 670], 270, 150, 6)
-
-      if @document.purchaser_ic.nil? && @document.purchaser_dic.nil?
-        # Just skip for now
-      elsif !@document.purchaser_dic.nil?
+      if @document.purchaser_dic && !@document.purchaser_dic.empty?
         @pdf.text_box(
           "#{@labels[:dic]}    #{@document.purchaser_dic}",
           size: 10,
-          at: [290, 565 - move_down],
+          at: [290, 550],
           width: 240
         )
-      elsif !@document.purchaser_ic.nil?
+      end
+      if @document.purchaser_ic && !@document.purchaser_ic.empty?
         @pdf.text_box(
           "#{@labels[:ic]}    #{@document.purchaser_ic}",
           size: 10,
-          at: [290, 565 - move_down],
-          width: 240
-        )
-      else
-        @pdf.text_box(
-          "#{@labels[:ic]}    #{@document.purchaser_ic}    #{@labels[:dic]}:    #{@document.purchaser_dic}",
-          size: 10,
-          at: [290, 565],
+          at: [290, 535],
           width: 240
         )
       end
