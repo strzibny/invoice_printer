@@ -40,42 +40,42 @@ module InvoicePrinter
   # +amount should equal the sum of all item's +amount+,
   # but this is not enforced.
   class Document
-    attr_accessor :number,
-                  # Provider fields
-                  :provider_name,
-                  :provider_ic,
-                  :provider_dic,
-                  # Provider address fields
-                  :provider_street,
-                  :provider_street_number,
-                  :provider_postcode,
-                  :provider_city,
-                  :provider_city_part,
-                  :provider_extra_address_line,
-                  # Purchaser fields
-                  :purchaser_name,
-                  :purchaser_ic,
-                  :purchaser_dic,
-                  # Purchaser address fields
-                  :purchaser_street,
-                  :purchaser_street_number,
-                  :purchaser_postcode,
-                  :purchaser_city,
-                  :purchaser_city_part,
-                  :purchaser_extra_address_line,
-                  :issue_date,
-                  :due_date,
-                  # Account details
-                  :subtotal,
-                  :tax,
-                  :tax2,
-                  :tax3,
-                  :total,
-                  :bank_account_number,
-                  :account_iban,
-                  :account_swift,
-                  # Collection of InvoicePrinter::Invoice::Items
-                  :items
+    attr_reader :number,
+                # Provider fields
+                :provider_name,
+                :provider_ic,
+                :provider_dic,
+                # Provider address fields
+                :provider_street,
+                :provider_street_number,
+                :provider_postcode,
+                :provider_city,
+                :provider_city_part,
+                :provider_extra_address_line,
+                # Purchaser fields
+                :purchaser_name,
+                :purchaser_ic,
+                :purchaser_dic,
+                # Purchaser address fields
+                :purchaser_street,
+                :purchaser_street_number,
+                :purchaser_postcode,
+                :purchaser_city,
+                :purchaser_city_part,
+                :purchaser_extra_address_line,
+                :issue_date,
+                :due_date,
+                # Account details
+                :subtotal,
+                :tax,
+                :tax2,
+                :tax3,
+                :total,
+                :bank_account_number,
+                :account_iban,
+                :account_swift,
+                # Collection of InvoicePrinter::Invoice::Items
+                :items
 
     def initialize(number: nil,
                    provider_name: nil,

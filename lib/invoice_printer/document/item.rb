@@ -18,14 +18,14 @@ module InvoicePrinter
     # +amount+ should equal the +quantity+ times +price+,
     # but this is not enforced.
     class Item
-      attr_accessor :name,
-                    :quantity,
-                    :unit,
-                    :price,
-                    :tax,
-                    :tax2,
-                    :tax3,
-                    :amount
+      attr_reader :name,
+                  :quantity,
+                  :unit,
+                  :price,
+                  :tax,
+                  :tax2,
+                  :tax3,
+                  :amount
 
       def initialize(name: nil,
                      quantity: nil,
