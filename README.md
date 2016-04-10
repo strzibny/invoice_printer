@@ -18,6 +18,7 @@ designed only to provide an interface to build the PDF version of these document
 - Page numbers
 - Configurable labels
 - Configurable font file
+- Logotype
 
 ## Installation
 

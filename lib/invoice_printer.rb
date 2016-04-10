@@ -9,7 +9,8 @@ require 'invoice_printer/pdf_document'
 #   invoice = InvoicePrinter::Document.new(...)
 #   InvoicePrinter.print(
 #     document: invoice,
-#     font: 'path-to-font-file.ttf'
+#     font: 'path-to-font-file.ttf',
+#     logo: 'logo.jpg'
 #     file_name: 'invoice.pdf'
 #   )
 module InvoicePrinter
@@ -45,16 +46,22 @@ module InvoicePrinter
   end
 
   # Print the given InvoicePrinter::Document to PDF file named +file_name+
-  def self.print(document:, file_name:, labels: {}, font: nil)
+  def self.print(document:, file_name:, labels: {}, font: nil, logo: nil)
     PDFDocument.new(
       document: document,
       labels: labels,
-      font: font
+      font: font,
+      logo: logo,
     ).print(file_name)
   end
 
   # Render the PDF document InvoicePrinter::Document to PDF directly
   def self.render(document:, labels: {}, font: nil)
-    PDFDocument.new(document: document, labels: labels, font: font).render
+    PDFDocument.new(
+      document: document,
+      labels: labels,
+      font: font,
+      logo: logo
+    ).render
   end
 end

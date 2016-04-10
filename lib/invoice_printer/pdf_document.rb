@@ -10,10 +10,11 @@ module InvoicePrinter
   #   invoice_pdf = InvoicePrinter::PDFDocument.new(
   #     document: invoice,
   #     labels: {},
-  #     font: 'font.ttf'
+  #     font: 'font.ttf',
+  #     logo: 'example.jpg'
   #   )
   class PDFDocument
-    attr_reader :invoice, :labels, :file_name
+    attr_reader :invoice, :labels, :file_name, :font, :logo
 
     DEFAULT_LABELS = {
       name: 'Invoice',
@@ -50,10 +51,11 @@ module InvoicePrinter
     end
 
 
-    def initialize(document: Document.new, labels: {}, font: nil)
+    def initialize(document: Document.new, labels: {}, font: nil, logo: nil)
       @document = document
       @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
+      @logo = logo
       set_fonts(font) if font
       build_pdf
     end
@@ -79,6 +81,7 @@ module InvoicePrinter
         bold_italic: font
       })
       @pdf.font(font_name)
+      @font = font_name
     end
 
     def build_pdf
@@ -91,6 +94,7 @@ module InvoicePrinter
       build_info_box
       build_items
       build_total
+      build_logo
       build_footer
     end
 
@@ -477,6 +481,15 @@ module InvoicePrinter
         align: :right,
         style: :bold
       )
+    end
+
+    def build_logo
+      if @logo && !@logo.empty?
+        @pdf.image(
+          @logo,
+          at: [0, 50]
+        )
+      end
     end
 
     # Include page numbers if we got more than one page
