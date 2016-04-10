@@ -62,7 +62,7 @@ invoice = InvoicePrinter::Document.new(
   issue_date: '05/03/2016',
   due_date: '19/03/2016',
   subtotal: 'Kč 10.000',
-  tax: 'Kč 2.100,-',
+  tax: 'Kč 2.100',
   total: 'Kč 12.100,-',
   bank_account_number: '156546546465',
   account_iban: 'IBAN464545645',
