@@ -23,10 +23,10 @@ labels = {
   quantity: 'Počet',
   unit: 'MJ',
   price_per_item: 'Cena za položku',
-  subtotal: 'Cena bez daně',
-  tax: 'DPH 21 %',
   amount: 'Celkem bez daně',
-  total: 'Celkem'
+  subtotal: 'Cena bez daně:',
+  tax: 'DPH 21 %:',
+  total: 'Celkem:'
 }
 
 first_item = InvoicePrinter::Document::Item.new(

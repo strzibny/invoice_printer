@@ -450,6 +450,13 @@ module InvoicePrinter
       items << [@labels[:tax2], @document.tax2] if @document.tax2
       items << [@labels[:tax3], @document.tax3] if @document.tax3
 
+      width = [
+        "#{@labels[:subtotal]}#{@document.subtotal}".size,
+        "#{@labels[:tax]}#{@document.tax}".size,
+        "#{@labels[:tax2]}#{@document.tax2}".size,
+        "#{@labels[:tax3]}#{@document.tax3}".size
+      ].max * 7
+
       styles = {
         border_width: 0,
         align: {
@@ -458,15 +465,14 @@ module InvoicePrinter
         }
       }
 
-      # TODO: count the width by largest label and value combination
-      @pdf.span(150, position: :right) do
+      @pdf.span(width, position: :right) do
         @pdf.table(items, styles)
       end
 
-      @pdf.move_down(10)
+      @pdf.move_down(15)
 
       @pdf.text(
-        "#{@labels[:total]}:   #{@document.total}",
+        "#{@labels[:total]}   #{@document.total}",
         size: 16,
         align: :right,
         style: :bold
