@@ -28,11 +28,11 @@ module InvoicePrinter
       payment: 'Payment',
       payment_by_transfer: 'Payment by bank transfer on the account below:',
       payment_in_cash: 'Payment in cash',
-      account_number: 'Account NO:',
-      swift: 'SWIFT:',
-      iban: 'IBAN:',
-      issue_date: 'Issue date:',
-      due_date: 'Due date:',
+      account_number: 'Account NO',
+      swift: 'SWIFT',
+      iban: 'IBAN',
+      issue_date: 'Issue date',
+      due_date: 'Due date',
       item: 'Item',
       quantity: 'Quantity',
       unit: 'Unit',
@@ -41,8 +41,8 @@ module InvoicePrinter
       tax2: 'Tax 2',
       tax3: 'Tax 3',
       amount: 'Amount',
-      subtotal: 'Subtotal:',
-      total: 'Total:'
+      subtotal: 'Subtotal',
+      total: 'Total'
     }
 
     def self.labels
@@ -176,7 +176,7 @@ module InvoicePrinter
       end
       if @document.provider_ic && !@document.provider_ic.empty?
         @pdf.text_box(
-          "#{@labels[:ic]}    #{@document.provider_ic}",
+          "#{@labels[:ic]}:    #{@document.provider_ic}",
           size: 10,
           at: [10, 550],
           width: 240
@@ -184,7 +184,7 @@ module InvoicePrinter
       end
       if @document.provider_dic && !@document.provider_dic.empty?
         @pdf.text_box(
-          "#{@labels[:dic]}    #{@document.provider_dic}",
+          "#{@labels[:dic]}:    #{@document.provider_dic}",
           size: 10,
           at: [10, 535],
           width: 240
@@ -243,7 +243,7 @@ module InvoicePrinter
       @pdf.stroke_rounded_rectangle([280, 670], 270, 150, 6)
       if @document.purchaser_dic && !@document.purchaser_dic.empty?
         @pdf.text_box(
-          "#{@labels[:dic]}    #{@document.purchaser_dic}",
+          "#{@labels[:dic]}:    #{@document.purchaser_dic}",
           size: 10,
           at: [290, 550],
           width: 240
@@ -251,7 +251,7 @@ module InvoicePrinter
       end
       if @document.purchaser_ic && !@document.purchaser_ic.empty?
         @pdf.text_box(
-          "#{@labels[:ic]}    #{@document.purchaser_ic}",
+          "#{@labels[:ic]}:    #{@document.purchaser_ic}",
           size: 10,
           at: [290, 535],
           width: 240
@@ -285,7 +285,7 @@ module InvoicePrinter
         width: 240
       )
       @pdf.text_box(
-        @labels[:account_number],
+        "#{@labels[:account_number]}:",
         size: 10,
         at: [10, 515 - @push_down],
         width: 240
@@ -298,7 +298,7 @@ module InvoicePrinter
       )
       if @document.account_swift && !@document.account_swift.empty?
         @pdf.text_box(
-          @labels[:swift],
+          "#{@labels[:swift]}:",
           size: 10,
           at: [10, 500 - @push_down],
           width: 240
@@ -314,7 +314,7 @@ module InvoicePrinter
       end
       if @document.account_iban && !@document.account_iban.empty?
         @pdf.text_box(
-          @labels[:iban],
+          "#{@labels[:iban]}:",
           size: 10,
           at: [10, 500 - push_iban - @push_down],
           width: 240
@@ -335,7 +335,7 @@ module InvoicePrinter
       due_date_present = @document.due_date && !@document.due_date.empty?
       if issue_date_present
         @pdf.text_box(
-          @labels[:issue_date],
+          "#{@labels[:issue_date]}:",
           size: 10,
           at: [290, 530 - @push_down],
           width: 240
@@ -350,7 +350,7 @@ module InvoicePrinter
       if due_date_present
         position = issue_date_present ? 515 : 530
         @pdf.text_box(
-          @labels[:due_date],
+          "#{@labels[:due_date]}:",
           size: 10,
           at: [290, position - @push_down],
           width: 240
@@ -466,10 +466,10 @@ module InvoicePrinter
       @pdf.move_down(25)
 
       items = []
-      items << [@labels[:subtotal], @document.subtotal] if @document.subtotal
-      items << [@labels[:tax], @document.tax] if @document.tax
-      items << [@labels[:tax2], @document.tax2] if @document.tax2
-      items << [@labels[:tax3], @document.tax3] if @document.tax3
+      items << ["#{@labels[:subtotal]}:", @document.subtotal] if @document.subtotal
+      items << ["#{@labels[:tax]}:", @document.tax] if @document.tax
+      items << ["#{@labels[:tax2]}:", @document.tax2] if @document.tax2
+      items << ["#{@labels[:tax3]}:", @document.tax3] if @document.tax3
 
       width = [
         "#{@labels[:subtotal]}#{@document.subtotal}".size,
@@ -493,7 +493,7 @@ module InvoicePrinter
       @pdf.move_down(15)
 
       @pdf.text(
-        "#{@labels[:total]}   #{@document.total}",
+        "#{@labels[:total]}:   #{@document.total}",
         size: 16,
         align: :right,
         style: :bold

@@ -16,8 +16,8 @@ module InvoicePrinter
       strings << @document.provider_city_part
       strings << @document.provider_extra_address_line
 
-      strings << "#{@labels[:ic]}    #{@document.provider_ic}" unless @document.provider_ic.nil?
-      strings << "#{@labels[:dic]}    #{@document.provider_dic}" unless @document.provider_dic.nil?
+      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" unless @document.provider_ic.nil?
+      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" unless @document.provider_dic.nil?
 
       strings << @labels[:purchaser]
       strings << @document.purchaser_name
@@ -27,28 +27,27 @@ module InvoicePrinter
       strings << @document.purchaser_city_part
       strings << @document.purchaser_extra_address_line
 
-      strings << "#{@labels[:ic]}    #{@document.purchaser_ic}" unless @document.purchaser_ic.nil?
-      strings << "#{@labels[:dic]}    #{@document.purchaser_dic}" unless @document.purchaser_dic.nil?
+      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" unless @document.purchaser_ic.nil?
+      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" unless @document.purchaser_dic.nil?
 
       # Account
-      #strings << @labels[:payment]
       if @document.bank_account_number.nil?
         strings << @labels[:payment_in_cash]
       else
         strings << @labels[:payment_by_transfer]
       end
 
-      strings << @labels[:account_number]
+      strings << "#{@labels[:account_number]}:"
       strings << @document.bank_account_number
-      strings << @labels[:swift]
+      strings << "#{@labels[:swift]}:"
       strings << @document.account_swift
-      strings << @labels[:iban]
+      strings << "#{@labels[:iban]}:"
       strings << @document.account_iban
 
       # Dates
-      strings << @labels[:issue_date]
+      strings << "#{@labels[:issue_date]}:"
       strings << @document.issue_date
-      strings << @labels[:due_date]
+      strings << "#{@labels[:due_date]}:"
       strings << @document.due_date
 
       # Items table
@@ -61,15 +60,15 @@ module InvoicePrinter
       strings << items_to_a(@document.items)
 
       # Total table
-      strings << @labels[:subtotal]
+      strings << "#{@labels[:subtotal]}:"
       strings << @document.subtotal
-      strings << @labels[:tax]
+      strings << "#{@labels[:tax]}:"
       strings << @document.tax
-      strings << @labels[:tax2]
+      strings << "#{@labels[:tax2]}:"
       strings << @document.tax2
-      strings << @labels[:tax3]
+      strings << "#{@labels[:tax3]}:"
       strings << @document.tax3
-      strings << "#{@labels[:total]}   #{@document.total}"
+      strings << "#{@labels[:total]}:   #{@document.total}"
 
       # TODO: dynamically test page numbers
       strings << '1 / 1'

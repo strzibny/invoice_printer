@@ -137,21 +137,21 @@ InvoicePrinter.labels = {
   payment: 'Payment',
   payment_by_transfer: 'Payment by bank transfer on the account below:',
   payment_in_cash: 'Payment in cash',
-  account_number: 'Account NO:',
-  swift: 'SWIFT:',
-  iban: 'IBAN:',
-  issue_date: 'Issue date:',
-  due_date: 'Due date:',
+  account_number: 'Account NO',
+  swift: 'SWIFT',
+  iban: 'IBAN',
+  issue_date: 'Issue date',
+  due_date: 'Due date',
   item: 'Item',
   quantity: 'Quantity',
   unit: 'Unit',
   price_per_item: 'Price per item',
-  subtotal: 'Subtotal',
+  amount: 'Amount',
   tax: 'Tax',
   tax2: 'Tax 2',
   tax3: 'Tax 3',
-  amount: 'Amount',
-  total: 'Amount'
+  subtotal: 'Subtotal'
+  total: 'Total'
 }
 ```
 
@@ -168,4 +168,6 @@ We recommend you DejaVuSans and Overpass fonts.
 
 ## Copyright
 
-Copyright 2016 &copy; Josef Strzibny
+Copyright 2015-2016 &copy; Josef Strzibny. MIT licensed.
+
+Originally created for InvoiceBar.
