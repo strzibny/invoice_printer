@@ -16,6 +16,9 @@ module InvoicePrinter
   class PDFDocument
     attr_reader :invoice, :labels, :file_name, :font, :logo
 
+    class FontFileNotFound < StandardError; end
+    class LogoFileNotFound < StandardError; end
+
     DEFAULT_LABELS = {
       name: 'Invoice',
       provider: 'Provider',
@@ -55,8 +58,22 @@ module InvoicePrinter
       @document = document
       @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
-      @logo = logo
-      set_fonts(font) if font
+
+      if logo && !logo.empty?
+        if File.exist?(logo)
+          @logo = logo
+        else
+          fail LogoFileNotFound, "Logotype file not found at #{logo}"
+        end
+      end
+
+      if font && !font.empty?
+        if File.exist?(font)
+          set_fonts(font) if font
+        else
+          fail FontFileNotFound, "Font file not found at #{font}"
+        end
+      end
       build_pdf
     end
 
@@ -484,12 +501,7 @@ module InvoicePrinter
     end
 
     def build_logo
-      if @logo && !@logo.empty?
-        @pdf.image(
-          @logo,
-          at: [0, 50]
-        )
-      end
+      @pdf.image(@logo, at: [0, 50]) if @logo && !@logo.empty?
     end
 
     # Include page numbers if we got more than one page

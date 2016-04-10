@@ -56,7 +56,7 @@ module InvoicePrinter
   end
 
   # Render the PDF document InvoicePrinter::Document to PDF directly
-  def self.render(document:, labels: {}, font: nil)
+  def self.render(document:, labels: {}, font: nil, logo: nil)
     PDFDocument.new(
       document: document,
       labels: labels,

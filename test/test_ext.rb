@@ -69,7 +69,7 @@ module InvoicePrinter
       strings << @document.tax2
       strings << @labels[:tax3]
       strings << @document.tax3
-      strings << @document.total
+      strings << "#{@labels[:total]}   #{@document.total}"
 
       # TODO: dynamically test page numbers
       strings << '1 / 1'
