@@ -37,12 +37,12 @@ module InvoicePrinter
       quantity: 'Quantity',
       unit: 'Unit',
       price_per_item: 'Price per item',
-      subtotal: 'Subtotal',
       tax: 'Tax',
       tax2: 'Tax 2',
       tax3: 'Tax 3',
       amount: 'Amount',
-      total: 'Amount'
+      subtotal: 'Subtotal:',
+      total: 'Total:'
     }
 
     def self.labels
