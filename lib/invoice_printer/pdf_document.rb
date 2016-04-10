@@ -465,9 +465,12 @@ module InvoicePrinter
 
       @pdf.move_down(10)
 
-      @pdf.span(88, position: :right) do
-        @pdf.text(@document.total, size: 16, style: :bold)
-      end
+      @pdf.text(
+        "#{@labels[:total]}:   #{@document.total}",
+        size: 16,
+        align: :right,
+        style: :bold
+      )
     end
 
     # Include page numbers if we got more than one page
