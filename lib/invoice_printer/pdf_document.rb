@@ -58,20 +58,22 @@ module InvoicePrinter
       @document = document
       @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
+      @font = font
+      @logo = logo
 
-      if logo && !logo.empty?
-        if File.exist?(logo)
+      if @logo && !@logo.empty?
+        if File.exist?(@logo)
           @logo = logo
         else
-          raise LogoFileNotFound, "Logotype file not found at #{logo}"
+          raise LogoFileNotFound, "Logotype file not found at #{@logo}"
         end
       end
 
-      if font && !font.empty?
-        if File.exist?(font)
-          set_fonts(font) if font
+      if @font && !@font.empty?
+        if File.exist?(@font)
+          set_fonts(@font) if @font
         else
-          raise FontFileNotFound, "Font file not found at #{font}"
+          raise FontFileNotFound, "Font file not found at #{@font}"
         end
       end
       build_pdf
@@ -98,7 +100,6 @@ module InvoicePrinter
         bold_italic: font
       })
       @pdf.font(font_name)
-      @font = font_name
     end
 
     def build_pdf
