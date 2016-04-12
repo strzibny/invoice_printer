@@ -63,7 +63,7 @@ module InvoicePrinter
         if File.exist?(logo)
           @logo = logo
         else
-          fail LogoFileNotFound, "Logotype file not found at #{logo}"
+          raise LogoFileNotFound, "Logotype file not found at #{logo}"
         end
       end
 
@@ -71,7 +71,7 @@ module InvoicePrinter
         if File.exist?(font)
           set_fonts(font) if font
         else
-          fail FontFileNotFound, "Font file not found at #{font}"
+          raise FontFileNotFound, "Font file not found at #{font}"
         end
       end
       build_pdf
