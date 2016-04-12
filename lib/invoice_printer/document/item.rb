@@ -35,14 +35,14 @@ module InvoicePrinter
                      tax2: nil,
                      tax3: nil,
                      amount: nil)
-        @name = name
-        @quantity = quantity
-        @unit = unit
-        @price = price
-        @tax = tax
-        @tax2 = tax2
-        @tax3 = tax3
-        @amount = amount
+        @name = String(name)
+        @quantity = String(quantity)
+        @unit = String(unit)
+        @price = String(price)
+        @tax = String(tax)
+        @tax2 = String(tax2)
+        @tax3 = String(tax3)
+        @amount = String(amount)
       end
     end
   end

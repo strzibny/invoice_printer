@@ -159,7 +159,7 @@ module InvoicePrinter
         at: [60, 605],
         width: 240
       )
-      if @document.provider_city_part && !@document.provider_city_part.empty?
+      unless @document.provider_city_part.empty?
         @pdf.text_box(
           @document.provider_city_part,
           size: 10,
@@ -167,7 +167,7 @@ module InvoicePrinter
           width: 240
         )
       end
-      if @document.provider_extra_address_line && !@document.provider_extra_address_line.empty?
+      unless @document.provider_extra_address_line.empty?
         @pdf.text_box(
           @document.provider_extra_address_line,
           size: 10,
@@ -175,7 +175,7 @@ module InvoicePrinter
           width: 240
         )
       end
-      if @document.provider_ic && !@document.provider_ic.empty?
+      unless @document.provider_ic.empty?
         @pdf.text_box(
           "#{@labels[:ic]}:    #{@document.provider_ic}",
           size: 10,
@@ -183,7 +183,7 @@ module InvoicePrinter
           width: 240
         )
       end
-      if @document.provider_dic && !@document.provider_dic.empty?
+      unless @document.provider_dic.empty?
         @pdf.text_box(
           "#{@labels[:dic]}:    #{@document.provider_dic}",
           size: 10,
@@ -224,7 +224,7 @@ module InvoicePrinter
         at: [340, 605],
         width: 240
       )
-      if @document.purchaser_city_part && !@document.purchaser_city_part.empty?
+      unless @document.purchaser_city_part.empty?
         @pdf.text_box(
           @document.purchaser_city_part,
           size: 10,
@@ -232,7 +232,7 @@ module InvoicePrinter
           width: 240
         )
       end
-      if @document.purchaser_extra_address_line && !@document.purchaser_extra_address_line.empty?
+      unless @document.purchaser_extra_address_line.empty?
         @pdf.text_box(
           @document.purchaser_extra_address_line,
           size: 10,
@@ -242,7 +242,7 @@ module InvoicePrinter
       end
       @pdf.stroke_rounded_rectangle([0, 670], 270, 150, 6)
       @pdf.stroke_rounded_rectangle([280, 670], 270, 150, 6)
-      if @document.purchaser_dic && !@document.purchaser_dic.empty?
+      unless @document.purchaser_dic.empty?
         @pdf.text_box(
           "#{@labels[:dic]}:    #{@document.purchaser_dic}",
           size: 10,
@@ -250,7 +250,7 @@ module InvoicePrinter
           width: 240
         )
       end
-      if @document.purchaser_ic && !@document.purchaser_ic.empty?
+      unless @document.purchaser_ic.empty?
         @pdf.text_box(
           "#{@labels[:ic]}:    #{@document.purchaser_ic}",
           size: 10,
@@ -261,7 +261,7 @@ module InvoicePrinter
     end
 
     def build_payment_method_box
-      if @document.bank_account_number.nil?
+      if @document.bank_account_number.empty?
         @pdf.stroke_rounded_rectangle([0, 540 - @push_down], 270, 45, 6)
         @pdf.text_box(
           @labels[:payment],
@@ -297,7 +297,7 @@ module InvoicePrinter
         at: [75, 515 - @push_down],
         width: 240
       )
-      if @document.account_swift && !@document.account_swift.empty?
+      unless @document.account_swift.empty?
         @pdf.text_box(
           "#{@labels[:swift]}:",
           size: 10,
@@ -313,7 +313,7 @@ module InvoicePrinter
         box_height += 15
         push_iban = 15
       end
-      if @document.account_iban && !@document.account_iban.empty?
+      unless @document.account_iban.empty?
         @pdf.text_box(
           "#{@labels[:iban]}:",
           size: 10,
@@ -332,8 +332,8 @@ module InvoicePrinter
     end
 
     def build_info_box
-      issue_date_present = @document.issue_date && !@document.issue_date.empty?
-      due_date_present = @document.due_date && !@document.due_date.empty?
+      issue_date_present = !@document.issue_date.empty?
+      due_date_present = !@document.due_date.empty?
       if issue_date_present
         @pdf.text_box(
           "#{@labels[:issue_date]}:",
@@ -410,14 +410,14 @@ module InvoicePrinter
       items_params = {}
 
       @document.items.each do |item|
-        items_params[:names] = true if item.name
-        items_params[:quantities] = true if item.quantity
-        items_params[:units] = true if item.unit
-        items_params[:prices] = true if item.price
-        items_params[:taxes] = true if item.tax
-        items_params[:taxes2] = true if item.tax2
-        items_params[:taxes3] = true if item.tax3
-        items_params[:amounts] = true if item.amount
+        items_params[:names] = true unless item.name.empty?
+        items_params[:quantities] = true unless item.quantity.empty?
+        items_params[:units] = true unless item.unit.empty?
+        items_params[:prices] = true unless item.price.empty?
+        items_params[:taxes] = true unless item.tax.empty?
+        items_params[:taxes2] = true unless item.tax2.empty?
+        items_params[:taxes3] = true unless item.tax3.empty?
+        items_params[:amounts] = true unless item.amount.empty?
       end
 
       items_params
@@ -467,10 +467,10 @@ module InvoicePrinter
       @pdf.move_down(25)
 
       items = []
-      items << ["#{@labels[:subtotal]}:", @document.subtotal] if @document.subtotal
-      items << ["#{@labels[:tax]}:", @document.tax] if @document.tax
-      items << ["#{@labels[:tax2]}:", @document.tax2] if @document.tax2
-      items << ["#{@labels[:tax3]}:", @document.tax3] if @document.tax3
+      items << ["#{@labels[:subtotal]}:", @document.subtotal] unless @document.subtotal.empty?
+      items << ["#{@labels[:tax]}:", @document.tax] unless @document.tax.empty?
+      items << ["#{@labels[:tax2]}:", @document.tax2] unless @document.tax2.empty?
+      items << ["#{@labels[:tax3]}:", @document.tax3] unless @document.tax3.empty?
 
       width = [
         "#{@labels[:subtotal]}#{@document.subtotal}".size,

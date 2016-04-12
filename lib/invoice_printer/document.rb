@@ -107,35 +107,35 @@ module InvoicePrinter
                    account_iban: nil,
                    account_swift: nil,
                    items: nil)
-      @number = number
-      @provider_name = provider_name
-      @provider_ic = provider_ic
-      @provider_dic = provider_dic
-      @provider_street = provider_street
-      @provider_street_number = provider_street_number
-      @provider_postcode = provider_postcode
-      @provider_city = provider_city
-      @provider_city_part = provider_city_part
-      @provider_extra_address_line = provider_extra_address_line
-      @purchaser_name = purchaser_name
-      @purchaser_ic = purchaser_ic
-      @purchaser_dic = purchaser_dic
-      @purchaser_street = purchaser_street
-      @purchaser_street_number = purchaser_street_number
-      @purchaser_postcode = purchaser_postcode
-      @purchaser_city = purchaser_city
-      @purchaser_city_part = purchaser_city_part
-      @purchaser_extra_address_line = purchaser_extra_address_line
-      @issue_date = issue_date
-      @due_date = due_date
-      @subtotal = subtotal
-      @tax = tax
-      @tax2 = tax2
-      @tax3 = tax3
-      @total = total
-      @bank_account_number = bank_account_number
-      @account_iban = account_iban
-      @account_swift = account_swift
+      @number = String(number)
+      @provider_name = String(provider_name)
+      @provider_ic = String(provider_ic)
+      @provider_dic = String(provider_dic)
+      @provider_street = String(provider_street)
+      @provider_street_number = String(provider_street_number)
+      @provider_postcode = String(provider_postcode)
+      @provider_city = String(provider_city)
+      @provider_city_part = String(provider_city_part)
+      @provider_extra_address_line = String(provider_extra_address_line)
+      @purchaser_name = String(purchaser_name)
+      @purchaser_ic = String(purchaser_ic)
+      @purchaser_dic = String(purchaser_dic)
+      @purchaser_street = String(purchaser_street)
+      @purchaser_street_number = String(purchaser_street_number)
+      @purchaser_postcode = String(purchaser_postcode)
+      @purchaser_city = String(purchaser_city)
+      @purchaser_city_part = String(purchaser_city_part)
+      @purchaser_extra_address_line = String(purchaser_extra_address_line)
+      @issue_date = String(issue_date)
+      @due_date = String(due_date)
+      @subtotal = String(subtotal)
+      @tax = String(tax)
+      @tax2 = String(tax2)
+      @tax3 = String(tax3)
+      @total = String(total)
+      @bank_account_number = String(bank_account_number)
+      @account_iban = String(account_iban)
+      @account_swift = String(account_swift)
       @items = items
     end
   end

@@ -16,8 +16,8 @@ module InvoicePrinter
       strings << @document.provider_city_part
       strings << @document.provider_extra_address_line
 
-      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" unless @document.provider_ic.nil?
-      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" unless @document.provider_dic.nil?
+      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" unless @document.provider_ic.empty?
+      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" unless @document.provider_dic.empty?
 
       strings << @labels[:purchaser]
       strings << @document.purchaser_name
@@ -27,8 +27,8 @@ module InvoicePrinter
       strings << @document.purchaser_city_part
       strings << @document.purchaser_extra_address_line
 
-      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" unless @document.purchaser_ic.nil?
-      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" unless @document.purchaser_dic.nil?
+      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" unless @document.purchaser_ic.empty?
+      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" unless @document.purchaser_dic.empty?
 
       # Account
       if @document.bank_account_number.nil?
