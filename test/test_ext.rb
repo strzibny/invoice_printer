@@ -68,6 +68,7 @@ module InvoicePrinter
       strings << @document.tax2
       strings << "#{@labels[:tax3]}:"
       strings << @document.tax3
+
       strings << "#{@labels[:total]}:   #{@document.total}"
 
       # TODO: dynamically test page numbers

@@ -401,7 +401,7 @@ module InvoicePrinter
         }
       }
 
-      @pdf.table(items, styles) unless items
+      @pdf.table(items, styles) unless items.empty?
     end
 
     # Determine sections of the items table to show based on provided data
@@ -487,7 +487,7 @@ module InvoicePrinter
       }
 
       @pdf.span(width, position: :right) do
-        @pdf.table(items, styles) unless items
+        @pdf.table(items, styles) unless items.empty?
       end
 
       @pdf.move_down(15)
