@@ -14,10 +14,11 @@ module InvoicePrinter
   #     logo: 'example.jpg'
   #   )
   class PDFDocument
-    attr_reader :invoice, :labels, :file_name, :font, :logo
-
     class FontFileNotFound < StandardError; end
     class LogoFileNotFound < StandardError; end
+    class InvalidInput < StandardError; end
+
+    attr_reader :invoice, :labels, :file_name, :font, :logo
 
     DEFAULT_LABELS = {
       name: 'Invoice',
@@ -61,6 +62,9 @@ module InvoicePrinter
       @font = font
       @logo = logo
 
+      raise InvalidInput, 'document is not a type of InvoicePrinter::Document' \
+        unless @document.is_a?(InvoicePrinter::Document)
+
       if @logo && !@logo.empty?
         if File.exist?(@logo)
           @logo = logo
@@ -76,6 +80,7 @@ module InvoicePrinter
           raise FontFileNotFound, "Font file not found at #{@font}"
         end
       end
+
       build_pdf
     end
 

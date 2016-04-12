@@ -3,6 +3,22 @@ require 'test_helper'
 class InputsTest < Minitest::Test
   include InvoicePrinterHelpers
 
+  def test_refuse_documents_of_wrong_class
+    assert_raises(StandardError) do
+      InvoicePrinter::PDFDocument.new(document: String.new)
+    end
+
+    assert_raises(StandardError) do
+      InvoicePrinter.render(document: String.new)
+    end
+  end
+
+  def test_refuse_items_of_wrong_class
+    assert_raises(StandardError) do
+      InvoicePrinter::Document.new(items: String.new)
+    end
+  end
+
   def test_non_string_inputs_are_converted_to_strings
     params = default_document_params.merge(
       provider_ic: 12345678910,

@@ -40,6 +40,8 @@ module InvoicePrinter
   # +amount should equal the sum of all item's +amount+,
   # but this is not enforced.
   class Document
+    class InvalidInput < StandardError; end
+
     attr_reader :number,
                 # Provider fields
                 :provider_name,
@@ -137,6 +139,9 @@ module InvoicePrinter
       @account_iban = String(account_iban)
       @account_swift = String(account_swift)
       @items = items
+
+      raise InvalidInput, 'items are not only a type of InvoicePrinter::Document::Item' \
+        unless @items.select{ |i| !i.is_a?(InvoicePrinter::Document::Item) }.empty?
     end
   end
 end
