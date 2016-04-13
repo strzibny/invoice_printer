@@ -113,6 +113,7 @@ module InvoicePrinter
     # Build the PDF version of the document (@pdf)
     def build_pdf
       @push_down = 0
+      @push_items_table = 0
       @pdf.fill_color '000000'
       build_header
       build_provider_box
@@ -364,6 +365,7 @@ module InvoicePrinter
           )
           box_height += 15
           push_iban = 15
+          @push_items_table += 15
         end
         unless @document.account_iban.empty?
           @pdf.text_box(
@@ -379,6 +381,7 @@ module InvoicePrinter
             width: 240
           )
           box_height += 15
+          @push_items_table += 15
         end
         @pdf.stroke_rounded_rectangle([0, 508 - @push_down], 270, box_height, 6)
       end
@@ -440,7 +443,7 @@ module InvoicePrinter
     # If a specific column miss data, it's omittted.
     # Tax2 and tax3 fields can be added as well if necessary.
     def build_items
-      @pdf.move_down(25 + @push_down)
+      @pdf.move_down(25 + @push_items_table + @push_down)
 
       items_params = determine_items_structure
       items = build_items_data(items_params)
