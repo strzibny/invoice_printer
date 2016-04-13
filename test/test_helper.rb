@@ -3,7 +3,7 @@ require 'invoice_printer'
 require 'test_ext'
 require 'minitest/autorun'
 
-# Helpers for easy-to-build documents
+# Test helpers
 module InvoicePrinterHelpers
   def default_document_params
     {

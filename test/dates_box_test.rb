@@ -11,6 +11,7 @@ class DatesBoxTest < Minitest::Test
     invoice = InvoicePrinter::Document.new(params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
+
     assert_equal true, pdf_analysis.strings.include?('Issue date:')
     assert_equal true, pdf_analysis.strings.include?('Due date:')
   end
@@ -23,6 +24,7 @@ class DatesBoxTest < Minitest::Test
     invoice = InvoicePrinter::Document.new(params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
+
     assert_equal true, pdf_analysis.strings.include?('Issue date:')
     assert_equal false, pdf_analysis.strings.include?('Due date:')
   end
@@ -35,6 +37,7 @@ class DatesBoxTest < Minitest::Test
     invoice = InvoicePrinter::Document.new(params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
+
     assert_equal false, pdf_analysis.strings.include?('Issue date:')
     assert_equal true, pdf_analysis.strings.include?('Due date:')
   end
@@ -47,6 +50,7 @@ class DatesBoxTest < Minitest::Test
     invoice = InvoicePrinter::Document.new(params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
+
     assert_equal false, pdf_analysis.strings.include?('Issue date:')
     assert_equal false, pdf_analysis.strings.include?('Due date:')
   end
