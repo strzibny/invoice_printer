@@ -72,7 +72,7 @@ module InvoicePrinter
       strings << "#{@labels[:total]}:   #{@document.total}"
 
       # TODO: dynamically test page numbers
-      strings << '1 / 1'
+      #strings << '1 / 1'
 
       strings.flatten.reject(&:empty?)
     end
