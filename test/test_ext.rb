@@ -50,26 +50,8 @@ module InvoicePrinter
       strings << "#{@labels[:due_date]}:"
       strings << @document.due_date
 
-      # Items table
-      strings << @labels[:item] if determine_items_structure[:names]
-      strings << @labels[:quantity] if determine_items_structure[:quantities]
-      strings << @labels[:unit] if determine_items_structure[:units]
-      strings << @labels[:price_per_item] if determine_items_structure[:prices]
-      strings << @labels[:tax] if determine_items_structure[:taxes]
-      strings << @labels[:amount] if determine_items_structure[:amounts]
-      strings << items_to_a(@document.items)
-
-      # Total table
-      strings << "#{@labels[:subtotal]}:"
-      strings << @document.subtotal
-      strings << "#{@labels[:tax]}:"
-      strings << @document.tax
-      strings << "#{@labels[:tax2]}:"
-      strings << @document.tax2
-      strings << "#{@labels[:tax3]}:"
-      strings << @document.tax3
-
-      strings << "#{@labels[:total]}:   #{@document.total}"
+      strings << items_table
+      strings << totals_table
 
       # TODO: dynamically test page numbers
       #strings << '1 / 1'
@@ -79,6 +61,35 @@ module InvoicePrinter
 
     private
 
+    # Strings representaion of items table
+    def items_table
+      strings = []
+      strings << @labels[:item] if determine_items_structure[:names]
+      strings << @labels[:quantity] if determine_items_structure[:quantities]
+      strings << @labels[:unit] if determine_items_structure[:units]
+      strings << @labels[:price_per_item] if determine_items_structure[:prices]
+      strings << @labels[:tax] if determine_items_structure[:taxes]
+      strings << @labels[:amount] if determine_items_structure[:amounts]
+      strings << items_to_a(@document.items)
+      strings
+    end
+
+    # Strings representaion of totals table
+    def totals_table
+      strings = []
+      strings << "#{@labels[:subtotal]}:"
+      strings << @document.subtotal
+      strings << "#{@labels[:tax]}:"
+      strings << @document.tax
+      strings << "#{@labels[:tax2]}:"
+      strings << @document.tax2
+      strings << "#{@labels[:tax3]}:"
+      strings << @document.tax3
+      strings << "#{@labels[:total]}:   #{@document.total}"
+      strings
+    end
+
+    # Convert document +items+ to a single string array
     def items_to_a(items)
       ary = []
       items.each do |item|
@@ -87,6 +98,7 @@ module InvoicePrinter
       ary.flatten
     end
 
+    # Convert document +item+ to a single string array
     def item_to_a(item)
       ary = []
       ary << item.name
