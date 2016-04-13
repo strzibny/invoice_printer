@@ -96,17 +96,21 @@ module InvoicePrinter
 
     private
 
+    # Add font family in Prawn for a given +font+ file
     def set_fonts(font)
       font_name = Pathname.new(font).basename
-      @pdf.font_families.update("#{font_name}" => {
-        normal: font,
-        italic: font,
-        bold: font,
-        bold_italic: font
-      })
+      @pdf.font_families.update(
+        "#{font_name}" => {
+          normal: font,
+          italic: font,
+          bold: font,
+          bold_italic: font
+        }
+      )
       @pdf.font(font_name)
     end
 
+    # Build the PDF version of the document (@pdf)
     def build_pdf
       @push_down = 0
       @pdf.fill_color '000000'
@@ -121,6 +125,7 @@ module InvoicePrinter
       build_footer
     end
 
+    # Build the document name and number
     def build_header
       @pdf.text_box(
         @labels[:name],
@@ -139,6 +144,19 @@ module InvoicePrinter
       @pdf.move_down(250)
     end
 
+    # Build the following provider box:
+    #
+    #    -------------------------------------
+    #   | Provider                            |
+    #   | PROVIDER co.                        |
+    #   | 5th Street                          |
+    #   | 747 27    City                      |
+    #   |           Part of the city          |
+    #   |                                     |
+    #   | Identification number: Number       |
+    #   | Identification number: Number 2     |
+    #    -------------------------------------
+    #
     def build_provider_box
       @pdf.text_box(
         @labels[:provider],
@@ -205,6 +223,19 @@ module InvoicePrinter
       @pdf.stroke_rounded_rectangle([0, 670 - @push_down], 270, 150, 6)
     end
 
+    # Build the following purchaser box:
+    #
+    #    -------------------------------------
+    #   | Purchaser                           |
+    #   | PURCHASER co.                       |
+    #   | 5th Street                          |
+    #   | 747 27    City                      |
+    #   |           Part of the city          |
+    #   |                                     |
+    #   | Identification number: Number       |
+    #   | Identification number: Number 2     |
+    #    -------------------------------------
+    #
     def build_purchaser_box
       @pdf.text_box(
         @labels[:purchaser],
@@ -271,6 +302,17 @@ module InvoicePrinter
       @pdf.stroke_rounded_rectangle([280, 670 - @push_down], 270, 150, 6)
     end
 
+    # Build the following payment box:
+    #
+    #    -----------------------------------------
+    #   | Payment on the following bank account:  |
+    #   | Number: 3920392032                      |
+    #   | SWIFT: ...                              |
+    #   | IBAN: ...                               |
+    #    -----------------------------------------
+    #
+    # If the bank account number is not provided include a note about payment
+    # in cash.
     def build_payment_method_box
       if @document.bank_account_number.empty?
         @pdf.text_box(
@@ -342,6 +384,13 @@ module InvoicePrinter
       end
     end
 
+    # Build the following info box:
+    #
+    #    --------------------------------
+    #   | Issue date: 03/03/2016         |
+    #   | Due date: 03/03/2016           |
+    #    --------------------------------
+    #
     def build_info_box
       issue_date_present = !@document.issue_date.empty?
       due_date_present = !@document.due_date.empty?
@@ -382,11 +431,11 @@ module InvoicePrinter
 
     # Build the following table for document items:
     #
-    #   |===============================================================|
+    #   =================================================================
     #   |Item | Quantity | Unit | Price per item | Tax | Total per item |
     #   |-----|----------|------|----------------|-----|----------------|
     #   | x   | 2        | hr   | $ 2            | $1  | $ 4            |
-    #   |===============================================================|
+    #   =================================================================
     #
     # If a specific column miss data, it's omittted.
     # Tax2 and tax3 fields can be added as well if necessary.
@@ -419,7 +468,6 @@ module InvoicePrinter
     # Determine sections of the items table to show based on provided data
     def determine_items_structure
       items_params = {}
-
       @document.items.each do |item|
         items_params[:names] = true unless item.name.empty?
         items_params[:quantities] = true unless item.quantity.empty?
@@ -430,7 +478,6 @@ module InvoicePrinter
         items_params[:taxes3] = true unless item.tax3.empty?
         items_params[:amounts] = true unless item.amount.empty?
       end
-
       items_params
     end
 
@@ -512,6 +559,7 @@ module InvoicePrinter
       )
     end
 
+    # Insert a logotype at the left bottom of the document
     def build_logo
       @pdf.image(@logo, at: [0, 50]) if @logo && !@logo.empty?
     end
