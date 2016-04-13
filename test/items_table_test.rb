@@ -19,11 +19,9 @@ class ItemsTableTest < Minitest::Test
     test_ommiting_column(column: 'price', label: :price_per_item)
   end
 
-  # TODO: We need to distinguish between items' taxes and document taxes
-  #
-  #def test_omitting_tax_column
-  #  test_ommiting_column(column: 'tax', label: :tax)
-  #end
+  def test_omitting_tax_column
+    test_ommiting_column(column: 'tax', label: :tax)
+  end
 
   def test_omitting_amount_column
     test_ommiting_column(column: 'amount', label: :amount)
