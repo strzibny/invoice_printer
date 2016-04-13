@@ -1,42 +1,20 @@
+# Requiring this file extends the original PDFDocument class with +to_a+ method
+# returning the strings representation of the class.
+
 module InvoicePrinter
   class PDFDocument
     # Expose the document as an array of attributes in order as their
     # appear on PDF
     def to_a
       strings = []
-
       strings << @labels[:name]
       strings << @document.number
-
       strings << provider_box
       strings << purchaser_box
-
-      # Account
-      if @document.bank_account_number.nil?
-        strings << @labels[:payment_in_cash]
-      else
-        strings << @labels[:payment_by_transfer]
-      end
-
-      strings << "#{@labels[:account_number]}:"
-      strings << @document.bank_account_number
-      strings << "#{@labels[:swift]}:"
-      strings << @document.account_swift
-      strings << "#{@labels[:iban]}:"
-      strings << @document.account_iban
-
-      # Dates
-      strings << "#{@labels[:issue_date]}:"
-      strings << @document.issue_date
-      strings << "#{@labels[:due_date]}:"
-      strings << @document.due_date
-
+      strings << account_box
+      strings << dates_box
       strings << items_table
       strings << totals_table
-
-      # TODO: dynamically test page numbers
-      #strings << '1 / 1'
-
       strings.flatten.reject(&:empty?)
     end
 
@@ -52,8 +30,10 @@ module InvoicePrinter
       strings << @document.provider_city
       strings << @document.provider_city_part
       strings << @document.provider_extra_address_line
-      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" unless @document.provider_ic.empty?
-      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" unless @document.provider_dic.empty?
+      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" \
+        unless @document.provider_ic.empty?
+      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" \
+        unless @document.provider_dic.empty?
       strings
     end
 
@@ -67,8 +47,37 @@ module InvoicePrinter
       strings << @document.purchaser_city
       strings << @document.purchaser_city_part
       strings << @document.purchaser_extra_address_line
-      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" unless @document.purchaser_ic.empty?
-      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" unless @document.purchaser_dic.empty?
+      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" \
+        unless @document.purchaser_ic.empty?
+      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" \
+        unless @document.purchaser_dic.empty?
+      strings
+    end
+
+    # Strings representaion of account's box
+    def account_box
+      strings = []
+      if @document.bank_account_number.nil?
+        strings << @labels[:payment_in_cash]
+      else
+        strings << @labels[:payment_by_transfer]
+      end
+      strings << "#{@labels[:account_number]}:"
+      strings << @document.bank_account_number
+      strings << "#{@labels[:swift]}:"
+      strings << @document.account_swift
+      strings << "#{@labels[:iban]}:"
+      strings << @document.account_iban
+      strings
+    end
+
+    # Strings representaion of dates box
+    def dates_box
+      strings = []
+      strings << "#{@labels[:issue_date]}:"
+      strings << @document.issue_date
+      strings << "#{@labels[:due_date]}:"
+      strings << @document.due_date
       strings
     end
 
