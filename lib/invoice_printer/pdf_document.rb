@@ -108,7 +108,7 @@ module InvoicePrinter
     end
 
     def build_pdf
-      @push_down = 40
+      @push_down = 32
       @pdf.fill_color '000000'
       build_header
       build_provider_box
