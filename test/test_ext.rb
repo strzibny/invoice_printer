@@ -8,27 +8,8 @@ module InvoicePrinter
       strings << @labels[:name]
       strings << @document.number
 
-      strings << @labels[:provider]
-      strings << @document.provider_name
-      strings << "#{@document.provider_street}    #{@document.provider_street_number}".strip
-      strings << @document.provider_postcode
-      strings << @document.provider_city
-      strings << @document.provider_city_part
-      strings << @document.provider_extra_address_line
-
-      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" unless @document.provider_ic.empty?
-      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" unless @document.provider_dic.empty?
-
-      strings << @labels[:purchaser]
-      strings << @document.purchaser_name
-      strings << "#{@document.purchaser_street}    #{@document.purchaser_street_number}".strip
-      strings << @document.purchaser_postcode
-      strings << @document.purchaser_city
-      strings << @document.purchaser_city_part
-      strings << @document.purchaser_extra_address_line
-
-      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" unless @document.purchaser_ic.empty?
-      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" unless @document.purchaser_dic.empty?
+      strings << provider_box
+      strings << purchaser_box
 
       # Account
       if @document.bank_account_number.nil?
@@ -60,6 +41,36 @@ module InvoicePrinter
     end
 
     private
+
+    # Strings representaion of provider's box
+    def provider_box
+      strings = []
+      strings << @labels[:provider]
+      strings << @document.provider_name
+      strings << "#{@document.provider_street}    #{@document.provider_street_number}".strip
+      strings << @document.provider_postcode
+      strings << @document.provider_city
+      strings << @document.provider_city_part
+      strings << @document.provider_extra_address_line
+      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" unless @document.provider_ic.empty?
+      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" unless @document.provider_dic.empty?
+      strings
+    end
+
+    # Strings representaion of purchaser's box
+    def purchaser_box
+      strings = []
+      strings << @labels[:purchaser]
+      strings << @document.purchaser_name
+      strings << "#{@document.purchaser_street}    #{@document.purchaser_street_number}".strip
+      strings << @document.purchaser_postcode
+      strings << @document.purchaser_city
+      strings << @document.purchaser_city_part
+      strings << @document.purchaser_extra_address_line
+      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" unless @document.purchaser_ic.empty?
+      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" unless @document.purchaser_dic.empty?
+      strings
+    end
 
     # Strings representaion of items table
     def items_table
