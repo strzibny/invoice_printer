@@ -7,7 +7,7 @@ designed only to provide an interface to build the PDF version of these document
 
 **This project is still in development. 0.0.x versions are all development versions.**
 
-<img src="https://github.com/strzibny/invoice_printer/raw/master/examples/czech_invoice.jpg" width="150" />
+<img src="https://github.com/strzibny/invoice_printer/raw/master/examples/czech_invoice.jpg" width="250" />
 
 See more usecases in the `examples/` directory.
 
