@@ -23,6 +23,7 @@ See more usecases in the `examples/` directory.
 - Configurable labels
 - Configurable font file
 - Logotype
+- Well tested
 
 ## Installation
 
@@ -172,6 +173,6 @@ We recommend you DejaVuSans and Overpass fonts.
 
 ## Copyright
 
-Copyright 2015-2016 &copy; Josef Strzibny. MIT licensed.
+Copyright 2015-2016 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
 
-Originally created for InvoiceBar.
+Originally extracted from and created for an open source single-entry invoicing app [InvoiceBar](https://github.com/strzibny/invoicebar).
