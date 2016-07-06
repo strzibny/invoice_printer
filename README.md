@@ -14,7 +14,7 @@ See more usecases in the `examples/` directory.
 ## Features
 
 - Invoice/document name and number
-- Purchaser and provider boxes with addresses and identificaton numbers
+- Purchaser and provider boxes with addresses and identification numbers
 - Payment method box showing banking details including SWIFT and IBAN fields
 - Issue/due dates box
 - Configurable items' table with item description, quantity, unit, price per unit, tax and item's total amount fields
@@ -77,8 +77,8 @@ item = InvoicePrinter::Document::Item.new(
 invoice = InvoicePrinter::Document.new(
   number: '201604030001',
   provider_name: 'Business s.r.o.',
-  provider_ic: '56565656',
-  provider_dic: '465454',
+  provider_tax_id: '56565656',
+  provider_tax_id2: '465454',
   provider_street: 'Rolnicka',
   provider_street_number: '1',
   provider_postcode: '747 05',
@@ -86,8 +86,8 @@ invoice = InvoicePrinter::Document.new(
   provider_city_part: 'Katerinky',
   provider_extra_address_line: 'Czech Republic',
   purchaser_name: 'Adam',
-  purchaser_ic: '',
-  purchaser_dic: '',
+  purchaser_tax_id: '',
+  purchaser_tax_id2: '',
   purchaser_street: 'Ostravska',
   purchaser_street_number: '1',
   purchaser_postcode: '747 70',
@@ -137,8 +137,8 @@ InvoicePrinter.labels = {
   name: 'Invoice'
   provider: 'Provider',
   purchaser: 'Purchaser',
-  ic: 'Identification number',
-  dic: 'Identification number',
+  tax_id: 'Identification number',
+  tax_id2: 'Identification number',
   payment: 'Payment',
   payment_by_transfer: 'Payment by bank transfer on the account below:',
   payment_in_cash: 'Payment in cash',

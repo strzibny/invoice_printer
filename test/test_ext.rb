@@ -30,10 +30,10 @@ module InvoicePrinter
       strings << @document.provider_city
       strings << @document.provider_city_part
       strings << @document.provider_extra_address_line
-      strings << "#{@labels[:ic]}:    #{@document.provider_ic}" \
-        unless @document.provider_ic.empty?
-      strings << "#{@labels[:dic]}:    #{@document.provider_dic}" \
-        unless @document.provider_dic.empty?
+      strings << "#{@labels[:ic]}:    #{@document.provider_tax_id}" \
+        unless @document.provider_tax_id.empty?
+      strings << "#{@labels[:dic]}:    #{@document.provider_tax_id2}" \
+        unless @document.provider_tax_id2.empty?
       strings
     end
 
@@ -47,10 +47,10 @@ module InvoicePrinter
       strings << @document.purchaser_city
       strings << @document.purchaser_city_part
       strings << @document.purchaser_extra_address_line
-      strings << "#{@labels[:ic]}:    #{@document.purchaser_ic}" \
-        unless @document.purchaser_ic.empty?
-      strings << "#{@labels[:dic]}:    #{@document.purchaser_dic}" \
-        unless @document.purchaser_dic.empty?
+      strings << "#{@labels[:ic]}:    #{@document.purchaser_tax_id}" \
+        unless @document.purchaser_tax_id.empty?
+      strings << "#{@labels[:dic]}:    #{@document.purchaser_tax_id2}" \
+        unless @document.purchaser_tax_id2.empty?
       strings
     end
 
