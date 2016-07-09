@@ -1,3 +1,5 @@
+require 'invoice_printer/helpers'
+
 module InvoicePrinter
   # Invoice and receipt representation
   #
@@ -79,6 +81,14 @@ module InvoicePrinter
                 # Collection of InvoicePrinter::Invoice::Items
                 :items
 
+    def self.from_json(json)
+      args = Helpers.symbolize_keys(JSON(json))
+      args[:items] = args[:items].map do |item|
+        Item.new(**item)
+      end
+      self.new(**args)
+    end
+
     def initialize(number: nil,
                    provider_name: nil,
                    provider_ic: nil,
@@ -142,6 +152,45 @@ module InvoicePrinter
 
       raise InvalidInput, 'items are not only a type of InvoicePrinter::Document::Item' \
         unless @items.select{ |i| !i.is_a?(InvoicePrinter::Document::Item) }.empty?
+    end
+
+    def to_h
+      {
+        'number': @number,
+        'provider_name': @provider_name,
+        'provider_ic': @provider_ic,
+        'provider_dic': @provider_dic,
+        'provider_street': @provider_street,
+        'provider_street_number': @provider_street_number,
+        'provider_postcode': @provider_postcode,
+        'provider_city': @provider_city,
+        'provider_city_part': @provider_city_part,
+        'provider_extra_address_line': @provider_extra_address_line,
+        'purchaser_name': @purchaser_name,
+        'purchaser_ic': @purchaser_ic,
+        'purchaser_dic': @purchaser_dic,
+        'purchaser_street': @purchaser_street,
+        'purchaser_street_number': @purchaser_street_number,
+        'purchaser_postcode': @purchaser_postcode,
+        'purchaser_city': @purchaser_city,
+        'purchaser_city_part': @purchaser_city_part,
+        'purchaser_extra_address_line': @purchaser_extra_address_line,
+        'issue_date': @issue_date,
+        'due_date': @due_date,
+        'subtotal': @subtotal,
+        'tax': @tax,
+        'tax2': @tax2,
+        'tax3': @tax3,
+        'total': @total,
+        'bank_account_number': @bank_account_number,
+        'account_iban': @account_iban,
+        'account_swift': @account_swift,
+        'items': @items.map(&:to_h)
+      }
+    end
+
+    def to_json
+      to_h.to_json
     end
   end
 end

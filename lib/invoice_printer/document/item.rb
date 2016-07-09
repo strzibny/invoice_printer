@@ -28,9 +28,7 @@ module InvoicePrinter
                   :amount
 
       def self.from_json(json)
-        args = JSON(json).inject({}) { |h, (k,v)|
-          h[k.to_sym] = v; h
-        }
+        args = Helpers.symbolize_keys(JSON(json))
         self.new(**args)
       end
 
@@ -52,7 +50,7 @@ module InvoicePrinter
         @amount = String(amount)
       end
 
-      def to_json
+      def to_h
         {
           'name': @name,
           'quantity': @quantity,
@@ -62,7 +60,11 @@ module InvoicePrinter
           'tax2': @tax,
           'tax3': @tax3,
           'amount': @amount
-        }.to_json
+        }
+      end
+
+      def to_json
+        to_h.to_json
       end
     end
   end
