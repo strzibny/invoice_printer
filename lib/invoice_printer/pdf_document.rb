@@ -207,7 +207,7 @@ module InvoicePrinter
       end
       unless @document.provider_tax_id.empty?
         @pdf.text_box(
-          "#{@labels[:ic]}:    #{@document.provider_tax_id}",
+          "#{@labels[:tax_id]}:    #{@document.provider_tax_id}",
           size: 10,
           at: [10, 550 - @push_down],
           width: 240
@@ -215,7 +215,7 @@ module InvoicePrinter
       end
       unless @document.provider_tax_id2.empty?
         @pdf.text_box(
-          "#{@labels[:dic]}:    #{@document.provider_tax_id2}",
+          "#{@labels[:tax_id2]}:    #{@document.provider_tax_id2}",
           size: 10,
           at: [10, 535 - @push_down],
           width: 240
@@ -286,7 +286,7 @@ module InvoicePrinter
       end
       unless @document.purchaser_tax_id2.empty?
         @pdf.text_box(
-          "#{@labels[:dic]}:    #{@document.purchaser_tax_id2}",
+          "#{@labels[:tax_id2]}:    #{@document.purchaser_tax_id2}",
           size: 10,
           at: [290, 550 - @push_down],
           width: 240
@@ -294,7 +294,7 @@ module InvoicePrinter
       end
       unless @document.purchaser_tax_id.empty?
         @pdf.text_box(
-          "#{@labels[:ic]}:    #{@document.purchaser_tax_id}",
+          "#{@labels[:tax_id]}:    #{@document.purchaser_tax_id}",
           size: 10,
           at: [290, 535 - @push_down],
           width: 240
