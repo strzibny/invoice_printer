@@ -1,3 +1,4 @@
+require 'json'
 require 'invoice_printer/helpers'
 
 module InvoicePrinter
