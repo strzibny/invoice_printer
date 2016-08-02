@@ -54,7 +54,6 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-
     def initialize(document: Document.new, labels: {}, font: nil, logo: nil)
       @document = document
       @labels = PDFDocument.labels.merge(labels)
@@ -123,6 +122,7 @@ module InvoicePrinter
       build_items
       build_total
       build_logo
+      build_note
       build_footer
     end
 
@@ -563,8 +563,22 @@ module InvoicePrinter
     end
 
     # Insert a logotype at the left bottom of the document
+    #
+    # If a note is present, position it on top of it.
     def build_logo
-      @pdf.image(@logo, at: [0, 50]) if @logo && !@logo.empty?
+      bottom = @document.note.empty? ? 50 : 60
+      @pdf.image(@logo, at: [0, bottom]) if @logo && !@logo.empty?
+    end
+
+    # Note at the end
+    def build_note
+      @pdf.text_box(
+        "#{@document.note}",
+        size: 10,
+        at: [0, 10],
+        width: 450,
+        align: :left
+      )
     end
 
     # Include page numbers if we got more than one page

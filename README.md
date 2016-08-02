@@ -23,6 +23,7 @@ See more usecases in the `examples/` directory.
 - Configurable labels
 - Configurable font file
 - Logotype
+- Note
 - Well tested
 
 ## Installation
@@ -104,7 +105,8 @@ invoice = InvoicePrinter::Document.new(
   bank_account_number: '156546546465',
   account_iban: 'IBAN464545645',
   account_swift: 'SWIFT5456',
-  items: [item]
+  items: [item],
+  note: 'A note...'
 )
 ```
 

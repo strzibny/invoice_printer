@@ -67,7 +67,8 @@ invoice = InvoicePrinter::Document.new(
   bank_account_number: '156546546465',
   account_iban: 'IBAN464545645',
   account_swift: 'SWIFT5456',
-  items: [first_item, second_item]
+  items: [first_item, second_item],
+  note: 'Osoba je zapsána v živnostenském rejstříku.'
 )
 
 InvoicePrinter.print(

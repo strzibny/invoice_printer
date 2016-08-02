@@ -29,7 +29,8 @@ invoice = InvoicePrinter::Document.new(
   due_date: '19/03/2016',
   total: '$ 900',
   bank_account_number: '156546546465',
-  items: [item]
+  items: [item],
+  note: 'This is a note at the end.'
 )
 
 InvoicePrinter.print(
