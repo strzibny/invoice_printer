@@ -284,17 +284,17 @@ module InvoicePrinter
           width: 240
         )
       end
-      unless @document.purchaser_dic.empty?
+      unless @document.purchaser_ic.empty?
         @pdf.text_box(
-          "#{@labels[:dic]}:    #{@document.purchaser_dic}",
+          "#{@labels[:ic]}:    #{@document.purchaser_ic}",
           size: 10,
           at: [290, 550 - @push_down],
           width: 240
         )
       end
-      unless @document.purchaser_ic.empty?
+      unless @document.purchaser_dic.empty?
         @pdf.text_box(
-          "#{@labels[:ic]}:    #{@document.purchaser_ic}",
+          "#{@labels[:dic]}:    #{@document.purchaser_dic}",
           size: 10,
           at: [290, 535 - @push_down],
           width: 240
