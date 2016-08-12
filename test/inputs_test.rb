@@ -21,10 +21,10 @@ class InputsTest < Minitest::Test
 
   def test_non_string_inputs_are_converted_to_strings
     params = default_document_params.merge(
-      provider_ic: 12345678910,
-      provider_dic: 12345678910,
-      purchaser_ic: 12345678910,
-      purchaser_dic: 12345678910
+      provider_tax_id: 12345678910,
+      provider_tax_id2: 12345678910,
+      purchaser_tax_id: 12345678910,
+      purchaser_tax_id2: 12345678910
     )
 
     # No exceptions should be raised

@@ -24,8 +24,8 @@ module InvoicePrinter
       name: 'Invoice',
       provider: 'Provider',
       purchaser: 'Purchaser',
-      ic: 'Identification number',
-      dic: 'Identification number',
+      tax_id: 'Identification number',
+      tax_id2: 'Identification number',
       payment: 'Payment',
       payment_by_transfer: 'Payment by bank transfer on the account below:',
       payment_in_cash: 'Payment in cash',
@@ -205,17 +205,17 @@ module InvoicePrinter
           width: 240
         )
       end
-      unless @document.provider_ic.empty?
+      unless @document.provider_tax_id.empty?
         @pdf.text_box(
-          "#{@labels[:ic]}:    #{@document.provider_ic}",
+          "#{@labels[:tax_id]}:    #{@document.provider_tax_id}",
           size: 10,
           at: [10, 550 - @push_down],
           width: 240
         )
       end
-      unless @document.provider_dic.empty?
+      unless @document.provider_tax_id2.empty?
         @pdf.text_box(
-          "#{@labels[:dic]}:    #{@document.provider_dic}",
+          "#{@labels[:tax_id2]}:    #{@document.provider_tax_id2}",
           size: 10,
           at: [10, 535 - @push_down],
           width: 240
@@ -284,17 +284,17 @@ module InvoicePrinter
           width: 240
         )
       end
-      unless @document.purchaser_ic.empty?
+      unless @document.purchaser_tax_id2.empty?
         @pdf.text_box(
-          "#{@labels[:ic]}:    #{@document.purchaser_ic}",
+          "#{@labels[:tax_id2]}:    #{@document.purchaser_tax_id2}",
           size: 10,
           at: [290, 550 - @push_down],
           width: 240
         )
       end
-      unless @document.purchaser_dic.empty?
+      unless @document.purchaser_tax_id.empty?
         @pdf.text_box(
-          "#{@labels[:dic]}:    #{@document.purchaser_dic}",
+          "#{@labels[:tax_id]}:    #{@document.purchaser_tax_id}",
           size: 10,
           at: [290, 535 - @push_down],
           width: 240
