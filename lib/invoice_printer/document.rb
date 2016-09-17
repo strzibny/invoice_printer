@@ -1,3 +1,5 @@
+require 'json'
+
 module InvoicePrinter
   # Invoice and receipt representation
   #

@@ -44,6 +44,23 @@ module InvoicePrinter
         @tax3 = String(tax3)
         @amount = String(amount)
       end
+
+      def to_h
+        {
+          'name': @name,
+          'quantity': @quantity,
+          'unit': @unit,
+          'price': @price,
+          'tax': @tax,
+          'tax2': @tax2,
+          'tax3': @tax3,
+          'amount': @amount,
+        }
+      end
+
+      def to_json
+        to_h.to_json
+      end
     end
   end
 end
