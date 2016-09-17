@@ -597,11 +597,11 @@ module InvoicePrinter
       @pdf.number_pages(
         '<page> / <total>',
         start_count_at: 1,
-        page_filter: ->(page) { page != 1 },
+        #page_filter: ->(page) { page != 1 },
         at: [@pdf.bounds.right - 50, 0],
         align: :right,
         size: 12
-      )
+      ) unless @pdf.page_count == 1
     end
   end
 end
