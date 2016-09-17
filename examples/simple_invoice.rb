@@ -35,5 +35,6 @@ invoice = InvoicePrinter::Document.new(
 
 InvoicePrinter.print(
   document: invoice,
+  logo: 'example.jpg',
   file_name: 'simple_invoice.pdf'
 )

@@ -23,6 +23,7 @@ See more usecases in the `examples/` directory.
 - Configurable labels
 - Configurable font file
 - Logotype
+- Stamp & signature (as image)
 - Note
 - Well tested
 

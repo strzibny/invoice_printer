@@ -10,7 +10,8 @@ require 'invoice_printer/pdf_document'
 #   InvoicePrinter.print(
 #     document: invoice,
 #     font: 'path-to-font-file.ttf',
-#     logo: 'logo.jpg'
+#     stamp: 'stamp.jpg',
+#     logo: 'logo.jpg',
 #     file_name: 'invoice.pdf'
 #   )
 module InvoicePrinter
@@ -46,21 +47,36 @@ module InvoicePrinter
   end
 
   # Print the given InvoicePrinter::Document to PDF file named +file_name+
-  def self.print(document:, file_name:, labels: {}, font: nil, logo: nil)
+  #
+  # document - InvoicePrinter::Document object
+  # file_name - output file
+  # labels - labels to override
+  # font - font file to use
+  # stamp - stamp & signature (image)
+  # logo - logotype (image)
+  def self.print(document:, file_name:, labels: {}, font: nil, stamp: nil, logo: nil)
     PDFDocument.new(
       document: document,
       labels: labels,
       font: font,
+      stamp: stamp,
       logo: logo,
     ).print(file_name)
   end
 
   # Render the PDF document InvoicePrinter::Document to PDF directly
-  def self.render(document:, labels: {}, font: nil, logo: nil)
+  #
+  # document - InvoicePrinter::Document object
+  # labels - labels to override
+  # font - font file to use
+  # stamp - stamp & signature (image)
+  # logo - logotype (image)
+  def self.render(document:, labels: {}, font: nil, stamp: nil, logo: nil)
     PDFDocument.new(
       document: document,
       labels: labels,
       font: font,
+      stamp: stamp,
       logo: logo
     ).render
   end

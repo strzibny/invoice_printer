@@ -11,6 +11,7 @@ module InvoicePrinter
   #     document: invoice,
   #     labels: {},
   #     font: 'font.ttf',
+  #     stamp: 'stamp.jpg',
   #     logo: 'example.jpg'
   #   )
   class PDFDocument
@@ -18,7 +19,7 @@ module InvoicePrinter
     class LogoFileNotFound < StandardError; end
     class InvalidInput < StandardError; end
 
-    attr_reader :invoice, :labels, :file_name, :font, :logo
+    attr_reader :invoice, :labels, :file_name, :font, :stamp, :logo
 
     DEFAULT_LABELS = {
       name: 'Invoice',
@@ -54,11 +55,12 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Document.new, labels: {}, font: nil, logo: nil)
+    def initialize(document: Document.new, labels: {}, font: nil, stamp: nil, logo: nil)
       @document = document
       @labels = PDFDocument.labels.merge(labels)
       @pdf = Prawn::Document.new
       @font = font
+      @stamp = stamp
       @logo = logo
 
       raise InvalidInput, 'document is not a type of InvoicePrinter::Document' \
@@ -121,6 +123,7 @@ module InvoicePrinter
       build_info_box
       build_items
       build_total
+      build_stamp
       build_logo
       build_note
       build_footer
@@ -568,6 +571,14 @@ module InvoicePrinter
     def build_logo
       bottom = @document.note.empty? ? 50 : 60
       @pdf.image(@logo, at: [0, bottom]) if @logo && !@logo.empty?
+    end
+
+    # Insert a stamp (with signature) after the total table
+    def build_stamp
+      if @stamp && !@stamp.empty?
+        @pdf.move_down(15)
+        @pdf.image(@stamp, position: :right)
+      end
     end
 
     # Note at the end
