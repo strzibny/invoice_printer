@@ -22,7 +22,7 @@ See more usecases in the `examples/` directory.
 - Page numbers
 - Configurable labels
 - Configurable font file
-- Logotype
+- Logotype (as image scaled to fit 50px of height)
 - Stamp & signature (as image)
 - Note
 - Well tested

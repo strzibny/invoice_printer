@@ -569,8 +569,10 @@ module InvoicePrinter
     #
     # If a note is present, position it on top of it.
     def build_logo
-      bottom = @document.note.empty? ? 50 : 60
-      @pdf.image(@logo, at: [0, bottom]) if @logo && !@logo.empty?
+      if @logo && !@logo.empty?
+        bottom = @document.note.empty? ? 75 : 85
+        @pdf.image(@logo, at: [0, bottom], fit: [200, 50])
+      end
     end
 
     # Insert a stamp (with signature) after the total table
