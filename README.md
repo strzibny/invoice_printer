@@ -25,6 +25,7 @@ See more usecases in the `examples/` directory.
 - Configurable labels
 - Configurable font file
 - Logotype (as image scaled to fit 50px of height)
+- Background (as image)
 - Stamp & signature (as image)
 - Note
 - Well tested
@@ -165,9 +166,11 @@ InvoicePrinter.labels = {
 }
 ```
 
+### Font
+
 To support specific characters you might need to specify a TTF font to be used:
 
-```
+``` ruby
 InvoicePrinter.print(
   ...
   font: File.expand_path('../Overpass-Regular.ttf', __FILE__)
@@ -175,6 +178,17 @@ InvoicePrinter.print(
 ```
 
 We recommend you DejaVuSans and Overpass fonts.
+
+### Background
+
+To include a background image you might need to create the file according to the size and resolution to be used (see: [examples/background.jpg](https://github.com/strzibny/invoice_printer/blob/master/examples/background.jpg)):
+
+``` ruby
+InvoicePrinter.print(
+  ...
+  background: File.expand_path('../background.jpg', __FILE__)
+)
+```
 
 ## Copyright
 
