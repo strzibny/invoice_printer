@@ -8,11 +8,9 @@ class BackgroundTest < Minitest::Test
   end
 
   def test_background_render
-    assert_silent do
-      InvoicePrinter.render(document: @invoice, background: './examples/background.jpg')
-      InvoicePrinter.render(document: @invoice, background: nil)
-      InvoicePrinter.render(document: @invoice)
-    end
+    InvoicePrinter.render(document: @invoice, background: './examples/background.jpg')
+    InvoicePrinter.render(document: @invoice, background: nil)
+    InvoicePrinter.render(document: @invoice)
   end
 
   def test_missing_background_raises_an_exception
