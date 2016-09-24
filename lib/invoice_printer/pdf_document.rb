@@ -55,10 +55,10 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Document.new, labels: {}, font: nil, stamp: nil, logo: nil)
+    def initialize(document: Document.new, labels: {}, font: nil, stamp: nil, logo: nil, background: nil)
       @document = document
       @labels = PDFDocument.labels.merge(labels)
-      @pdf = Prawn::Document.new
+      @pdf = Prawn::Document.new(background: background)
       @font = font
       @stamp = stamp
       @logo = logo

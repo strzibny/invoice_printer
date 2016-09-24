@@ -54,13 +54,14 @@ module InvoicePrinter
   # font - font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
-  def self.print(document:, file_name:, labels: {}, font: nil, stamp: nil, logo: nil)
+  def self.print(document:, file_name:, labels: {}, font: nil, stamp: nil, logo: nil, background: nil)
     PDFDocument.new(
       document: document,
       labels: labels,
       font: font,
       stamp: stamp,
       logo: logo,
+      background: background
     ).print(file_name)
   end
 
@@ -71,13 +72,14 @@ module InvoicePrinter
   # font - font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
-  def self.render(document:, labels: {}, font: nil, stamp: nil, logo: nil)
+  def self.render(document:, labels: {}, font: nil, stamp: nil, logo: nil, background: nil)
     PDFDocument.new(
       document: document,
       labels: labels,
       font: font,
       stamp: stamp,
-      logo: logo
+      logo: logo,
+      background: background
     ).render
   end
 end

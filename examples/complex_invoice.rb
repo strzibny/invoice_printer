@@ -63,5 +63,6 @@ InvoicePrinter.print(
   labels: labels,
   stamp: 'stamp.png',
   logo: 'prawn.png',
-  file_name: 'complex_invoice.pdf'
+  file_name: 'complex_invoice.pdf',
+  background: 'background.jpg'
 )
