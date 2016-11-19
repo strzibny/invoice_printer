@@ -75,6 +75,6 @@ InvoicePrinter.print(
   document: invoice,
   labels: labels,
   font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
-  logo: 'example.jpg',
+  logo: 'prawn.png',
   file_name: 'czech_invoice.pdf'
 )
