@@ -181,12 +181,12 @@ We recommend you DejaVuSans and Overpass fonts.
 
 ### Background
 
-To include a background image you might need to create the file according to the size and resolution to be used (see: [examples/background.jpg](https://github.com/strzibny/invoice_printer/blob/master/examples/background.jpg)):
+To include a background image you might need to create the file according to the size and resolution to be used (see: [examples/background.png](https://github.com/strzibny/invoice_printer/blob/master/examples/background.png)):
 
 ``` ruby
 InvoicePrinter.print(
   ...
-  background: File.expand_path('../background.jpg', __FILE__)
+  background: File.expand_path('../background.png', __FILE__)
 )
 ```
 

@@ -8,7 +8,7 @@ class BackgroundTest < Minitest::Test
   end
 
   def test_background_render
-    InvoicePrinter.render(document: @invoice, background: './examples/background.jpg')
+    InvoicePrinter.render(document: @invoice, background: './examples/background.png')
     InvoicePrinter.render(document: @invoice, background: nil)
     InvoicePrinter.render(document: @invoice)
   end
