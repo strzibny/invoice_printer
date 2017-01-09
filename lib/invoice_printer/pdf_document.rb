@@ -475,7 +475,8 @@ module InvoicePrinter
           5 => :right,
           6 => :right,
           7 => :right
-        }
+        },
+        font_size: 10
       }
 
       @pdf.table(items, styles) unless items.empty?
