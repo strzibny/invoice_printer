@@ -130,7 +130,10 @@ module InvoicePrinter
       build_footer
     end
 
-    # Build the document name and number
+    # Build the document name and number at the top:
+    #
+    #   NAME                      NO. 901905374583579
+    #   Sublabel name
     def build_header
       @pdf.text_box(
         @labels[:name],
@@ -139,6 +142,17 @@ module InvoicePrinter
         width: 300,
         align: :left
       )
+
+      if @labels[:sublabels][:name] && !@labels[:sublabels][:name].empty?
+        @pdf.text_box(
+          @labels[:sublabels][:name],
+          size: 12,
+          at: [0, 720 - @push_down - 22],
+          width: 300,
+          align: :left
+        )
+      end
+
       @pdf.text_box(
         @document.number,
         size: 20,
@@ -147,6 +161,10 @@ module InvoicePrinter
         align: :right
       )
       @pdf.move_down(250)
+
+      if @labels[:sublabels][:name] && !@labels[:sublabels][:name].empty?
+        @pdf.move_down(12)
+      end
     end
 
     # Build the following provider box:
