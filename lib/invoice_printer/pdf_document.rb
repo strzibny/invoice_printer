@@ -169,28 +169,34 @@ module InvoicePrinter
 
     # Build the following provider box:
     #
-    #    -------------------------------------
-    #   | Provider                            |
-    #   | PROVIDER co.                        |
-    #   | 5th Street                          |
-    #   | 747 27    City                      |
-    #   |           Part of the city          |
-    #   |                                     |
-    #   | Identification number: Number       |
-    #   | Identification number: Number 2     |
-    #    -------------------------------------
+    #    ------------------------------------------
+    #   | Provider / Optinal provider sublabel     |
+    #   | PROVIDER co.                             |
+    #   | 5th Street                               |
+    #   | 747 27    City                           |
+    #   |           Part of the city               |
+    #   |                                          |
+    #   | Identification number: Number            |
+    #   | Identification number: Number 2          |
+    #    ------------------------------------------
     #
     def build_provider_box
-      @pdf.text_box(
-        @labels[:provider],
-        size: 10,
-        at: [10, 660 - @push_down],
-        width: 240
-      )
+      provider = if @labels[:sublabels][:provider] && !@labels[:sublabels][:provider].empty?
+                   "#{@labels[:provider]}   /   #{@labels[:sublabels][:provider]}"
+                 else
+                   @labels[:provider]
+                 end
+
       @pdf.text_box(
         @document.provider_name,
         size: 14,
         at: [10, 640 - @push_down],
+        width: 240
+      )
+      @pdf.text_box(
+        provider,
+        size: 10,
+        at: [10, 660 - @push_down],
         width: 240
       )
       @pdf.text_box(
@@ -248,20 +254,26 @@ module InvoicePrinter
 
     # Build the following purchaser box:
     #
-    #    -------------------------------------
-    #   | Purchaser                           |
-    #   | PURCHASER co.                       |
-    #   | 5th Street                          |
-    #   | 747 27    City                      |
-    #   |           Part of the city          |
-    #   |                                     |
-    #   | Identification number: Number       |
-    #   | Identification number: Number 2     |
-    #    -------------------------------------
+    #    -------------------------------------------
+    #   | Purchaser / Optinal purchaser sublabel   |
+    #   | PURCHASER co.                            |
+    #   | 5th Street                               |
+    #   | 747 27    City                           |
+    #   |           Part of the city               |
+    #   |                                          |
+    #   | Identification number: Number            |
+    #   | Identification number: Number 2          |
+    #    ------------------------------------------
     #
     def build_purchaser_box
+      purchaser = if @labels[:sublabels][:purchaser] && !@labels[:sublabels][:purchaser].empty?
+                    "#{@labels[:purchaser]}   /   #{@labels[:sublabels][:purchaser]}"
+                  else
+                    @labels[:purchaser]
+                  end
+
       @pdf.text_box(
-        @labels[:purchaser],
+        purchaser,
         size: 10,
         at: [290, 660 - @push_down],
         width: 240
