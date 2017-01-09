@@ -44,7 +44,8 @@ module InvoicePrinter
       tax3: 'Tax 3',
       amount: 'Amount',
       subtotal: 'Subtotal',
-      total: 'Total'
+      total: 'Total',
+      sublabels: {}
     }
 
     def self.labels
@@ -438,13 +439,22 @@ module InvoicePrinter
     # Build the following table for document items:
     #
     #   =================================================================
-    #   |Item | Quantity | Unit | Price per item | Tax | Total per item |
+    #   |Item |  Quantity|  Unit|  Price per item|  Tax|  Total per item|
     #   |-----|----------|------|----------------|-----|----------------|
-    #   | x   | 2        | hr   | $ 2            | $1  | $ 4            |
+    #   |x    |         2|    hr|              $2|   $1|              $4|
     #   =================================================================
     #
     # If a specific column miss data, it's omittted.
-    # Tax2 and tax3 fields can be added as well if necessary.
+    # tax2 and tax3 fields can be added as well if necessary.
+    #
+    # Using sublabels one can change the table to look as:
+    #
+    #   =================================================================
+    #   |Item |  Quantity|  Unit|  Price per item|  Tax|  Total per item|
+    #   |it.  |      nom.|   un.|            ppi.|   t.|            tpi.|
+    #   |-----|----------|------|----------------|-----|----------------|
+    #   |x    |         2|    hr|              $2|   $1|              $4|
+    #   =================================================================
     def build_items
       @pdf.move_down(25 + @push_items_table + @push_down)
 
@@ -506,15 +516,24 @@ module InvoicePrinter
     # Include only relevant headers
     def build_items_header(items_params)
       headers = []
-      headers << { text: @labels[:item] } if items_params[:names]
-      headers << { text: @labels[:quantity] } if items_params[:quantities]
-      headers << { text: @labels[:unit] } if items_params[:units]
-      headers << { text: @labels[:price_per_item] } if items_params[:prices]
-      headers << { text: @labels[:tax] } if items_params[:taxes]
-      headers << { text: @labels[:tax2] } if items_params[:taxes2]
-      headers << { text: @labels[:tax3] } if items_params[:taxes3]
-      headers << { text: @labels[:amount] } if items_params[:amounts]
+      headers << { text: label_with_sublabel(:item) } if items_params[:names]
+      headers << { text: label_with_sublabel(:quantity) } if items_params[:quantities]
+      headers << { text: label_with_sublabel(:unit) } if items_params[:units]
+      headers << { text: label_with_sublabel(:price_per_item) } if items_params[:prices]
+      headers << { text: label_with_sublabel(:tax) } if items_params[:taxes]
+      headers << { text: label_with_sublabel(:tax2) } if items_params[:taxes2]
+      headers << { text: label_with_sublabel(:tax3) } if items_params[:taxes3]
+      headers << { text: label_with_sublabel(:amount) } if items_params[:amounts]
       headers
+    end
+
+    # This merge a label with its sublabel on a new line
+    def label_with_sublabel(symbol)
+      value = @labels[symbol]
+      if @labels[:sublabels][symbol] && !@labels[:sublabels][symbol].empty?
+        value += "\n#{@labels[:sublabels][symbol]}"
+      end
+      value
     end
 
     # Build the following summary:

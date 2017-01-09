@@ -38,6 +38,14 @@ module InvoicePrinter
   #     price_per_item: 'Price per item',
   #     amount: 'Amount'
   #   }
+  #
+  # You can denote the details or translations of labels by using sublabels.
+  # To set a sublabel for a label, just assign it under +sublabels+ e.g.
+  #
+  #   InvoicePrinter.labels = {
+  #     ...
+  #     sublabels: { tax: 'Daň', amount: 'Celkem' }
+  #   }
   def self.labels=(labels)
     PDFDocument.labels = labels
   end
