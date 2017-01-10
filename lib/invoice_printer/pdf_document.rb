@@ -430,10 +430,15 @@ module InvoicePrinter
     #
     def build_info_box
       issue_date_present = !@document.issue_date.empty?
-      due_date_present = !@document.due_date.empty?
+      issue_date_label = if @labels[:sublabels][:issue_date] && !@labels[:sublabels][:issue_date].empty?
+                           "#{@labels[:issue_date]} / #{@labels[:sublabels][:issue_date]}:"
+                         else
+                           "#{@labels[:issue_date]}:"
+                         end
+
       if issue_date_present
         @pdf.text_box(
-          "#{@labels[:issue_date]}:",
+          issue_date_label,
           size: 10,
           at: [290, 498 - @push_down],
           width: 240
@@ -442,13 +447,21 @@ module InvoicePrinter
           @document.issue_date,
           size: 10,
           at: [390, 498 - @push_down],
-          width: 240
+          align: :right
         )
       end
+
+      due_date_present = !@document.due_date.empty?
+      due_date_label = if @labels[:sublabels][:due_date] && !@labels[:sublabels][:due_date].empty?
+                         "#{@labels[:due_date]} / #{@labels[:sublabels][:due_date]}:"
+                       else
+                         "#{@labels[:due_date]}:"
+                       end
+
       if due_date_present
         position = issue_date_present ? 483 : 498
         @pdf.text_box(
-          "#{@labels[:due_date]}:",
+          due_date_label,
           size: 10,
           at: [290, position - @push_down],
           width: 240
@@ -457,7 +470,7 @@ module InvoicePrinter
           @document.due_date,
           size: 10,
           at: [390, position - @push_down],
-          width: 240
+          align: :right
         )
       end
       if issue_date_present || due_date_present
