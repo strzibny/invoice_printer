@@ -594,10 +594,14 @@ module InvoicePrinter
       @pdf.move_down(25)
 
       items = []
-      items << ["#{@labels[:subtotal]}:", @document.subtotal] unless @document.subtotal.empty?
-      items << ["#{@labels[:tax]}:", @document.tax] unless @document.tax.empty?
-      items << ["#{@labels[:tax2]}:", @document.tax2] unless @document.tax2.empty?
-      items << ["#{@labels[:tax3]}:", @document.tax3] unless @document.tax3.empty?
+      items << ["#{@labels[:subtotal]}:#{build_sublabel_for_total_table(:subtotal)}", @document.subtotal] \
+        unless @document.subtotal.empty?
+      items << ["#{@labels[:tax]}:#{build_sublabel_for_total_table(:tax)}", @document.tax] \
+        unless @document.tax.empty?
+      items << ["#{@labels[:tax2]}:#{build_sublabel_for_total_table(:tax2)}", @document.tax2] \
+        unless @document.tax2.empty?
+      items << ["#{@labels[:tax3]}:#{build_sublabel_for_total_table(:tax3)}", @document.tax3] \
+        unless @document.tax3.empty?
 
       width = [
         "#{@labels[:subtotal]}#{@document.subtotal}".size,
@@ -620,12 +624,33 @@ module InvoicePrinter
 
       @pdf.move_down(15)
 
-      @pdf.text(
-        "#{@labels[:total]}:   #{@document.total}",
-        size: 16,
-        align: :right,
-        style: :bold
-      )
+      unless @document.total.empty?
+        @pdf.text(
+          "#{@labels[:total]}:   #{@document.total}",
+          size: 16,
+          align: :right,
+          style: :bold
+        )
+
+        @pdf.move_down(5)
+
+        if @labels[:sublabels][:total] && !@labels[:sublabels][:total].empty?
+          @pdf.text(
+            "#{@labels[:sublabels][:total]}:   #{@document.total}",
+            size: 12,
+            align: :right
+          )
+        end
+      end
+    end
+
+    # Return sublabel on a new line or empty string
+    def build_sublabel_for_total_table(sublabel)
+      if @labels[:sublabels][sublabel] && !@labels[:sublabels][sublabel].empty?
+        "\n#{@labels[:sublabels][sublabel]}:"
+      else
+        ''
+      end
     end
 
     # Insert a logotype at the left bottom of the document
