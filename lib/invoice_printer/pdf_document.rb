@@ -376,26 +376,28 @@ module InvoicePrinter
           "#{@labels[:account_number]}:",
           size: 10,
           at: [10, 483 - @push_down],
-          width: 240
+          width: 140
         )
         @pdf.text_box(
           @document.bank_account_number,
           size: 10,
-          at: [75, 483 - @push_down],
-          width: 240
+          at: [21, 483 - @push_down],
+          width: 240,
+          align: :right
         )
         unless @document.account_swift.empty?
           @pdf.text_box(
             "#{@labels[:swift]}:",
             size: 10,
             at: [10, 468 - @push_down],
-            width: 240
+            width: 140
           )
           @pdf.text_box(
             @document.account_swift,
             size: 10,
-            at: [75, 468 - @push_down],
-            width: 240
+            at: [21, 468 - @push_down],
+            width: 240,
+            align: :right
           )
           box_height += 15
           push_iban = 15
@@ -406,13 +408,14 @@ module InvoicePrinter
             "#{@labels[:iban]}:",
             size: 10,
             at: [10, 468 - push_iban - @push_down],
-            width: 240
+            width: 140
           )
           @pdf.text_box(
             @document.account_iban,
             size: 10,
-            at: [75, 468 - push_iban - @push_down],
-            width: 240
+            at: [21, 468 - push_iban - @push_down],
+            width: 240,
+            align: :right
           )
           box_height += 15
           @push_items_table += 15
