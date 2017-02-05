@@ -360,6 +360,7 @@ module InvoicePrinter
     def build_payment_method_box
 
       # Match the height of next box if needed
+      # TODO: it's smaller without sublabels
       if used?(@document.issue_date) || used?(@document.due_date)
         min_height = (used?(@document.issue_date) && used?(@document.due_date)) ? 75 : 60
       end
@@ -381,6 +382,7 @@ module InvoicePrinter
       else
         @payment_box_height = 60
         @push_iban = 0
+        sublabel_change = 0
         @pdf.text_box(
           @labels[:payment_by_transfer],
           size: 10,
@@ -388,7 +390,7 @@ module InvoicePrinter
           width: 240
         )
         @pdf.text_box(
-          "#{@labels[:account_number]}:",
+          "#{@labels[:account_number]}",
           size: 11,
           at: [10, 483 - @push_down],
           width: 140
@@ -400,66 +402,84 @@ module InvoicePrinter
           width: 240,
           align: :right
         )
-
-        @pdf.text_box(
-          "#{@labels[:sublabels][:account_number]}:",
-          size: 10,
-          at: [10, 468 - @push_down],
-          width: 340
-        )
+        if used? @labels[:sublabels][:account_number]
+          @pdf.text_box(
+            "#{@labels[:sublabels][:account_number]}",
+            size: 10,
+            at: [10, 468 - @push_down],
+            width: 340
+          )
+        else
+          @payment_box_height -= 10
+          sublabel_change -= 10
+        end
         unless @document.account_swift.empty?
           @pdf.text_box(
-            "#{@labels[:swift]}:",
+            "#{@labels[:swift]}",
             size: 11,
-            at: [10, 453 - @push_down],
+            at: [10, 453 - @push_down - sublabel_change],
             width: 140
           )
           @pdf.text_box(
             @document.account_swift,
             size: 13,
-            at: [21, 453 -  @push_down],
+            at: [21, 453 -  @push_down - sublabel_change],
             width: 240,
             align: :right
           )
-          @pdf.text_box(
-            "#{@labels[:sublabels][:swift]}:",
-            size: 10,
-            at: [10, 438 - @push_down],
-            width: 340
-          )
+
+          if used? @labels[:sublabels][:swift]
+            @pdf.text_box(
+              "#{@labels[:sublabels][:swift]}",
+              size: 10,
+              at: [10, 438 - @push_down - sublabel_change],
+              width: 340
+            )
+            @push_items_table += 10
+          else
+            @payment_box_height -= 10
+            sublabel_change -= 10
+          end
 
           @payment_box_height += 30
           @push_iban = 30
-          @push_items_table += 30
+          @push_items_table += 20
         end
         unless @document.account_iban.empty?
           @pdf.text_box(
-            "#{@labels[:iban]}:",
+            "#{@labels[:iban]}",
             size: 11,
-            at: [10, 453 - @push_iban - @push_down],
+            at: [10, 453 - @push_iban - @push_down - sublabel_change],
             width: 140
           )
           @pdf.text_box(
             @document.account_iban,
             size: 13,
-            at: [21, 453 - @push_iban - @push_down],
+            at: [21, 453 - @push_iban - @push_down - sublabel_change],
             width: 240,
             align: :right
           )
-          @pdf.text_box(
-            "#{@labels[:sublabels][:iban]}:",
-            size: 10,
-            at: [10, 438 - @push_iban - @push_down],
-            width: 340
-          )
+
+          if used? @labels[:sublabels][:iban]
+            @pdf.text_box(
+              "#{@labels[:sublabels][:iban]}",
+              size: 10,
+              at: [10, 438 - @push_iban - @push_down - sublabel_change],
+              width: 340
+            )
+            @push_items_table += 10
+          else
+            @payment_box_height -= 10
+          end
 
           @payment_box_height += 30
-          @push_items_table += 30
+          @push_items_table += 20
         end
         if min_height > @payment_box_height
           @payment_box_height = min_height
           @push_items_table = 15
         end
+
         @pdf.stroke_rounded_rectangle([0, 508 - @push_down], 270, @payment_box_height, 6)
       end
     end
@@ -505,8 +525,8 @@ module InvoicePrinter
       due_date_present = !@document.due_date.empty?
 
       if due_date_present
-        position = issue_date_present ? 483 : 498
-        position -= 15 if used? @labels[:sublabels][:issue_date]
+        position = issue_date_present ? 478 : 493
+        position -= 10 if used? @labels[:sublabels][:issue_date]
 
         @pdf.text_box(
           @labels[:due_date],
@@ -523,8 +543,8 @@ module InvoicePrinter
       end
 
       if used? @labels[:sublabels][:due_date]
-        position = issue_date_present ? 468 : 483
-        position -= 15 if used? @labels[:sublabels][:issue_date]
+        position = issue_date_present ? 463 : 478
+        position -= 10 if used? @labels[:sublabels][:issue_date]
 
         @pdf.text_box(
           @labels[:sublabels][:due_date],
