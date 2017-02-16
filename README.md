@@ -16,7 +16,7 @@ See more usecases in the `examples/` directory.
 ## Features
 
 - Invoice/document name and number
-- Purchaser and provider boxes with addresses and identificaton numbers
+- Purchaser and provider boxes with addresses and identification numbers
 - Payment method box showing banking details including SWIFT and IBAN fields
 - Issue/due dates box
 - Configurable items' table with item description, quantity, unit, price per unit, tax and item's total amount fields
