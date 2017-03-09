@@ -358,6 +358,7 @@ module InvoicePrinter
     # If the bank account number is not provided include a note about payment
     # in cash.
     def build_payment_method_box
+      @push_down -= 3
 
       # Match the height of next box if needed
       # TODO: it's smaller without sublabels
@@ -443,7 +444,7 @@ module InvoicePrinter
 
           @payment_box_height += 30
           @push_iban = 30
-          @push_items_table += 20
+          @push_items_table += 18
         end
         unless @document.account_iban.empty?
           @pdf.text_box(
@@ -473,11 +474,15 @@ module InvoicePrinter
           end
 
           @payment_box_height += 30
-          @push_items_table += 20
+          @push_items_table += 18
         end
         if min_height > @payment_box_height
           @payment_box_height = min_height
-          @push_items_table = 15
+          @push_items_table += 25
+        end
+
+        if !@document.account_swift.empty? && !@document.account_iban.empty?
+          @push_items_table += 2
         end
 
         @pdf.stroke_rounded_rectangle([0, 508 - @push_down], 270, @payment_box_height, 6)
