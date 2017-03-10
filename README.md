@@ -124,7 +124,7 @@ invoice = InvoicePrinter::Document.new(
 If you want to use InvoicePrinter for printing PDF documents directly from Rails
 actions, you can:
 
-```
+```ruby
 # GET /invoices/1
 def show       
   respond_to do |format|
@@ -194,7 +194,7 @@ InvoicePrinter.labels = {
 
 You can also use sublabels feature to provide the document in two languages:
 
-```
+```ruby
 labels = {
   ...
 }
