@@ -362,9 +362,11 @@ module InvoicePrinter
 
       # Match the height of next box if needed
       # TODO: it's smaller without sublabels
+      min_height = 60
       if used?(@document.issue_date) || used?(@document.due_date)
         min_height = (used?(@document.issue_date) && used?(@document.due_date)) ? 75 : 60
       end
+      @payment_box_height = min_height
 
       if @document.bank_account_number.empty?
         @pdf.text_box(

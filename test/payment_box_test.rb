@@ -14,8 +14,8 @@ class PaymentBoxTest < Minitest::Test
 
     assert_equal true, pdf_analysis.strings.include?('Payment in cash')
     assert_equal false, pdf_analysis.strings.include?('Payment by bank transfer on the account below:')
-    assert_equal false, pdf_analysis.strings.include?('SWIFT:')
-    assert_equal false, pdf_analysis.strings.include?('IBAN:')
+    assert_equal false, pdf_analysis.strings.include?('SWIFT')
+    assert_equal false, pdf_analysis.strings.include?('IBAN')
   end
 
   def test_setting_only_local_bank_account_number
@@ -31,8 +31,8 @@ class PaymentBoxTest < Minitest::Test
     assert_equal false, pdf_analysis.strings.include?('Payment in cash')
     assert_equal true, pdf_analysis.strings.include?('Payment by bank transfer on the account below:')
     assert_equal true, pdf_analysis.strings.include?('218291829/0100')
-    assert_equal false, pdf_analysis.strings.include?('SWIFT:')
-    assert_equal false, pdf_analysis.strings.include?('IBAN:')
+    assert_equal false, pdf_analysis.strings.include?('SWIFT')
+    assert_equal false, pdf_analysis.strings.include?('IBAN')
   end
 
   def test_setting_bank_account_number_and_iban
@@ -48,8 +48,8 @@ class PaymentBoxTest < Minitest::Test
     assert_equal false, pdf_analysis.strings.include?('Payment in cash')
     assert_equal true, pdf_analysis.strings.include?('Payment by bank transfer on the account below:')
     assert_equal true, pdf_analysis.strings.include?('218291829/0100')
-    assert_equal false, pdf_analysis.strings.include?('SWIFT:')
-    assert_equal true, pdf_analysis.strings.include?('IBAN:')
+    assert_equal false, pdf_analysis.strings.include?('SWIFT')
+    assert_equal true, pdf_analysis.strings.include?('IBAN')
     assert_equal true, pdf_analysis.strings.include?('SAMPLE_IBAN')
   end
 
@@ -66,9 +66,9 @@ class PaymentBoxTest < Minitest::Test
     assert_equal false, pdf_analysis.strings.include?('Payment in cash')
     assert_equal true, pdf_analysis.strings.include?('Payment by bank transfer on the account below:')
     assert_equal true, pdf_analysis.strings.include?('218291829/0100')
-    assert_equal true, pdf_analysis.strings.include?('SWIFT:')
+    assert_equal true, pdf_analysis.strings.include?('SWIFT')
     assert_equal true, pdf_analysis.strings.include?('SAMPLE_SWIFT')
-    assert_equal false, pdf_analysis.strings.include?('IBAN:')
+    assert_equal false, pdf_analysis.strings.include?('IBAN')
   end
 
   def test_setting_bank_account_number_iban_and_swift
@@ -84,9 +84,9 @@ class PaymentBoxTest < Minitest::Test
     assert_equal false, pdf_analysis.strings.include?('Payment in cash')
     assert_equal true, pdf_analysis.strings.include?('Payment by bank transfer on the account below:')
     assert_equal true, pdf_analysis.strings.include?('218291829/0100')
-    assert_equal true, pdf_analysis.strings.include?('SWIFT:')
+    assert_equal true, pdf_analysis.strings.include?('SWIFT')
     assert_equal true, pdf_analysis.strings.include?('SAMPLE_SWIFT')
-    assert_equal true, pdf_analysis.strings.include?('IBAN:')
+    assert_equal true, pdf_analysis.strings.include?('IBAN')
     assert_equal true, pdf_analysis.strings.include?('SAMPLE_IBAN')
   end
 end

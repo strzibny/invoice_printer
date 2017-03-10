@@ -40,8 +40,8 @@ module InvoicePrinter
     # Strings representaion of purchaser's box
     def purchaser_box
       strings = []
-      strings << @labels[:purchaser]
       strings << @document.purchaser_name
+      strings << @labels[:purchaser]
       strings << "#{@document.purchaser_street}    #{@document.purchaser_street_number}".strip
       strings << @document.purchaser_postcode
       strings << @document.purchaser_city
@@ -62,11 +62,11 @@ module InvoicePrinter
       else
         strings << @labels[:payment_by_transfer]
       end
-      strings << "#{@labels[:account_number]}:"
+      strings << "#{@labels[:account_number]}"
       strings << @document.bank_account_number
-      strings << "#{@labels[:swift]}:"
+      strings << "#{@labels[:swift]}"
       strings << @document.account_swift
-      strings << "#{@labels[:iban]}:"
+      strings << "#{@labels[:iban]}"
       strings << @document.account_iban
       strings
     end
@@ -74,9 +74,9 @@ module InvoicePrinter
     # Strings representaion of dates box
     def dates_box
       strings = []
-      strings << "#{@labels[:issue_date]}:"
+      strings << "#{@labels[:issue_date]}"
       strings << @document.issue_date
-      strings << "#{@labels[:due_date]}:"
+      strings << "#{@labels[:due_date]}"
       strings << @document.due_date
       strings
     end

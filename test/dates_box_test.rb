@@ -12,8 +12,8 @@ class DatesBoxTest < Minitest::Test
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
-    assert_equal true, pdf_analysis.strings.include?('Issue date:')
-    assert_equal true, pdf_analysis.strings.include?('Due date:')
+    assert_equal true, pdf_analysis.strings.include?('Issue date')
+    assert_equal true, pdf_analysis.strings.include?('Due date')
   end
 
   def test_setting_only_issue_date
@@ -25,8 +25,8 @@ class DatesBoxTest < Minitest::Test
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
-    assert_equal true, pdf_analysis.strings.include?('Issue date:')
-    assert_equal false, pdf_analysis.strings.include?('Due date:')
+    assert_equal true, pdf_analysis.strings.include?('Issue date')
+    assert_equal false, pdf_analysis.strings.include?('Due date')
   end
 
   def test_setting_only_due_date
@@ -38,8 +38,8 @@ class DatesBoxTest < Minitest::Test
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
-    assert_equal false, pdf_analysis.strings.include?('Issue date:')
-    assert_equal true, pdf_analysis.strings.include?('Due date:')
+    assert_equal false, pdf_analysis.strings.include?('Issue date')
+    assert_equal true, pdf_analysis.strings.include?('Due date')
   end
 
   def test_setting_no_dates
@@ -51,7 +51,7 @@ class DatesBoxTest < Minitest::Test
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
-    assert_equal false, pdf_analysis.strings.include?('Issue date:')
-    assert_equal false, pdf_analysis.strings.include?('Due date:')
+    assert_equal false, pdf_analysis.strings.include?('Issue date')
+    assert_equal false, pdf_analysis.strings.include?('Due date')
   end
 end
