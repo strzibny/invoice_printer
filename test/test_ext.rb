@@ -23,8 +23,8 @@ module InvoicePrinter
     # Strings representaion of provider's box
     def provider_box
       strings = []
-      strings << @labels[:provider]
       strings << @document.provider_name
+      strings << @labels[:provider]
       strings << "#{@document.provider_street}    #{@document.provider_street_number}".strip
       strings << @document.provider_postcode
       strings << @document.provider_city
