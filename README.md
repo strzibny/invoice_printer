@@ -65,6 +65,12 @@ InvoicePrinter.print(
   document: invoice,
   file_name: 'invoice.pdf'
 )
+
+# Or render PDF directly
+InvoicePrinter.render(
+  document: invoice,
+  file_name: 'invoice.pdf'
+)
 ```
 
 Here is an full example for creating the document object:
@@ -113,6 +119,27 @@ invoice = InvoicePrinter::Document.new(
   note: 'A note...'
 )
 ```
+
+### Ruby on Rails
+
+If you want to use InvoicePrinter for printing PDF documents directly from Rails
+actions, you can:
+
+```
+# GET /invoices/1
+def show       
+  respond_to do |format|
+    format.pdf {
+      @pdf = InvoicePrinter.render(
+        document: invoice
+      )
+      send_data @pdf, type: 'application/pdf', disposition: 'inline'
+    }
+  end
+end
+```
+
+## Customization
 
 ### Localization
 
