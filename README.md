@@ -68,8 +68,7 @@ InvoicePrinter.print(
 
 # Or render PDF directly
 InvoicePrinter.render(
-  document: invoice,
-  file_name: 'invoice.pdf'
+  document: invoice
 )
 ```
 
