@@ -126,7 +126,9 @@ actions, you can:
 
 ```ruby
 # GET /invoices/1
-def show       
+def show
+  invoice = InvoicePrinter::Document.new(...)
+
   respond_to do |format|
     format.pdf {
       @pdf = InvoicePrinter.render(
@@ -253,6 +255,6 @@ InvoicePrinter.print(
 
 ## Copyright
 
-Copyright 2015-2016 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
+Copyright 2015-2017 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
 
 Originally extracted from and created for an open source single-entry invoicing app [InvoiceBar](https://github.com/strzibny/invoicebar).
