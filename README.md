@@ -22,7 +22,7 @@ See more usecases in the `examples/` directory.
 - Configurable items' table with item description, quantity, unit, price per unit, tax and item's total amount fields
 - Final subtotal/tax/total info box
 - Page numbers
-- Configurable labels
+- Configurable labels & sublabels (optional little labels)
 - Configurable font file
 - Logotype (as image scaled to fit 50px of height)
 - Background (as image)
@@ -165,6 +165,41 @@ InvoicePrinter.labels = {
   total: 'Total'
 }
 ```
+
+You can also use sublabels feature to provide the document in two languages:
+
+```
+labels = {
+  ...
+}
+
+sublabels = {
+  name: 'Faktura',
+  provider: 'Prodejce',
+  purchaser: 'Kupující',
+  tax_id: 'IČ',
+  tax_id2: 'DIČ',
+  payment: 'Forma úhrady',
+  payment_by_transfer: 'Platba na následující účet:',
+  account_number: 'Číslo účtu',
+  issue_date: 'Datum vydání',
+  due_date: 'Datum splatnosti',
+  item: 'Položka',
+  quantity: 'Počet',
+  unit: 'MJ',
+  price_per_item: 'Cena za položku',
+  amount: 'Celkem bez daně',
+  subtotal: 'Cena bez daně',
+  tax: 'DPH 21 %',
+  total: 'Celkem'
+}
+
+labels.merge!({ sublabels: sublabels })
+
+...
+```
+
+Now the document will have a little sublabels next to the original labels in Czech.
 
 ### Font
 
