@@ -9,7 +9,7 @@ designed only to provide an interface to build the PDF version of these document
 
 <p align="center">
   <a href="https://github.com/strzibny/invoice_printer/raw/master/examples/promo.pdf">
-    <img src="./examples/picture.jpg" width="368" />
+    <img src="./examples/picture.jpg" width="580" />
   </a>
 </p>
 
