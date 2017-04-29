@@ -12,7 +12,10 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/strzibny/invoice_printer'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  # Remove .pdf files as they take a lot of space
+  package_files = `git ls-files -z`.split("\x0").reject{ |file| file.match /.*\.pdf/ }
+
+  spec.files         = package_files
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
