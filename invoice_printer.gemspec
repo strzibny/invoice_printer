@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'json', '~> 2.1.0'
+  spec.add_dependency 'json', '~> 2.1'
   spec.add_dependency 'prawn', '2.1.0'
   spec.add_dependency 'prawn-layout', '0.8.4'
 
