@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'json'
-  spec.add_dependency 'prawn'
+  spec.add_dependency 'prawn', '2.0.2'
   spec.add_dependency 'prawn-layout'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
