@@ -6,6 +6,7 @@ class ExamplesTest < Minitest::Test
     examples_directory = File.expand_path('../../examples', __FILE__)
     @examples = Dir.glob("#{examples_directory}/*.rb")
     @test_dir = File.absolute_path('./tmp/invoice_printer_examples')
+    FileUtils.mkdir_p @test_dir
     FileUtils.copy_entry examples_directory, @test_dir
   end
 
