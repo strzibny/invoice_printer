@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Josef Strzibny']
   spec.email         = ['strzibny@strzibny.name']
   spec.summary       = 'Super simple PDF invoicing in pure Ruby'
-  spec.description   = 'Super simple PDF invoicing in pure Ruby (based on Prawn library).'
+  spec.description   = 'Super simple and fast PDF invoicing in pure Ruby (based on Prawn library).'
   spec.homepage      = 'https://github.com/strzibny/invoice_printer'
   spec.license       = 'MIT'
 
