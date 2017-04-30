@@ -13,7 +13,9 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   # Remove .pdf files as they take a lot of space
-  package_files = `git ls-files -z`.split("\x0").reject{ |file| file.match /.*\.pdf/ }
+  package_files = `git ls-files -z`.split("\x0")
+                    .reject{ |file| file.match /.*\.pdf/ }
+                    .reject{ |file| file.match /docs\/.*/ }
 
   spec.files         = package_files
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
