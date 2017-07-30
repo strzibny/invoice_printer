@@ -27,34 +27,50 @@ module InvoicePrinter
                   :tax3,
                   :amount
 
-      def initialize(name: nil,
+      class << self
+        def from_json(json)
+          new(
+            name:     String(json['name']),
+            quantity: String(json['quantity']),
+            unit:     String(json['unit']),
+            price:    String(json['price']),
+            tax:      String(json['tax']),
+            tax2:     String(json['tax2']),
+            tax3:     String(json['tax3']),
+            amount:   String(json['amount'])
+          )
+        end
+      end
+
+      def initialize(name:     nil,
                      quantity: nil,
-                     unit: nil,
-                     price: nil,
-                     tax: nil,
-                     tax2: nil,
-                     tax3: nil,
-                     amount: nil)
-        @name = String(name)
+                     unit:     nil,
+                     price:    nil,
+                     tax:      nil,
+                     tax2:     nil,
+                     tax3:     nil,
+                     amount:   nil)
+
+        @name     = String(name)
         @quantity = String(quantity)
-        @unit = String(unit)
-        @price = String(price)
-        @tax = String(tax)
-        @tax2 = String(tax2)
-        @tax3 = String(tax3)
-        @amount = String(amount)
+        @unit     = String(unit)
+        @price    = String(price)
+        @tax      = String(tax)
+        @tax2     = String(tax2)
+        @tax3     = String(tax3)
+        @amount   = String(amount)
       end
 
       def to_h
         {
-          'name': @name,
+          'name':     @name,
           'quantity': @quantity,
-          'unit': @unit,
-          'price': @price,
-          'tax': @tax,
-          'tax2': @tax2,
-          'tax3': @tax3,
-          'amount': @amount,
+          'unit':     @unit,
+          'price':    @price,
+          'tax':      @tax,
+          'tax2':     @tax2,
+          'tax3':     @tax3,
+          'amount':   @amount,
         }
       end
 
