@@ -1,0 +1,104 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'json'
+require 'invoice_printer'
+
+def show_version
+  puts "InvoicePrinter v#{InvoicePrinter::VERSION}"
+
+  exit
+end
+
+def show_help
+  puts <<~HELP
+    Usage: invoice_printer [options]
+
+    Options:
+
+        -l, --labels   labels as JSON
+      -d, --document   document as JSON
+         -s, --stamp   path to stamp
+              --logo   path to logotype
+              --font   path to font
+      -f, --filename   output path
+        -r, --render   directly render PDF stream (filename option will be ignored)
+
+  HELP
+
+  exit
+end
+
+options = {}
+
+parser = OptionParser.new do|opts|
+	opts.banner = "Usage: invoice_printer [options]"
+
+  opts.on('-l', '--labels {}') do |json|
+    options[:labels] = json
+  end
+
+  opts.on('-d', '--document {}') do |json|
+    options[:document] = json
+  end
+
+  opts.on('-s', '--stamp PATH') do |path|
+    options[:stamp] = path
+  end
+
+  opts.on('--logo PATH') do |path|
+    options[:logo] = path
+  end
+
+  opts.on('--font PATH') do |path|
+    options[:font] = path
+  end
+
+  opts.on('-f', '--filename PATH') do |path|
+    options[:filename] = path
+  end
+
+  opts.on('-r', '--render') do
+    options[:render] = true
+  end
+
+  opts.on('-v', '--version') do
+    show_version
+  end
+
+  opts.on('-h', '--help') do
+    show_help
+  end
+end
+
+begin
+  parser.parse!
+
+  show_help if options.empty?
+
+  json     = JSON.parse options[:document]
+  document = InvoicePrinter::Document.from_json(json)
+
+  if options[:render]
+    stream = InvoicePrinter.render(
+      document: document,
+      font:     options[:font],
+      stamp:    options[:stamp],
+      logo:     options[:logo]
+    )
+
+    puts stream
+  else
+    raise '--filename not provided. Use --render if you with to render to STDOUT.' unless options[:filename]&.empty?
+
+    InvoicePrinter.print(
+      document:  document,
+      font:      options[:font],
+      stamp:     options[:stamp],
+      logo:      options[:logo],
+      file_name: options[:filename]
+    )
+  end
+rescue => e
+  STDERR.puts "ERROR: #{e.message}"
+  exit 1
+end
