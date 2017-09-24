@@ -2,7 +2,6 @@
 $LOAD_PATH << File.expand_path('lib')
 
 require 'optparse'
-require 'json'
 require 'invoice_printer'
 
 def show_version

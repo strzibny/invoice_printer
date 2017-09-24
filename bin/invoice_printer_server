@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << File.expand_path('lib')
+
+require 'rack/handler/puma'
+require 'invoice_printer/server'
+
+Rack::Handler::Puma.run InvoicePrinter::Server.freeze.app
