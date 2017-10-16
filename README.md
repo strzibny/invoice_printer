@@ -1,6 +1,8 @@
 <a href="http://strzibny.github.io/invoice_printer/">
-  <img src="./docs/web/logo.png" width="200" />
+  <img src="./docs/web/logo.png" width="300" />
 </a>
+
+&nbsp;
 
 Super simple PDF invoicing in pure Ruby (based on Prawn library).
 
