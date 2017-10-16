@@ -48,7 +48,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install invoice_printer --pre
+    $ gem install invoice_printer
 
 ## Usage
 
