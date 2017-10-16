@@ -1,21 +1,11 @@
-# InvoicePrinter
-
-<img src="./docs/web/logo.png" width="200" />
+<a href="http://strzibny.github.io/invoice_printer/">
+  <img src="./docs/web/logo.png" width="200" />
+</a>
 
 Super simple PDF invoicing in pure Ruby (based on Prawn library).
 
 InvoicePrinter does not impose any validations nor calculations on you. It is
 designed only to provide an interface to build the PDF version of these documents.
-
-**New: First release candidate for stable 1.0.0 is here!**
-
-<p align="center">
-  <a href="https://github.com/strzibny/invoice_printer/raw/master/examples/promo.pdf">
-    <img src="./examples/picture.jpg" width="180" />
-  </a>
-</p>
-
-See more usecases in the `examples/` directory.
 
 ## Features
 
@@ -33,6 +23,14 @@ See more usecases in the `examples/` directory.
 - Stamp & signature (as image)
 - Note
 - Well tested
+
+## Example
+
+| Simple invoice |
+| -------------- |
+| <a href="https://github.com/strzibny/invoice_printer/raw/master/examples/promo.pdf"><img src="./examples/picture.jpg" width="180" /></a>|
+
+See more usecases in the `examples/` directory.
 
 ## Installation
 
