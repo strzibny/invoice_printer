@@ -46,7 +46,14 @@ module InvoicePrinter
       amount: 'Amount',
       subtotal: 'Subtotal',
       total: 'Total',
-      sublabels: {}
+      sublabels: {},
+    }
+
+    PageSize = Struct.new(:name, :width, :height)
+
+    PAGE_SIZES = {
+      letter: PageSize.new('LETTER', 612.00, 792.00),
+      a4:     PageSize.new('A4', 595.28, 841.89),
     }
 
     def self.labels
@@ -57,13 +64,14 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Document.new, labels: {}, font: nil, stamp: nil, logo: nil, background: nil)
+    def initialize(document: Document.new, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: PAGE_SIZES[:letter])
       @document = document
       @labels = PDFDocument.labels.merge(labels)
-      @pdf = Prawn::Document.new(background: background)
+      @pdf = Prawn::Document.new(background: background, page_size: page_size.name)
       @font = font
       @stamp = stamp
       @logo = logo
+      @page_size = page_size
 
       raise InvalidInput, 'document is not a type of InvoicePrinter::Document' \
         unless @document.is_a?(InvoicePrinter::Document)
@@ -144,20 +152,27 @@ module InvoicePrinter
     #   NAME                      NO. 901905374583579
     #   Sublabel name
     def build_header
+      top_offset_ratio = 720 / PAGE_SIZES[:letter].height
+      top_offset = top_offset_ratio * @page_size.height
+      width_ratio = 300 / PAGE_SIZES[:letter].width
+      width = width_ratio * @page_size.width
+      invoice_offset_ratio = 240 / PAGE_SIZES[:letter].height
+      invoice_offset = invoice_offset_ratio * PAGE_SIZES[:letter].width
+
       @pdf.text_box(
         @labels[:name],
         size: 20,
-        at: [0, 720 - @push_down],
-        width: 300,
-        align: :left
+        align: :left,
+        at: [0, top_offset - @push_down],
+        width: width,
       )
 
       if used? @labels[:sublabels][:name]
         @pdf.text_box(
           @labels[:sublabels][:name],
           size: 12,
-          at: [0, 720 - @push_down - 22],
-          width: 300,
+          at: [0, top_offset - @push_down - 22],
+          width: width,
           align: :left
         )
       end
@@ -165,9 +180,9 @@ module InvoicePrinter
       @pdf.text_box(
         @document.number,
         size: 20,
-        at: [240, 720 - @push_down],
-        width: 300,
-        align: :right
+        at: [invoice_offset, top_offset - @push_down],
+        width: width,
+        align: :right,
       )
       @pdf.move_down(250)
 
