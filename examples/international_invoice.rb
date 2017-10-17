@@ -82,3 +82,12 @@ InvoicePrinter.print(
   logo: 'prawn.png',
   file_name: 'international_invoice.pdf'
 )
+
+InvoicePrinter.print(
+  document: invoice,
+  labels: labels,
+  font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
+  logo: 'prawn.png',
+  file_name: 'international_invoice_a4.pdf',
+  page_size: :a4
+)

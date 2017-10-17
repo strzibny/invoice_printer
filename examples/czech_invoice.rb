@@ -49,6 +49,7 @@ invoice = InvoicePrinter::Document.new(
   number: 'č. 198900000001',
   provider_name: 'Petr Nový',
   provider_tax_id: '56565656',
+  provider_tax_id2: 'CZ56565656',
   provider_street: 'Rolnická',
   provider_street_number: '1',
   provider_postcode: '747 05',
@@ -59,6 +60,8 @@ invoice = InvoicePrinter::Document.new(
   purchaser_street_number: '1',
   purchaser_postcode: '747 70',
   purchaser_city: 'Opava',
+  purchaser_tax_id: '56565656',
+  purchaser_tax_id2: 'CZ56565656',
   issue_date: '05/03/2016',
   due_date: '19/03/2016',
   subtotal: 'Kč 10.000',
@@ -77,4 +80,13 @@ InvoicePrinter.print(
   font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
   logo: 'prawn.png',
   file_name: 'czech_invoice.pdf'
+)
+
+InvoicePrinter.print(
+  document: invoice,
+  labels: labels,
+  font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
+  logo: 'prawn.png',
+  file_name: 'czech_invoice_a4.pdf',
+  page_size: :a4
 )

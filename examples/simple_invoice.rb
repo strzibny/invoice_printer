@@ -38,3 +38,10 @@ InvoicePrinter.print(
   logo: 'prawn.png',
   file_name: 'simple_invoice.pdf'
 )
+
+InvoicePrinter.print(
+  document: invoice,
+  logo: 'prawn.png',
+  file_name: 'simple_invoice_a4.pdf',
+  page_size: :a4
+)
