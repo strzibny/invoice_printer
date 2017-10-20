@@ -17,6 +17,7 @@ module InvoicePrinter
   class PDFDocument
     class FontFileNotFound < StandardError; end
     class LogoFileNotFound < StandardError; end
+    class StampFileNotFound < StandardError; end
     class InvalidInput < StandardError; end
 
     attr_reader :invoice, :labels, :file_name, :font, :stamp, :logo
@@ -72,6 +73,14 @@ module InvoicePrinter
           @logo = logo
         else
           raise LogoFileNotFound, "Logotype file not found at #{@logo}"
+        end
+      end
+
+      if used? @stamp
+        if File.exist?(@stamp)
+          @stamp = stamp
+        else
+          raise StampFileNotFound, "Stamp file not found at #{@stamp}"
         end
       end
 
