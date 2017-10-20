@@ -172,7 +172,7 @@ to `initializers/invoice_printer.rb` if you are using Rails.
 
 ```ruby
 InvoicePrinter.labels = {
-  name: 'Invoice'
+  name: 'Invoice',
   provider: 'Provider',
   purchaser: 'Purchaser',
   tax_id: 'Identification number',
@@ -193,7 +193,7 @@ InvoicePrinter.labels = {
   tax: 'Tax',
   tax2: 'Tax 2',
   tax3: 'Tax 3',
-  subtotal: 'Subtotal'
+  subtotal: 'Subtotal',
   total: 'Total'
 }
 ```
