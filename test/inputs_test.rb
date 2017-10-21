@@ -47,4 +47,13 @@ class InputsTest < Minitest::Test
       InvoicePrinter.render(document: invoice, logo: 'missing.png')
     end
   end
+
+  def test_missing_stamp_raises_an_exception
+    invoice = InvoicePrinter::Document.new(default_document_params)
+
+    assert_raises(InvoicePrinter::PDFDocument::StampFileNotFound) do
+      InvoicePrinter.render(document: invoice, stamp: 'missing.png')
+    end
+  end
+  
 end
