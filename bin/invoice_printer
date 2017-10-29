@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+$LOAD_PATH << File.expand_path('lib')
+
 require 'optparse'
 require 'json'
 require 'invoice_printer'
@@ -33,11 +35,11 @@ options = {}
 parser = OptionParser.new do|opts|
 	opts.banner = "Usage: invoice_printer [options]"
 
-  opts.on('-l', '--labels {}') do |json|
+  opts.on('-l', '--labels JSON') do |json|
     options[:labels] = json
   end
 
-  opts.on('-d', '--document {}') do |json|
+  opts.on('-d', '--document JSON') do |json|
     options[:document] = json
   end
 
@@ -88,7 +90,7 @@ begin
 
     puts stream
   else
-    raise '--filename not provided. Use --render if you with to render to STDOUT.' unless options[:filename]&.empty?
+    raise '--filename not provided. Use --render if you with to render to STDOUT.' unless options[:filename]
 
     InvoicePrinter.print(
       document:  document,
