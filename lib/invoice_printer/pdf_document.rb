@@ -152,17 +152,11 @@ module InvoicePrinter
     #   NAME                      NO. 901905374583579
     #   Sublabel name
     def build_header
-      top_offset_ratio = 720 / PAGE_SIZES[:letter].height
-      top_offset = top_offset_ratio * @page_size.height
-
-      invoice_offset_ratio = 240 / PAGE_SIZES[:letter].width
-      invoice_offset = invoice_offset_ratio * PAGE_SIZES[:letter].width
-
       @pdf.text_box(
         @labels[:name],
         size: 20,
         align: :left,
-        at: [0, top_offset - @push_down],
+        at: [0, top_offset(720) - @push_down],
         width: sized_width(300),
       )
 
@@ -170,7 +164,7 @@ module InvoicePrinter
         @pdf.text_box(
           @labels[:sublabels][:name],
           size: 12,
-          at: [0, top_offset - @push_down - 22],
+          at: [0, top_offset(720) - @push_down - 22],
           width: sized_width(300),
           align: :left
         )
@@ -179,7 +173,7 @@ module InvoicePrinter
       @pdf.text_box(
         @document.number,
         size: 20,
-        at: [invoice_offset, top_offset - @push_down],
+        at: [content_offset(240), top_offset(720) - @push_down],
         width: sized_width(300),
         align: :right,
         stroke_color: 'FFFFFF'
@@ -208,13 +202,13 @@ module InvoicePrinter
       @pdf.text_box(
         @document.provider_name,
         size: 15,
-        at: [10, 640 - @push_down],
+        at: [10, sized_height(640) - @push_down],
         width: sized_width(240)
       )
       @pdf.text_box(
         @labels[:provider],
         size: 11,
-        at: [10, 660 - @push_down],
+        at: [10, sized_height(660) - @push_down],
         width: sized_width(240)
       )
       if used? @labels[:sublabels][:provider]
@@ -229,26 +223,26 @@ module InvoicePrinter
       @pdf.text_box(
         "#{@document.provider_street}    #{@document.provider_street_number}",
         size: 10,
-        at: [10, 620 - @push_down],
+        at: [10, sized_height(620) - @push_down],
         width: sized_width(240)
       )
       @pdf.text_box(
         @document.provider_postcode,
         size: 10,
-        at: [10, 605 - @push_down],
+        at: [10, sized_height(605) - @push_down],
         width: sized_width(240)
       )
       @pdf.text_box(
         @document.provider_city,
         size: 10,
-        at: [60, 605 - @push_down],
+        at: [60, sized_height(605) - @push_down],
         width: sized_width(240)
       )
       unless @document.provider_city_part.empty?
         @pdf.text_box(
           @document.provider_city_part,
           size: 10,
-          at: [60, 590 - @push_down],
+          at: [60, sized_height(590) - @push_down],
           width: sized_width(240)
         )
       end
@@ -256,7 +250,7 @@ module InvoicePrinter
         @pdf.text_box(
           @document.provider_extra_address_line,
           size: 10,
-          at: [10, 575 - @push_down],
+          at: [10, sized_height(575) - @push_down],
           width: sized_width(240)
         )
       end
@@ -264,7 +258,7 @@ module InvoicePrinter
         @pdf.text_box(
           "#{@labels[:tax_id]}:    #{@document.provider_tax_id}",
           size: 10,
-          at: [10, 550 - @push_down],
+          at: [10, sized_height(550) - @push_down],
           width: sized_width(240)
         )
       end
@@ -272,11 +266,11 @@ module InvoicePrinter
         @pdf.text_box(
           "#{@labels[:tax_id2]}:    #{@document.provider_tax_id2}",
           size: 10,
-          at: [10, 535 - @push_down],
+          at: [10, sized_height(535) - @push_down],
           width: sized_width(240)
         )
       end
-      @pdf.stroke_rounded_rectangle([0, 670 - @push_down], sized_width(270), 150, 6)
+      @pdf.stroke_rounded_rectangle([0, sized_height(670) - @push_down], sized_width(270), 150, 6)
     end
 
     # Build the following purchaser box:
@@ -296,13 +290,13 @@ module InvoicePrinter
       @pdf.text_box(
         @document.purchaser_name,
         size: 15,
-        at: [sized_width(290), 640 - @push_down],
+        at: [sized_width(290), sized_height(640) - @push_down],
         width: sized_width(240)
       )
       @pdf.text_box(
         @labels[:purchaser],
         size: 11,
-        at: [sized_width(290), 660 - @push_down],
+        at: [sized_width(290), sized_height(660) - @push_down],
         width: sized_width(240)
       )
 
@@ -317,26 +311,26 @@ module InvoicePrinter
       @pdf.text_box(
         "#{@document.purchaser_street}    #{@document.purchaser_street_number}",
         size: 10,
-        at: [sized_width(290), 620 - @push_down],
+        at: [sized_width(290), sized_height(620) - @push_down],
         width: sized_width(240)
       )
       @pdf.text_box(
         @document.purchaser_postcode,
         size: 10,
-        at: [sized_width(290), 605 - @push_down],
+        at: [sized_width(290), sized_height(605) - @push_down],
         width: sized_width(240)
       )
       @pdf.text_box(
         @document.purchaser_city,
         size: 10,
-        at: [sized_width(340), 605 - @push_down],
+        at: [sized_width(340), sized_height(605) - @push_down],
         width: sized_width(240)
       )
       unless @document.purchaser_city_part.empty?
         @pdf.text_box(
           @document.purchaser_city_part,
           size: 10,
-          at: [sized_width(340), 590 - @push_down],
+          at: [sized_width(340), sized_height(590) - @push_down],
           width: sized_width(240)
         )
       end
@@ -344,7 +338,7 @@ module InvoicePrinter
         @pdf.text_box(
           @document.purchaser_extra_address_line,
           size: 10,
-          at: [sized_width(290), 575 - @push_down],
+          at: [sized_width(290), sized_height(575) - @push_down],
           width: sized_width(240)
         )
       end
@@ -352,7 +346,7 @@ module InvoicePrinter
         @pdf.text_box(
           "#{@labels[:tax_id2]}:    #{@document.purchaser_tax_id2}",
           size: 10,
-          at: [sized_width(290), 550 - @push_down],
+          at: [sized_width(290), sized_height(550) - @push_down],
           width: sized_width(240)
         )
       end
@@ -360,11 +354,11 @@ module InvoicePrinter
         @pdf.text_box(
           "#{@labels[:tax_id]}:    #{@document.purchaser_tax_id}",
           size: 10,
-          at: [sized_width(290), 535 - @push_down],
+          at: [sized_width(290), sized_height(535) - @push_down],
           width: sized_width(240)
         )
       end
-      @pdf.stroke_rounded_rectangle([sized_width(280), 670 - @push_down], sized_width(270), 150, 6)
+      @pdf.stroke_rounded_rectangle([sized_width(280), sized_height(670) - @push_down], sized_width(270), 150, 6)
     end
 
     # Build the following payment box:
@@ -384,6 +378,11 @@ module InvoicePrinter
     def build_payment_method_box
       @push_down -= 3
 
+      if @page_size.name == 'A4'
+        @push_down -= 10
+        @push_items_table += 18
+      end
+
       # Match the height of next box if needed
       # TODO: it's smaller without sublabels
       min_height = 60
@@ -396,13 +395,13 @@ module InvoicePrinter
         @pdf.text_box(
           @labels[:payment],
           size: 10,
-          at: [10, 498 - @push_down],
+          at: [10, sized_height(498) - @push_down],
           width: sized_width(240)
         )
         @pdf.text_box(
           @labels[:payment_in_cash],
           size: 10,
-          at: [10, 483 - @push_down],
+          at: [10, sized_height(483) - @push_down],
           width: sized_width(240)
         )
         @pdf.stroke_rounded_rectangle([0, 508 - @push_down], 270, 45, 6)
@@ -413,19 +412,19 @@ module InvoicePrinter
         @pdf.text_box(
           @labels[:payment_by_transfer],
           size: 10,
-          at: [10, 498 - @push_down],
+          at: [10, sized_height(498) - @push_down],
           width: sized_width(240)
         )
         @pdf.text_box(
           "#{@labels[:account_number]}",
           size: 11,
-          at: [10, 483 - @push_down],
+          at: [10, sized_height(483) - @push_down],
           width: sized_width(140)
         )
         @pdf.text_box(
           @document.bank_account_number,
           size: 13,
-          at: [21, 483 - @push_down],
+          at: [21, sized_height(483) - @push_down],
           width: sized_width(240),
           align: :right
         )
@@ -433,7 +432,7 @@ module InvoicePrinter
           @pdf.text_box(
             "#{@labels[:sublabels][:account_number]}",
             size: 10,
-            at: [10, 468 - @push_down],
+            at: [10, sized_height(468) - @push_down],
             width: sized_width(340)
           )
         else
@@ -444,7 +443,7 @@ module InvoicePrinter
           @pdf.text_box(
             "#{@labels[:swift]}",
             size: 11,
-            at: [10, 453 - @push_down - sublabel_change],
+            at: [10, sized_height(453) - @push_down - sublabel_change],
             width: sized_width(140)
           )
           @pdf.text_box(
@@ -459,7 +458,7 @@ module InvoicePrinter
             @pdf.text_box(
               "#{@labels[:sublabels][:swift]}",
               size: 10,
-              at: [10, 438 - @push_down - sublabel_change],
+              at: [10, sized_height(438) - @push_down - sublabel_change],
               width: sized_width(340)
             )
             @push_items_table += 10
@@ -476,13 +475,13 @@ module InvoicePrinter
           @pdf.text_box(
             "#{@labels[:iban]}",
             size: 11,
-            at: [10, 453 - @push_iban - @push_down - sublabel_change],
+            at: [10, sized_height(453) - @push_iban - @push_down - sublabel_change],
             width: sized_width(140)
           )
           @pdf.text_box(
             @document.account_iban,
             size: 13,
-            at: [21, 453 - @push_iban - @push_down - sublabel_change],
+            at: [21, sized_height(453) - @push_iban - @push_down - sublabel_change],
             width: sized_width(240),
             align: :right
           )
@@ -491,7 +490,7 @@ module InvoicePrinter
             @pdf.text_box(
               "#{@labels[:sublabels][:iban]}",
               size: 10,
-              at: [10, 438 - @push_iban - @push_down - sublabel_change],
+              at: [10, sized_height(438) - @push_iban - @push_down - sublabel_change],
               width: sized_width(340)
             )
             @push_items_table += 10
@@ -511,7 +510,7 @@ module InvoicePrinter
           @push_items_table += 2
         end
 
-        @pdf.stroke_rounded_rectangle([0, 508 - @push_down], sized_width(270), @payment_box_height, 6)
+        @pdf.stroke_rounded_rectangle([0, sized_height(508) - @push_down], sized_width(270), @payment_box_height, 6)
       end
     end
 
@@ -531,13 +530,13 @@ module InvoicePrinter
         @pdf.text_box(
           @labels[:issue_date],
           size: 11,
-          at: [sized_width(290), 498 - @push_down],
+          at: [sized_width(290), sized_height(498) - @push_down],
           width: sized_width(240)
         )
         @pdf.text_box(
           @document.issue_date,
           size: 13,
-          at: [390, 498 - @push_down],
+          at: [sized_width(390), sized_height(498) - @push_down],
           align: :right
         )
       end
@@ -548,7 +547,7 @@ module InvoicePrinter
         @pdf.text_box(
           @labels[:sublabels][:issue_date],
           size: 10,
-          at: [sized_width(290), position - @push_down],
+          at: [sized_width(290), sized_height(position) - @push_down],
           width: sized_width(240)
         )
       end
@@ -562,13 +561,13 @@ module InvoicePrinter
         @pdf.text_box(
           @labels[:due_date],
           size: 11,
-          at: [sized_width(290), position - @push_down],
+          at: [sized_width(290), sized_height(position) - @push_down],
           width: sized_width(240)
         )
         @pdf.text_box(
           @document.due_date,
           size: 13,
-          at: [sized_width(390), position - @push_down],
+          at: [sized_width(390), sized_height(position) - @push_down],
           align: :right
         )
       end
@@ -580,7 +579,7 @@ module InvoicePrinter
         @pdf.text_box(
           @labels[:sublabels][:due_date],
           size: 10,
-          at: [sized_width(290), position - @push_down],
+          at: [sized_width(290), sized_height(position) - @push_down],
           width: sized_width(240)
         )
       end
@@ -589,7 +588,7 @@ module InvoicePrinter
         height = (issue_date_present && due_date_present) ? 75 : 60
         height = @payment_box_height if @payment_box_height > height
 
-        @pdf.stroke_rounded_rectangle([sized_width(280), 508 - @push_down], sized_width(270), height, 6)
+        @pdf.stroke_rounded_rectangle([sized_width(280), sized_height(508) - @push_down], sized_width(270), height, 6)
       end
     end
 
@@ -811,12 +810,34 @@ module InvoicePrinter
       element && !element.empty?
     end
 
-    # Return correct width relative to page size
+    # Return correct x width relative to page size
     def sized_width(width)
       return width if @page_size.name == 'LETTER'
 
       width_ratio = width / PAGE_SIZES[:letter].width
       width_ratio * @page_size.width
+    end
+
+    # Return correct y height relative to page size
+    def sized_height(height)
+      return height if @page_size.name == 'LETTER'
+
+      width_ratio = height / PAGE_SIZES[:letter].height
+      width_ratio * @page_size.height
+    end
+
+    def top_offset(offset)
+      return offset if @page_size.name == 'LETTER'
+
+      offset_ratio = offset / PAGE_SIZES[:letter].height
+      offset_ratio * @page_size.height
+    end
+
+    def content_offset(offset)
+      return offset if @page_size.name == 'LETTER'
+
+      offset_ratio = offset / PAGE_SIZES[:letter].width
+      offset_ratio * PAGE_SIZES[:letter].width
     end
   end
 end
