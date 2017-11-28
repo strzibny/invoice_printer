@@ -4,10 +4,9 @@
 
 &nbsp;
 
-Super simple PDF invoicing in pure Ruby (based on Prawn library).
+Super simple PDF invoicing in pure Ruby
 
-InvoicePrinter does not impose any validations nor calculations on you. It is
-designed only to provide an interface to build the PDF version of these documents.
+InvoicePrinter is a Ruby library and a command line program. You can use Ruby or JSON to build the final PDF.
 
 ## Features
 
@@ -25,6 +24,8 @@ designed only to provide an interface to build the PDF version of these document
 - Background (as image)
 - Stamp & signature (as image)
 - Note
+- JSON format
+- CLI
 - Well tested
 
 ## Example
@@ -144,6 +145,45 @@ def show
   end
 end
 ```
+
+### JSON format
+
+JSON format is supported via `from_json` method. JSON itself mimicks the original Ruby objects:
+
+```ruby
+json = InvoicePrinter::Document.new(...).to_json
+document = InvoicePrinter::Document.from_json(json)
+
+
+InvoicePrinter.print(
+  document:  document,
+  ...
+)
+
+```
+
+## CLI
+
+InvoicePrinter ships with a command line executable called `invoice_printer`.
+
+It supports all features except it only accepts JSON as an input.
+
+```
+$ invoice_printer --help
+Usage: invoice_printer [options]
+
+Options:
+
+    -l, --labels   labels as JSON
+  -d, --document   document as JSON
+     -s, --stamp   path to stamp
+          --logo   path to logotype
+          --font   path to font
+     --page_size   letter or a4 (letter is the default)
+  -f, --filename   output path
+    -r, --render   directly render PDF stream (filename option will be ignored)
+```
+
 
 ## Customization
 
