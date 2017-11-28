@@ -11,6 +11,7 @@ designed only to provide an interface to build the PDF version of these document
 
 ## Features
 
+- A4 and US letter paper size
 - Invoice/document name and number
 - Purchaser and provider boxes with addresses and identificaton numbers
 - Payment method box showing banking details including SWIFT and IBAN fields
@@ -145,6 +146,22 @@ end
 ```
 
 ## Customization
+
+### Page size
+
+Both A4 and US letter is supported. Just pass `page_size` as an argument to `print` or `render` methods:
+
+```ruby
+InvoicePrinter.print(
+  document: invoice,
+  labels: labels,
+  page_size: :a4
+  file_name: 'invoice.pdf'
+)
+```
+
+`:letter` is the default.
+
 
 ### Localization
 
