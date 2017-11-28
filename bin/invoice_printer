@@ -28,10 +28,8 @@ def show_help
 
   HELP
 
-  exit
+  exit 0
 end
-
-options = {}
 
 parser = OptionParser.new do|opts|
 	opts.banner = "Usage: invoice_printer [options]"
@@ -75,17 +73,16 @@ parser = OptionParser.new do|opts|
   opts.on('-h', '--help') do
     show_help
   end
-
-
 end
 
 begin
+  options = {}
   parser.parse!
+
+  show_help if options.empty?
 
   # Defaults
   options[:page_size] ||= :letter
-
-  show_help if options.empty?
 
   json     = JSON.parse options[:document]
   document = InvoicePrinter::Document.from_json(json)
