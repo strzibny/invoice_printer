@@ -22,7 +22,7 @@ def show_help
          -s, --stamp   path to stamp
               --logo   path to logotype
               --font   path to font
-         --page_size   letter or a4 (letter is the default)
+         --page-size   letter or a4 (letter is the default)
       -f, --filename   output path
         -r, --render   directly render PDF stream (filename option will be ignored)
 
