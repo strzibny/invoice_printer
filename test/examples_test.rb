@@ -21,13 +21,18 @@ class ExamplesTest < Minitest::Test
     @examples.each do |example|
       example_file = File.join(@test_dir, File.basename(example))
       original_pdf = example.gsub('.rb', '.pdf')
+      original_a4_pdf = example.gsub('.rb', '_a4.pdf')
       result_pdf = example_file.gsub('.rb', '.pdf')
+      result_a4_pdf = example_file.gsub('.rb', '_a4.pdf')
 
       Dir.chdir(@test_dir) do
         `ruby -I../../lib #{example_file}`
 
         similarity = (File.read(original_pdf) == File.read(result_pdf))
         assert_equal true, similarity, "#{original_pdf} does not match #{result_pdf}"
+
+        similarity = (File.read(original_a4_pdf) == File.read(result_a4_pdf))
+        assert_equal true, similarity, "#{original_a4_pdf} does not match #{result_a4_pdf}"
       end
     end
   end

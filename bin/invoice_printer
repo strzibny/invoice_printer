@@ -22,6 +22,7 @@ def show_help
          -s, --stamp   path to stamp
               --logo   path to logotype
               --font   path to font
+         --page_size   letter or a4 (letter is the default)
       -f, --filename   output path
         -r, --render   directly render PDF stream (filename option will be ignored)
 
@@ -55,6 +56,10 @@ parser = OptionParser.new do|opts|
     options[:font] = path
   end
 
+  opts.on('--page-size OPTION') do |option|
+    options[:page_size] = option.to_sym
+  end
+
   opts.on('-f', '--filename PATH') do |path|
     options[:filename] = path
   end
@@ -70,10 +75,15 @@ parser = OptionParser.new do|opts|
   opts.on('-h', '--help') do
     show_help
   end
+
+
 end
 
 begin
   parser.parse!
+
+  # Defaults
+  options[:page_size] ||= :letter
 
   show_help if options.empty?
 
@@ -82,10 +92,11 @@ begin
 
   if options[:render]
     stream = InvoicePrinter.render(
-      document: document,
-      font:     options[:font],
-      stamp:    options[:stamp],
-      logo:     options[:logo]
+      document:  document,
+      font:      options[:font],
+      stamp:     options[:stamp],
+      logo:      options[:logo],
+      page_size: options[:page_size]
     )
 
     puts stream
@@ -97,7 +108,8 @@ begin
       font:      options[:font],
       stamp:     options[:stamp],
       logo:      options[:logo],
-      file_name: options[:filename]
+      file_name: options[:filename],
+      page_size: options[:page_size]
     )
   end
 rescue => e

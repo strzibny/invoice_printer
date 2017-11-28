@@ -82,3 +82,12 @@ InvoicePrinter.print(
   logo: 'logo.png',
   file_name: 'promo.pdf'
 )
+
+InvoicePrinter.print(
+  document: invoice,
+  labels: labels,
+  font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
+  logo: 'logo.png',
+  file_name: 'promo_a4.pdf',
+  page_size: :a4
+)

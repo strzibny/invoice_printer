@@ -19,7 +19,7 @@ item = InvoicePrinter::Document::Item.new(
 )
 
 item2 = InvoicePrinter::Document::Item.new(
-  name: 'Consolting',
+  name: 'Consulting',
   quantity: '10',
   unit: 'hr',
   price: '$ 30',
@@ -65,4 +65,14 @@ InvoicePrinter.print(
   logo: 'prawn.png',
   file_name: 'complex_invoice.pdf',
   background: 'background.png'
+)
+
+InvoicePrinter.print(
+  document: invoice,
+  labels: labels,
+  stamp: 'stamp.png',
+  logo: 'prawn.png',
+  file_name: 'complex_invoice_a4.pdf',
+  background: 'background.png',
+  page_size: :a4
 )
