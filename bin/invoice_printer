@@ -31,6 +31,8 @@ def show_help
   exit 0
 end
 
+options = {}
+
 parser = OptionParser.new do|opts|
 	opts.banner = "Usage: invoice_printer [options]"
 
@@ -76,7 +78,6 @@ parser = OptionParser.new do|opts|
 end
 
 begin
-  options = {}
   parser.parse!
 
   show_help if options.empty?
