@@ -72,6 +72,10 @@ parser = OptionParser.new do|opts|
     show_version
   end
 
+  opts.on('--debug') do
+    options[:debug] = true
+  end
+
   opts.on('-h', '--help') do
     show_help
   end
@@ -85,8 +89,21 @@ begin
   # Defaults
   options[:page_size] ||= :letter
 
-  json     = JSON.parse options[:document]
-  document = InvoicePrinter::Document.from_json(json)
+  raise '--document not provided' unless options[:document]
+
+  begin
+    json     = JSON.parse options[:document]
+    document = InvoicePrinter::Document.from_json(json)
+  rescue => e
+    STDERR.puts "ERROR: parsing JSON failed. Invalid JSON?"
+
+    if options[:debug]
+      STDERR.puts
+      STDERR.puts e.backtrace
+    end
+
+    exit 1
+  end
 
   if options[:render]
     stream = InvoicePrinter.render(
@@ -112,5 +129,11 @@ begin
   end
 rescue => e
   STDERR.puts "ERROR: #{e.message}"
+
+  if options[:debug]
+    STDERR.puts
+    STDERR.puts e.backtrace
+  end
+
   exit 1
 end
