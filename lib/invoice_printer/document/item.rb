@@ -30,14 +30,14 @@ module InvoicePrinter
       class << self
         def from_json(json)
           new(
-            name:     String(json['name']),
-            quantity: String(json['quantity']),
-            unit:     String(json['unit']),
-            price:    String(json['price']),
-            tax:      String(json['tax']),
-            tax2:     String(json['tax2']),
-            tax3:     String(json['tax3']),
-            amount:   String(json['amount'])
+            name:     json['name'],
+            quantity: json['quantity'],
+            unit:     json['unit'],
+            price:    json['price'],
+            tax:      json['tax'],
+            tax2:     json['tax2'],
+            tax3:     json['tax3'],
+            amount:   json['amount']
           )
         end
       end

@@ -8,7 +8,7 @@ require 'invoice_printer'
 def show_version
   puts "InvoicePrinter v#{InvoicePrinter::VERSION}"
 
-  exit
+  exit 0
 end
 
 def show_help
@@ -99,6 +99,7 @@ begin
 
     if options[:debug]
       STDERR.puts
+      STDERR.puts e.message
       STDERR.puts e.backtrace
     end
 
