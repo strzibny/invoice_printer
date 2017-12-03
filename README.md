@@ -195,7 +195,7 @@ Both A4 and US letter is supported. Just pass `page_size` as an argument to `pri
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  page_size: :a4
+  page_size: :a4,
   file_name: 'invoice.pdf'
 )
 ```
