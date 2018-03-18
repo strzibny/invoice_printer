@@ -1,7 +1,50 @@
 #!/usr/bin/env ruby
 $LOAD_PATH << File.expand_path('lib')
 
+require 'optparse'
 require 'rack/handler/puma'
 require 'invoice_printer/server'
 
-Rack::Handler::Puma.run InvoicePrinter::Server.freeze.app
+def show_version
+  puts "InvoicePrinter v#{InvoicePrinter::VERSION}"
+
+  exit 0
+end
+
+def show_help
+  puts <<~HELP
+    Usage: invoice_printer_server [options]
+
+    Options:
+
+        -h, --host   hostname to listen on (default is 0.0.0.0)
+        -p, --port   port to listen on (default is 9393)
+
+  HELP
+
+  exit 0
+end
+
+options = {}
+
+parser = OptionParser.new do|opts|
+  opts.on('-h', '--hostname ADDRESS') do |address|
+    options[:Host] = address
+  end
+
+  opts.on('-p', '--port NUMBER') do |number|
+    options[:Port] = number
+  end
+
+  opts.on('-h', '--help') do
+    show_help
+  end
+end
+
+parser.parse!
+
+show_help if options.empty?
+
+puma_options = { :Host => '0.0.0.0', :Port => 9393 }.merge(options)
+
+Rack::Handler::Puma.run(InvoicePrinter::Server.freeze.app, puma_options)

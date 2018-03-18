@@ -33,8 +33,6 @@ end
 options = {}
 
 parser = OptionParser.new do|opts|
-	opts.banner = "Usage: invoice_printer [options]"
-
   opts.on('-l', '--labels JSON') do |json|
     options[:labels] = json
   end
