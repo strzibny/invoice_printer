@@ -43,7 +43,7 @@ class InvoicePrinter::Server < Roda
 
     # POST /print
     r.post 'print' do
-      filename = r.params['filename'] || 'out.pdf'
+      filename = r.params['filename'] || 'document.pdf'
 
       begin
         InvoicePrinter.print(
@@ -54,7 +54,7 @@ class InvoicePrinter::Server < Roda
           file_name: filename
         )
 
-        { result: 'ok' }.to_json
+        { result: 'ok', path: filename }.to_json
       rescue => e
         response.status = 400
         response.write({ result: 'error', error: e.message }.to_json)
