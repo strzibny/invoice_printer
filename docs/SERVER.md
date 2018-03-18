@@ -14,7 +14,6 @@ Once installed, InvoicePrinter provides `invoice_printer_server` executable that
 invoice_printer_server -h 0.0.0.0 -p 5000
 ```
 
-
 `-h` defines a host and `-p` defines a port. For help you can run `--help`.
 
 By default server binds to `0.0.0.0:9393`.
@@ -54,13 +53,13 @@ Options:
 On success a `200` response is returned:
 
 ```json
-{ 'result': 'ok', 'data': 'base64 encoded PDF document' }
+{ "result": "ok", "data": "base64 encoded PDF document" }
 ```
 
 On error a `400` response is returned:
 
 ```json
-{ 'result': 'error', 'error': 'error description' }
+{ "result": "error", "error": "error description" }
 ```
 
 #### Example
@@ -87,11 +86,11 @@ Options:
 On success a `200` response is returned:
 
 ```json
-{ 'result': 'ok', 'path': 'path, basically what was sent as filepath' }
+{ "result": "ok", "path": "/path/basically/what/was/sent/as/filepath" }
 ```
 
 On error a `400` response is returned:
 
 ```json
-{ 'result': 'error', 'error': 'error description' }
+{ "result": "error", "error": "error description" }
 ```
