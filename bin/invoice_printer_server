@@ -19,6 +19,7 @@ def show_help
 
         -h, --host   hostname to listen on (default is 0.0.0.0)
         -p, --port   port to listen on (default is 9393)
+     -w, --workers   number of Puma workers (default is 2)
 
   HELP
 
@@ -36,6 +37,14 @@ parser = OptionParser.new do|opts|
     options[:Port] = number
   end
 
+  opts.on('-w', '--workers NUMBER') do |number|
+    options[:workers] = number.to_i
+  end
+
+  opts.on('--debug') do
+    options[:debug] = true
+  end
+
   opts.on('-h', '--help') do
     show_help
   end
@@ -43,8 +52,18 @@ end
 
 parser.parse!
 
-show_help if options.empty?
+puma_options = { :Host => '0.0.0.0', :Port => 9393, :workers => 2 }.merge(options)
 
-puma_options = { :Host => '0.0.0.0', :Port => 9393 }.merge(options)
+begin
+  puts 'Starting InvoicePrinter Server...'
+  Rack::Handler::Puma.run(InvoicePrinter::Server.freeze.app, puma_options)
+rescue => e
+  STDERR.puts "ERROR: #{e.message}"
 
-Rack::Handler::Puma.run(InvoicePrinter::Server.freeze.app, puma_options)
+  if options[:debug]
+    STDERR.puts
+    STDERR.puts e.backtrace
+  end
+
+  exit 1
+end
