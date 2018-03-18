@@ -6,4 +6,5 @@ gemspec
 group :test do
   gem 'pdf-inspector'
   gem 'minitest'
+  gem 'rack-test', require: 'rack/test'
 end

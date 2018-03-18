@@ -2,7 +2,6 @@
 $LOAD_PATH << File.expand_path('lib')
 
 require 'optparse'
-require 'json'
 require 'invoice_printer'
 
 def show_version
@@ -34,8 +33,6 @@ end
 options = {}
 
 parser = OptionParser.new do|opts|
-	opts.banner = "Usage: invoice_printer [options]"
-
   opts.on('-l', '--labels JSON') do |json|
     options[:labels] = json
   end

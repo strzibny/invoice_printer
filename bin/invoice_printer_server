@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << File.expand_path('lib')
+
+require 'optparse'
+require 'rack/handler/puma'
+require 'invoice_printer/server'
+
+def show_version
+  puts "InvoicePrinter v#{InvoicePrinter::VERSION}"
+
+  exit 0
+end
+
+def show_help
+  puts <<~HELP
+    Usage: invoice_printer_server [options]
+
+    Options:
+
+        -h, --host   hostname to listen on (default is 0.0.0.0)
+        -p, --port   port to listen on (default is 9393)
+     -w, --workers   number of Puma workers (default is 2)
+
+  HELP
+
+  exit 0
+end
+
+options = {}
+
+parser = OptionParser.new do|opts|
+  opts.on('-h', '--hostname ADDRESS') do |address|
+    options[:Host] = address
+  end
+
+  opts.on('-p', '--port NUMBER') do |number|
+    options[:Port] = number
+  end
+
+  opts.on('-w', '--workers NUMBER') do |number|
+    options[:workers] = number.to_i
+  end
+
+  opts.on('--debug') do
+    options[:debug] = true
+  end
+
+  opts.on('-h', '--help') do
+    show_help
+  end
+end
+
+parser.parse!
+
+puma_options = { :Host => '0.0.0.0', :Port => 9393, :workers => 2 }.merge(options)
+
+begin
+  puts 'Starting InvoicePrinter Server...'
+  Rack::Handler::Puma.run(InvoicePrinter::Server.freeze.app, puma_options)
+rescue => e
+  STDERR.puts "ERROR: #{e.message}"
+
+  if options[:debug]
+    STDERR.puts
+    STDERR.puts e.backtrace
+  end
+
+  exit 1
+end
