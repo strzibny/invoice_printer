@@ -37,6 +37,8 @@ Rack::Handler::Puma.run InvoicePrinter::Server.freeze.app
 Endpoints accept similar arguments as the corresponding methods to `InvoicePrinter`. `render` is used for directly getting the PDF output whereas `print` would accept `filename` option and save the document to that
 file.
 
+A content type is always `application/json` both for requests and responses.
+
 ### `POST /render`
 
 Directly render PDF data.

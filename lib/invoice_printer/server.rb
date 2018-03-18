@@ -43,7 +43,7 @@ class InvoicePrinter::Server < Roda
 
     # POST /print
     r.post 'print' do
-      filename = r.params['filename'] || 'document.pdf'
+      filename = params[:filename] || 'document.pdf'
 
       begin
         InvoicePrinter.print(

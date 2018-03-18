@@ -1,4 +1,6 @@
+require 'json'
 require 'invoice_printer/version'
+require 'invoice_printer/document'
 require 'invoice_printer/document/item'
 require 'invoice_printer/pdf_document'
 

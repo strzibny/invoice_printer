@@ -1,5 +1,3 @@
-require 'invoice_printer/document'
-
 module InvoicePrinter
   class Document
     # Line items for InvoicePrinter::Document

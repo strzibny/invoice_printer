@@ -1,3 +1,4 @@
+require 'json'
 require 'pdf/inspector'
 require 'rack/test'
 
