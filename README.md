@@ -4,9 +4,9 @@
 
 &nbsp;
 
-Super simple PDF invoicing in pure Ruby
+Super simple PDF invoicing
 
-InvoicePrinter is a Ruby library and a command line program. You can use Ruby or JSON to build the final PDF.
+InvoicePrinter is a server, command line program and pure Ruby library to generate PDF invoices in no time. You can use Ruby or JSON as the invoice representation to build the final PDF.
 
 ## Features
 
@@ -26,9 +26,10 @@ InvoicePrinter is a Ruby library and a command line program. You can use Ruby or
 - Note
 - JSON format
 - CLI
+- Server
 - Well tested
 
-## Example
+## PDF output example
 
 | Simple invoice |
 | -------------- |
@@ -36,23 +37,8 @@ InvoicePrinter is a Ruby library and a command line program. You can use Ruby or
 
 See more usecases in the `examples/` directory.
 
-## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'invoice_printer'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install invoice_printer
-
-## Usage
+## Ruby example
 
 The simplest way how to create your invoice PDF is to create an invoice object
 and pass it to printer:
@@ -78,241 +64,12 @@ InvoicePrinter.render(
 )
 ```
 
-Here is an full example for creating the document object:
+## Documentation
 
-```ruby
-item = InvoicePrinter::Document::Item.new(
-  name: 'Web consultation',
-  quantity: nil,
-  unit: 'hours',
-  price: '$ 25',
-  tax: '$ 1',
-  amount: '$ 100'
-)
-
-invoice = InvoicePrinter::Document.new(
-  number: '201604030001',
-  provider_name: 'Business s.r.o.',
-  provider_tax_id: '56565656',
-  provider_tax_id2: '465454',
-  provider_street: 'Rolnicka',
-  provider_street_number: '1',
-  provider_postcode: '747 05',
-  provider_city: 'Opava',
-  provider_city_part: 'Katerinky',
-  provider_extra_address_line: 'Czech Republic',
-  purchaser_name: 'Adam',
-  purchaser_tax_id: '',
-  purchaser_tax_id2: '',
-  purchaser_street: 'Ostravska',
-  purchaser_street_number: '1',
-  purchaser_postcode: '747 70',
-  purchaser_city: 'Opava',
-  purchaser_city_part: '',
-  purchaser_extra_address_line: '',
-  issue_date: '19/03/3939',
-  due_date: '19/03/3939',
-  subtotal: '175',
-  tax: '5',
-  tax2: '10',
-  tax3: '20',
-  total: '$ 200',
-  bank_account_number: '156546546465',
-  account_iban: 'IBAN464545645',
-  account_swift: 'SWIFT5456',
-  items: [item],
-  note: 'A note...'
-)
-```
-
-### Ruby on Rails
-
-If you want to use InvoicePrinter for printing PDF documents directly from Rails
-actions, you can:
-
-```ruby
-# GET /invoices/1
-def show
-  invoice = InvoicePrinter::Document.new(...)
-
-  respond_to do |format|
-    format.pdf {
-      @pdf = InvoicePrinter.render(
-        document: invoice
-      )
-      send_data @pdf, type: 'application/pdf', disposition: 'inline'
-    }
-  end
-end
-```
-
-### JSON format
-
-JSON format is supported via `from_json` method. JSON itself mimicks the original Ruby objects:
-
-```ruby
-json = InvoicePrinter::Document.new(...).to_json
-document = InvoicePrinter::Document.from_json(json)
-
-
-InvoicePrinter.print(
-  document:  document,
-  ...
-)
-
-```
-
-## CLI
-
-InvoicePrinter ships with a command line executable called `invoice_printer`.
-
-It supports all features except it only accepts JSON as an input.
-
-```
-$ invoice_printer --help
-Usage: invoice_printer [options]
-
-Options:
-
-    -l, --labels   labels as JSON
-  -d, --document   document as JSON
-     -s, --stamp   path to stamp
-          --logo   path to logotype
-          --font   path to font
-     --page_size   letter or a4 (letter is the default)
-  -f, --filename   output path
-    -r, --render   directly render PDF stream (filename option will be ignored)
-```
-
-
-## Customization
-
-### Page size
-
-Both A4 and US letter is supported. Just pass `page_size` as an argument to `print` or `render` methods:
-
-```ruby
-InvoicePrinter.print(
-  document: invoice,
-  labels: labels,
-  page_size: :a4,
-  file_name: 'invoice.pdf'
-)
-```
-
-`:letter` is the default.
-
-
-### Localization
-
-To localize your documents you can set both global defaults or instance
-overrides:
-
-```ruby
-InvoicePrinter.labels = {
-  provider: 'Dodavatel'
-}
-
-labels = {
-  purchaser: 'Customer'
-}
-
-InvoicePrinter.print(
-  document: invoice,
-  labels: labels,
-  file_name: 'invoice.pdf'
-)
-```
-
-Here is the full list of labels to configure. You can paste and edit this block
-to `initializers/invoice_printer.rb` if you are using Rails.
-
-```ruby
-InvoicePrinter.labels = {
-  name: 'Invoice',
-  provider: 'Provider',
-  purchaser: 'Purchaser',
-  tax_id: 'Identification number',
-  tax_id2: 'Identification number',
-  payment: 'Payment',
-  payment_by_transfer: 'Payment by bank transfer on the account below:',
-  payment_in_cash: 'Payment in cash',
-  account_number: 'Account NO',
-  swift: 'SWIFT',
-  iban: 'IBAN',
-  issue_date: 'Issue date',
-  due_date: 'Due date',
-  item: 'Item',
-  quantity: 'Quantity',
-  unit: 'Unit',
-  price_per_item: 'Price per item',
-  amount: 'Amount',
-  tax: 'Tax',
-  tax2: 'Tax 2',
-  tax3: 'Tax 3',
-  subtotal: 'Subtotal',
-  total: 'Total'
-}
-```
-
-You can also use sublabels feature to provide the document in two languages:
-
-```ruby
-labels = {
-  ...
-}
-
-sublabels = {
-  name: 'Faktura',
-  provider: 'Prodejce',
-  purchaser: 'Kupující',
-  tax_id: 'IČ',
-  tax_id2: 'DIČ',
-  payment: 'Forma úhrady',
-  payment_by_transfer: 'Platba na následující účet:',
-  account_number: 'Číslo účtu',
-  issue_date: 'Datum vydání',
-  due_date: 'Datum splatnosti',
-  item: 'Položka',
-  quantity: 'Počet',
-  unit: 'MJ',
-  price_per_item: 'Cena za položku',
-  amount: 'Celkem bez daně',
-  subtotal: 'Cena bez daně',
-  tax: 'DPH 21 %',
-  total: 'Celkem'
-}
-
-labels.merge!({ sublabels: sublabels })
-
-...
-```
-
-Now the document will have a little sublabels next to the original labels in Czech.
-
-### Font
-
-To support specific characters you might need to specify a TTF font to be used:
-
-``` ruby
-InvoicePrinter.print(
-  ...
-  font: File.expand_path('../Overpass-Regular.ttf', __FILE__)
-)
-```
-
-We recommend you DejaVuSans and Overpass fonts.
-
-### Background
-
-To include a background image you might need to create the file according to the size and resolution to be used (see: [examples/background.png](https://github.com/strzibny/invoice_printer/blob/master/examples/background.png)):
-
-``` ruby
-InvoicePrinter.print(
-  ...
-  background: File.expand_path('../background.png', __FILE__)
-)
-```
+- [Installation](DOCS/INSTALLATION.md)
+- [Library](DOCS/LIBRARY.md)
+- [Server](DOCS/SERVER.md)
+- [Command line](DOCS/COMMAND_LINE.md)
 
 ## Copyright
 

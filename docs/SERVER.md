@@ -1,4 +1,4 @@
-# InvoicePrinter as a server
+# InvoicePrinter Server
 
 InvoicePrinter contains a built in server that can be run from a command line with `invoice_printer_server`.
 
