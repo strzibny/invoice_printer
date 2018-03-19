@@ -64,10 +64,10 @@ InvoicePrinter.render(
 
 ## Documentation
 
-- [Installation](DOCS/INSTALLATION.md)
-- [Library](DOCS/LIBRARY.md)
-- [Server](DOCS/SERVER.md)
-- [Command line](DOCS/COMMAND_LINE.md)
+- [Installation](./docs/INSTALLATION.md)
+- [Library](./docs/LIBRARY.md)
+- [Server](./docs/SERVER.md)
+- [Command line](./docs/COMMAND_LINE.md)
 
 ## Copyright
 
