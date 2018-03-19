@@ -1,6 +1,4 @@
-<a href="http://strzibny.github.io/invoice_printer/">
-  <img src="./docs/web/logo.png" width="300" />
-</a>
+<img src="./assets/logo.png" width="300" />
 
 &nbsp;
 
