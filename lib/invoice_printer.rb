@@ -4,6 +4,9 @@ require 'invoice_printer/document'
 require 'invoice_printer/document/item'
 require 'invoice_printer/pdf_document'
 
+# Skip warning for not specifying TTF font
+Prawn::Font::AFM.hide_m17n_warning = true
+
 # Create PDF versions of invoices or receipts using Prawn
 #
 # Example:

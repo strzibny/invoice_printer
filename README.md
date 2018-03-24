@@ -10,6 +10,12 @@
 
 See more usecases in the `examples/` directory.
 
+## Philosophy
+
+- **Simple**, no styling required
+- **Pure Ruby**, no dependency on system libraries or browsers
+- **Fast**, so you can render invoice on the fly during request
+
 ## Features
 
 - A4 and US letter paper size
@@ -34,12 +40,12 @@ See more usecases in the `examples/` directory.
 ## Documentation
 
 - [Installation](./docs/INSTALLATION.md)
-- [Library](./docs/LIBRARY.md)
+- [Ruby library](./docs/LIBRARY.md)
 - [Server](./docs/SERVER.md)
 - [Command line](./docs/COMMAND_LINE.md)
 
 ## Copyright
 
-Copyright 2015-2017 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
+Copyright 2015-2018 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
 
 Originally extracted from and created for an open source single-entry invoicing app [InvoiceBar](https://github.com/strzibny/invoicebar).

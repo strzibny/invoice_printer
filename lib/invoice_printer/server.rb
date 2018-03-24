@@ -2,7 +2,6 @@ require 'base64'
 require 'roda'
 require 'invoice_printer'
 
-# curl -H "Content-Type: text/html; charset=UTF-8" --data 'document={"number":"č. 198900000001","provider_name":"Petr Nový","provider_tax_id":"56565656","provider_tax_id2":"","provider_street":"Rolnická","provider_street_number":"1","provider_postcode":"747 05","provider_city":"Opava","provider_city_part":"Kateřinky","provider_extra_address_line":"","purchaser_name":"Adam Černý","purchaser_tax_id":"","purchaser_tax_id2":"","purchaser_street":"Ostravská","purchaser_street_number":"1","purchaser_postcode":"747 70","purchaser_city":"Opava","purchaser_city_part":"","purchaser_extra_address_line":"","issue_date":"05/03/2016","due_date":"19/03/2016","subtotal":"Kč 10.000","tax":"Kč 2.100","tax2":"","tax3":"","total":"Kč 12.100,-","bank_account_number":"156546546465","account_iban":"IBAN464545645","account_swift":"SWIFT5456","items":[{"name":"Konzultace","quantity":"2","unit":"hod","price":"Kč 500","tax":"","tax2":"","tax3":"","amount":"Kč 1.000"},{"name":"Programování","quantity":"10","unit":"hod","price":"Kč 900","tax":"","tax2":"","tax3":"","amount":"Kč 9.000"}],"note":"Osoba je zapsána v živnostenském rejstříku."}' -X POST http://0.0.0.0:9292/render
 class InvoicePrinter::Server < Roda
   route do |r|
     response['Content-Type'] = 'application/json'
