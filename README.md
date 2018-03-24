@@ -6,7 +6,7 @@
 
 ## Philosophy
 
-- **Simple**, no styling required
+- **Simple**, no styling required, no calculation, no money formatting (bring your own)
 - **Pure Ruby**, no dependency on system libraries or browsers
 - **Fast**, so you can render invoice on the fly during request
 
