@@ -4,17 +4,19 @@
 
 **Super simple PDF invoicing.** InvoicePrinter is a server, command line program and pure Ruby library to generate PDF invoices in no time. You can use Ruby or JSON as the invoice representation to build the final PDF.
 
-| Simple invoice |
-| -------------- |
-| <a href="https://github.com/strzibny/invoice_printer/raw/master/examples/promo.pdf"><img src="./examples/picture.jpg" width="180" /></a>|
-
-See more usecases in the `examples/` directory.
-
 ## Philosophy
 
 - **Simple**, no styling required
 - **Pure Ruby**, no dependency on system libraries or browsers
 - **Fast**, so you can render invoice on the fly during request
+
+## Examples
+
+| Simple invoice |
+| -------------- |
+| <a href="https://github.com/strzibny/invoice_printer/raw/master/examples/promo.pdf"><img src="./examples/picture.jpg" width="180" /></a>|
+
+See more usecases in the `examples/` directory.
 
 ## Features
 
