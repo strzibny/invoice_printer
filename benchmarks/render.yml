@@ -1,7 +1,7 @@
 # Run the benchmark with benchmark_driver as:
 #
-#   $ benchmark-driver benchmarks/render.yml --output compare --runner ips -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0,--jit'
-#   $ benchmark-driver benchmarks/render.yml --output compare --runner memory -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0,--jit'
+#   $ benchmark-driver benchmarks/render.yml --output gruff --runner ips -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0 --jit'
+#   $ benchmark-driver benchmarks/render.yml --output compare --runner memory -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0 --jit--jit'
 loop_count: 10000
 prelude: |
   lib = File.expand_path('../lib', __FILE__)
