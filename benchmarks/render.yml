@@ -1,0 +1,44 @@
+# Run the benchmark with benchmark_driver as:
+#
+#   $ benchmark-driver benchmarks/render.yml --output compare --runner ips -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0,--jit'
+#   $ benchmark-driver benchmarks/render.yml --output compare --runner memory -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0,--jit'
+loop_count: 10000
+prelude: |
+  lib = File.expand_path('../lib', __FILE__)
+  $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+  require 'invoice_printer'
+
+  item = InvoicePrinter::Document::Item.new(
+    name: 'Programming',
+    quantity: '10',
+    unit: 'hr',
+    price: '$ 90',
+    amount: '$ 900'
+  )
+
+  invoice = InvoicePrinter::Document.new(
+    number: 'NO. 198900000001',
+    provider_name: 'John White',
+    provider_street: '5th Avenue',
+    provider_street_number: '1',
+    provider_postcode: '747 05',
+    provider_city: 'NYC',
+    purchaser_name: 'Will Black',
+    purchaser_street: '7th Avenue',
+    purchaser_street_number: '1',
+    purchaser_postcode: '747 70',
+    purchaser_city: 'NYC',
+    issue_date: '05/03/2016',
+    due_date: '19/03/2016',
+    total: '$ 900',
+    bank_account_number: '156546546465',
+    items: [item],
+    note: 'This is a note at the end.'
+  )
+benchmark:
+  render: |
+    InvoicePrinter.print(
+      document: invoice,
+      file_name: 'simple_invoice_a4.pdf',
+      page_size: :a4
+    )

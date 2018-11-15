@@ -8,3 +8,7 @@ group :test do
   gem 'minitest'
   gem 'rack-test', require: 'rack/test'
 end
+
+group :benchmark do
+  gem 'benchmark_driver'
+end
