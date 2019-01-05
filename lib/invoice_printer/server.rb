@@ -16,11 +16,13 @@ class InvoicePrinter::Server < Roda
         r.halt
       end
 
-      labels   = params[:labels]
-      document = params[:document]
-      stamp    = params[:stamp]
-      logo     = params[:logo]
-      font     = params[:font]
+      labels     = params[:labels]
+      document   = params[:document]
+      stamp      = params[:stamp]
+      logo       = params[:logo]
+      font       = params[:font]
+      page_size  = params[:page_size]
+      background = params[:background]
     else
       response.status = 400
       response.write({ result: 'error', error: 'No JSON. Did you set Content-Type to application/json?' }.to_json)
@@ -50,7 +52,9 @@ class InvoicePrinter::Server < Roda
           font:      font,
           stamp:     stamp,
           logo:      logo,
-          file_name: filename
+          file_name: filename,
+          background: background,
+          page_size: page_size,
         )
 
         { result: 'ok', path: filename }.to_json
