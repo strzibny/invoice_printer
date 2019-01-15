@@ -46,7 +46,7 @@ module InvoicePrinter
       amount: 'Amount',
       subtotal: 'Subtotal',
       total: 'Total',
-      sublabels: {},
+      sublabels: {}
     }
 
     PageSize = Struct.new(:name, :width, :height)
@@ -66,12 +66,12 @@ module InvoicePrinter
 
     def initialize(document: Document.new, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: :letter)
       @document  = document
-      @labels    = PDFDocument.labels.merge(labels)
-      @page_size = PAGE_SIZES[page_size.to_sym]
-      @pdf       = Prawn::Document.new(background: background, page_size: @page_size.name)
+      @labels    = merge_custom_labels(labels)
       @font      = font
       @stamp     = stamp
       @logo      = logo
+      @page_size = page_size ? PAGE_SIZES[page_size.to_sym] : PAGE_SIZES[:letter]
+      @pdf       = Prawn::Document.new(background: background, page_size: @page_size.name)
 
       raise InvalidInput, 'document is not a type of InvoicePrinter::Document' \
         unless @document.is_a?(InvoicePrinter::Document)
@@ -830,6 +830,25 @@ module InvoicePrinter
 
       width_ratio = value / PAGE_SIZES[:letter].height
       width_ratio * @page_size.height
+    end
+
+    def merge_custom_labels(labels = {})
+      custom_labels = if labels
+                        hash_keys_to_symbols(labels)
+                      else
+                        {}
+                      end
+
+      PDFDocument.labels.merge(custom_labels)
+    end
+
+    def hash_keys_to_symbols(value)
+      return value unless value.is_a? Hash
+
+      value.inject({}) do |memo, (k, v)|
+        memo[k.to_sym] = hash_keys_to_symbols(v)
+        memo
+      end
     end
   end
 end

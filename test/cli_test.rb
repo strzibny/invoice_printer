@@ -15,7 +15,12 @@ class CLITest < Minitest::Test
   end
 
   def test_print_to_file
-    command = "bin/invoice_printer --filename #{@output_path} --document '#{@invoice_as_json}'"
+    command = "bin/invoice_printer " +
+              "--document '#{@invoice_as_json}' " +
+              "--labels '#{labels_hash.to_json}' " +
+              "--logo '#{logo_path}' " +
+              "--background '#{background_path}' " +
+              "--filename #{@output_path}"
 
     exit_status, command_stdout, command_stderr = nil
 
@@ -33,9 +38,12 @@ class CLITest < Minitest::Test
     expected_pdf_path = "#{@output_path}.expected_letter"
 
     InvoicePrinter.print(
-      document:  @invoice,
-      file_name: expected_pdf_path,
-      page_size: :letter
+      document:   @invoice,
+      labels:     labels_hash,
+      logo:       logo_path,
+      background: background_path,
+      page_size:  :letter,
+      file_name:  expected_pdf_path
     )
 
     similarity = (File.read(expected_pdf_path) == File.read(@output_path))
@@ -45,7 +53,13 @@ class CLITest < Minitest::Test
   end
 
   def test_print_to_file_a4
-    command = "bin/invoice_printer --filename #{@output_path} --page-size a4 --document '#{@invoice_as_json}'"
+    command = "bin/invoice_printer " +
+              "--document '#{@invoice_as_json}' " +
+              "--labels '#{labels_hash.to_json}' " +
+              "--logo '#{logo_path}' " +
+              "--background '#{background_path}' " +
+              "--page-size a4 " +
+              "--filename #{@output_path}"
 
     exit_status, command_stdout, command_stderr = nil
 
@@ -63,14 +77,34 @@ class CLITest < Minitest::Test
     expected_pdf_path = "#{@output_path}.expected_a4"
 
     InvoicePrinter.print(
-      document:  @invoice,
-      file_name: expected_pdf_path,
-      page_size: :a4
+      document:   @invoice,
+      labels:     labels_hash,
+      logo:       logo_path,
+      background: background_path,
+      page_size:  :a4,
+      file_name:  expected_pdf_path
     )
 
     similarity = (File.read(expected_pdf_path) == File.read(@output_path))
     assert_equal true, similarity, "#{@output_path} does not match #{expected_pdf_path}"
 
     File.unlink expected_pdf_path
+  end
+
+  private
+
+  def labels_hash
+    sublabels = { sublabels: { name: 'Sublabel name' } }
+
+    { provider: 'Default Provider',
+      purchaser: 'Default Purchaser' }.merge!(sublabels)
+  end
+
+  def logo_path
+    File.expand_path('../../examples/logo.png', __FILE__)
+  end
+
+  def background_path
+    File.expand_path('../../examples/background.png', __FILE__)
   end
 end

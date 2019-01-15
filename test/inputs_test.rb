@@ -55,5 +55,4 @@ class InputsTest < Minitest::Test
       InvoicePrinter.render(document: invoice, stamp: 'missing.png')
     end
   end
-  
 end
