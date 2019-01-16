@@ -18,7 +18,7 @@ module InvoicePrinter
     # but this is not enforced.
     class Item
       attr_reader :name,
-                  :variable,
+                  :variable, # for anything required
                   :quantity,
                   :unit,
                   :price,

@@ -604,7 +604,8 @@ module InvoicePrinter
     #   =================================================================
     #
     # variable (2nd position), tax2 and tax3 (after tax) fields can be added
-    # as well if necessary. If a specific column miss data, it's omittted.
+    # as well if necessary. variable does not come with any default label.
+    # If a specific column miss data, it's omittted.
     #
     # Using sublabels one can change the table to look as:
     #
