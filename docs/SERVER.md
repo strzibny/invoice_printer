@@ -46,9 +46,11 @@ Options:
 
 - `document` - JSON representation of the document
 - `labels` - JSON for labels
+- `font` - path to font file
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
-- `font` - path to font file
+- `background` - path to background file
+- `page_size` - letter or A4 page size
 
 On success a `200` response is returned:
 
@@ -84,9 +86,11 @@ Options:
 
 - `document` - JSON representation of the document
 - `labels` - JSON for labels
+- `font` - path to font file
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
-- `font` - path to font file
+- `background` - path to background file
+- `page_size` - letter or A4 page size
 - `filename` - path for saving the generated output PDF
 
 On success a `200` response is returned:

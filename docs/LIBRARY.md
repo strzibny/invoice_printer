@@ -38,6 +38,10 @@ item = InvoicePrinter::Document::Item.new(
   amount: '$ 100'
 )
 
+**Note**: There is `variable` field that can be used for any
+extra column. `tax2` and `tax3` for more complex taxes are
+available as well.
+
 invoice = InvoicePrinter::Document.new(
   number: '201604030001',
   provider_name: 'Business s.r.o.',
@@ -170,6 +174,7 @@ InvoicePrinter.labels = {
   issue_date: 'Issue date',
   due_date: 'Due date',
   item: 'Item',
+  variable: '',
   quantity: 'Quantity',
   unit: 'Unit',
   price_per_item: 'Price per item',
@@ -181,6 +186,7 @@ InvoicePrinter.labels = {
   total: 'Total'
 }
 ```
+**Note:** `variable`  fields lack default label. You should provide one.
 
 You can also use sublabels feature to provide the document in two languages:
 
@@ -201,6 +207,7 @@ sublabels = {
   issue_date: 'Datum vydání',
   due_date: 'Datum splatnosti',
   item: 'Položka',
+  variable: '',
   quantity: 'Počet',
   unit: 'MJ',
   price_per_item: 'Cena za položku',
@@ -215,7 +222,7 @@ labels.merge!({ sublabels: sublabels })
 ...
 ```
 
-Now the document will have a little sublabels next to the original labels in Czech.
+Now the document will have little sublabels next to the original labels in Czech.
 
 ### Font
 

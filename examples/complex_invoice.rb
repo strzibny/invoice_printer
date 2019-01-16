@@ -6,11 +6,16 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'invoice_printer'
 
 labels = {
-  tax: '10% VAT'
+  variable: 'Date',
+  tax: '10% VAT',
+  sublabels: {
+    variable: 'of work done'
+  }
 }
 
 item = InvoicePrinter::Document::Item.new(
   name: 'Programming',
+  variable: 'June 2018',
   quantity: '10',
   unit: 'hr',
   price: '$ 60',
@@ -20,6 +25,7 @@ item = InvoicePrinter::Document::Item.new(
 
 item2 = InvoicePrinter::Document::Item.new(
   name: 'Consulting',
+  variable: 'July 2018',
   quantity: '10',
   unit: 'hr',
   price: '$ 30',
@@ -29,6 +35,7 @@ item2 = InvoicePrinter::Document::Item.new(
 
 item3 = InvoicePrinter::Document::Item.new(
   name: 'Support',
+  variable: 'September 2018',
   quantity: '20',
   unit: 'hr',
   price: '$ 15',

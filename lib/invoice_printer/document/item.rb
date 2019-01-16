@@ -6,6 +6,7 @@ module InvoicePrinter
     #
     #  item = InvoicePrinter::Document::Item.new(
     #    name: 'UX consultation',
+    #    variable: 'June 2008',
     #    quantity: '4',
     #    unit: 'hours',
     #    price: '$ 25',
@@ -17,6 +18,7 @@ module InvoicePrinter
     # but this is not enforced.
     class Item
       attr_reader :name,
+                  :variable, # for anything required
                   :quantity,
                   :unit,
                   :price,
@@ -29,6 +31,7 @@ module InvoicePrinter
         def from_json(json)
           new(
             name:     json['name'],
+            variable: json['variable'],
             quantity: json['quantity'],
             unit:     json['unit'],
             price:    json['price'],
@@ -41,6 +44,7 @@ module InvoicePrinter
       end
 
       def initialize(name:     nil,
+                     variable: nil,
                      quantity: nil,
                      unit:     nil,
                      price:    nil,
@@ -50,6 +54,7 @@ module InvoicePrinter
                      amount:   nil)
 
         @name     = String(name)
+        @variable = String(variable)
         @quantity = String(quantity)
         @unit     = String(unit)
         @price    = String(price)
@@ -62,6 +67,7 @@ module InvoicePrinter
       def to_h
         {
           'name':     @name,
+          'variable': @variable,
           'quantity': @quantity,
           'unit':     @unit,
           'price':    @price,
