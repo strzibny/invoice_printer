@@ -37,6 +37,7 @@ module InvoicePrinter
       issue_date: 'Issue date',
       due_date: 'Due date',
       item: 'Item',
+      variable: '',
       quantity: 'Quantity',
       unit: 'Unit',
       price_per_item: 'Price per item',
@@ -602,8 +603,8 @@ module InvoicePrinter
     #   |x    |         2|    hr|              $2|   $1|              $4|
     #   =================================================================
     #
-    # If a specific column miss data, it's omittted.
-    # tax2 and tax3 fields can be added as well if necessary.
+    # variable (2nd position), tax2 and tax3 (after tax) fields can be added
+    # as well if necessary. If a specific column miss data, it's omittted.
     #
     # Using sublabels one can change the table to look as:
     #
@@ -632,7 +633,8 @@ module InvoicePrinter
           4 => :right,
           5 => :right,
           6 => :right,
-          7 => :right
+          7 => :right,
+          8 => :right
         },
         font_size: 10
       }
@@ -645,6 +647,7 @@ module InvoicePrinter
       items_params = {}
       @document.items.each do |item|
         items_params[:names] = true unless item.name.empty?
+        items_params[:variables] = true unless item.variable.empty?
         items_params[:quantities] = true unless item.quantity.empty?
         items_params[:units] = true unless item.unit.empty?
         items_params[:prices] = true unless item.price.empty?
@@ -661,6 +664,7 @@ module InvoicePrinter
       @document.items.map do |item|
         line = []
         line << item.name if items_params[:names]
+        line << item.variable if items_params[:variables]
         line << item.quantity if items_params[:quantities]
         line << item.unit if items_params[:units]
         line << item.price if items_params[:prices]
@@ -676,6 +680,7 @@ module InvoicePrinter
     def build_items_header(items_params)
       headers = []
       headers << { text: label_with_sublabel(:item) } if items_params[:names]
+      headers << { text: label_with_sublabel(:variable) } if items_params[:variables]
       headers << { text: label_with_sublabel(:quantity) } if items_params[:quantities]
       headers << { text: label_with_sublabel(:unit) } if items_params[:units]
       headers << { text: label_with_sublabel(:price_per_item) } if items_params[:prices]
