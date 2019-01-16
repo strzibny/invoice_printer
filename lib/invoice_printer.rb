@@ -62,12 +62,14 @@ module InvoicePrinter
   # Print the given InvoicePrinter::Document to PDF file named +file_name+
   #
   # document - InvoicePrinter::Document object
-  # file_name - output file
   # labels - labels to override
   # font - font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
-  def self.print(document:, file_name:, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: :letter)
+  # background - background (image)
+  # page_size - :letter or :a4
+  # file_name - output file
+  def self.print(document:, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: :letter, file_name:)
     PDFDocument.new(
       document: document,
       labels: labels,
@@ -86,6 +88,8 @@ module InvoicePrinter
   # font - font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
+  # background - background (image)
+  # page_size - :letter or :a4
   def self.render(document:, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: :letter)
     PDFDocument.new(
       document: document,
