@@ -38,10 +38,6 @@ item = InvoicePrinter::Document::Item.new(
   amount: '$ 100'
 )
 
-**Note**: There is `variable` field that can be used for any
-extra column. `tax2` and `tax3` for more complex taxes are
-available as well.
-
 invoice = InvoicePrinter::Document.new(
   number: '201604030001',
   provider_name: 'Business s.r.o.',
@@ -76,6 +72,10 @@ invoice = InvoicePrinter::Document.new(
   note: 'A note...'
 )
 ```
+
+**Note**: There is `variable` field that can be used for any
+extra column. `tax2` and `tax3` for more complex taxes are
+available as well.
 
 ### Ruby on Rails
 
