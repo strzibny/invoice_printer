@@ -77,7 +77,7 @@ module InvoicePrinter
       stamp: stamp,
       logo: logo,
       background: background,
-      page_size: page_size,
+      page_size: page_size
     ).print(file_name)
   end
 
