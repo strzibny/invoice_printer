@@ -48,6 +48,4 @@ See more usecases in the `examples/` directory.
 
 ## Copyright
 
-Copyright 2015-2018 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
-
-Originally extracted from and created for an open source single-entry invoicing app [InvoiceBar](https://github.com/strzibny/invoicebar).
+Copyright 2015-2019 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
