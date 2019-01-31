@@ -43,6 +43,11 @@ item3 = InvoicePrinter::Document::Item.new(
   amount: '$ 330'
 )
 
+provider_address = <<ADDRESS
+  1     5th Avenue
+  74705 NYC
+ADDRESS
+
 invoice = InvoicePrinter::Document.new(
   number: 'NO. 198900000001',
   provider_name: 'John White',
@@ -50,6 +55,7 @@ invoice = InvoicePrinter::Document.new(
   provider_street_number: '1',
   provider_postcode: '747 05',
   provider_city: 'NYC',
+  provider_address: provider_address,
   purchaser_name: 'Will Black',
   purchaser_street: '7th Avenue',
   purchaser_street_number: '1',

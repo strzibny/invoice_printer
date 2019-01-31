@@ -221,39 +221,48 @@ module InvoicePrinter
           align: :right
         )
       end
-      @pdf.text_box(
-        "#{@document.provider_street}    #{@document.provider_street_number}",
-        size: 10,
-        at: [10, y(620) - @push_down],
-        width: x(240)
-      )
-      @pdf.text_box(
-        @document.provider_postcode,
-        size: 10,
-        at: [10, y(605) - @push_down],
-        width: x(240)
-      )
-      @pdf.text_box(
-        @document.provider_city,
-        size: 10,
-        at: [60, y(605) - @push_down],
-        width: x(240)
-      )
-      unless @document.provider_city_part.empty?
+      if !@document.provider_address.empty?
         @pdf.text_box(
-          @document.provider_city_part,
+          "#{@document.provider_address}",
           size: 10,
-          at: [60, y(590) - @push_down],
+          at: [10, y(620) - @push_down],
           width: x(240)
         )
-      end
-      unless @document.provider_extra_address_line.empty?
+      else
         @pdf.text_box(
-          @document.provider_extra_address_line,
+          "#{@document.provider_street}    #{@document.provider_street_number}",
           size: 10,
-          at: [10, y(575) - @push_down],
+          at: [10, y(620) - @push_down],
           width: x(240)
         )
+        @pdf.text_box(
+          @document.provider_postcode,
+          size: 10,
+          at: [10, y(605) - @push_down],
+          width: x(240)
+        )
+        @pdf.text_box(
+          @document.provider_city,
+          size: 10,
+          at: [60, y(605) - @push_down],
+          width: x(240)
+        )
+        unless @document.provider_city_part.empty?
+          @pdf.text_box(
+            @document.provider_city_part,
+            size: 10,
+            at: [60, y(590) - @push_down],
+            width: x(240)
+          )
+        end
+        unless @document.provider_extra_address_line.empty?
+          @pdf.text_box(
+            @document.provider_extra_address_line,
+            size: 10,
+            at: [10, y(575) - @push_down],
+            width: x(240)
+          )
+        end
       end
       unless @document.provider_tax_id.empty?
         @pdf.text_box(
@@ -276,7 +285,7 @@ module InvoicePrinter
 
     # Build the following purchaser box:
     #
-    #    -------------------------------------------
+    #    ------------------------------------------
     #   | Purchaser      Optinal purchaser sublabel|
     #   | PURCHASER co.                            |
     #   | 5th Street                               |

@@ -74,7 +74,7 @@ invoice = InvoicePrinter::Document.new(
 ```
 
 **Note**: There is `variable` field that can be used for any
-extra column. `tax2` and `tax3` for more complex taxes are
+extra `Item` column. `tax2` and `tax3` for more complex taxes are
 available as well.
 
 ### Ruby on Rails
@@ -117,6 +117,32 @@ InvoicePrinter.print(
 
 
 ## Customization
+
+### Addresses
+
+By default addresses fields get formatted as it's common in many European countries with street number to the right from the street name and postcode to the left from the city.
+
+`provider_address` and `purchaser_address` can be used to provide already formatted address effectively replacing `*_street`, `*_street_number`, `*_postcode`, `*_city`, `*_city_part`, and `*_extra_address_line fields`. If whole address field is present for the provider or purchaser then all other relevant address fields are ignored.
+
+Changing the initial example this would look like:
+
+```
+address = <<-ADDRESS
+  61  Wellfield Road
+  Roath
+  Cardiff
+  CF24 3DG
+ADDRESS
+
+invoice = InvoicePrinter::Document.new(
+  number: '201604030001',
+  provider_name: 'Business s.r.o.',
+  provider_tax_id: '56565656',
+  provider_tax_id2: '465454',
+  provider_address: address
+  ...
+)
+```
 
 ### Page size
 

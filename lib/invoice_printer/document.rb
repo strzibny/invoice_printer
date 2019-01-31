@@ -38,7 +38,14 @@ module InvoicePrinter
   #     note: 'A note at the end.'
   #   )
   #
-  # +amount should equal the sum of all item's +amount+,
+  # Notes:
+  #
+  # * +provider_address+ and +purchaser_address+ can be used
+  # to provide already formatted address replacing *_street,
+  # *_street_number, *_postcode, *_city, *_city_part, and
+  # *_extra_address_line fields.
+  #
+  # * +amount should equal the sum of all item's +amount+,
   # but this is not enforced.
   class Document
     class InvalidInput < StandardError; end
@@ -49,6 +56,7 @@ module InvoicePrinter
                 :provider_tax_id,
                 :provider_tax_id2,
                 # Provider address fields
+                :provider_address,
                 :provider_street,
                 :provider_street_number,
                 :provider_postcode,
@@ -60,6 +68,7 @@ module InvoicePrinter
                 :purchaser_tax_id,
                 :purchaser_tax_id2,
                 # Purchaser address fields
+                :purchaser_address,
                 :purchaser_street,
                 :purchaser_street_number,
                 :purchaser_postcode,
@@ -88,6 +97,7 @@ module InvoicePrinter
           provider_name:                json['provider_name'],
           provider_tax_id:              json['provider_tax_id'],
           provider_tax_id2:             json['provider_tax_id2'],
+          provider_address:             json['provider_address'],
           provider_street:              json['provider_street'],
           provider_street_number:       json['provider_street_number'],
           provider_postcode:            json['provider_postcode'],
@@ -97,6 +107,7 @@ module InvoicePrinter
           purchaser_name:               json['purchaser_name'],
           purchaser_tax_id:             json['purchaser_tax_id'],
           purchaser_tax_id2:            json['purchaser_tax_id2'],
+          purchaser_address:            json['purchaser_address'],
           purchaser_street:             json['purchaser_street'],
           purchaser_street_number:      json['purchaser_street_number'],
           purchaser_postcode:           json['purchaser_postcode'],
@@ -124,6 +135,7 @@ module InvoicePrinter
                    provider_name:                nil,
                    provider_tax_id:              nil,
                    provider_tax_id2:             nil,
+                   provider_address:             nil,
                    provider_street:              nil,
                    provider_street_number:       nil,
                    provider_postcode:            nil,
@@ -131,6 +143,7 @@ module InvoicePrinter
                    provider_city_part:           nil,
                    provider_extra_address_line:  nil,
                    purchaser_name:               nil,
+                   purchaser_address:            nil,
                    purchaser_tax_id:             nil,
                    purchaser_tax_id2:            nil,
                    purchaser_street:             nil,
@@ -156,6 +169,7 @@ module InvoicePrinter
       @provider_name                = String(provider_name)
       @provider_tax_id              = String(provider_tax_id)
       @provider_tax_id2             = String(provider_tax_id2)
+      @provider_address             = String(provider_address)
       @provider_street              = String(provider_street)
       @provider_street_number       = String(provider_street_number)
       @provider_postcode            = String(provider_postcode)
@@ -165,6 +179,7 @@ module InvoicePrinter
       @purchaser_name               = String(purchaser_name)
       @purchaser_tax_id             = String(purchaser_tax_id)
       @purchaser_tax_id2            = String(purchaser_tax_id2)
+      @purchaser_address            = String(purchaser_address)
       @purchaser_street             = String(purchaser_street)
       @purchaser_street_number      = String(purchaser_street_number)
       @purchaser_postcode           = String(purchaser_postcode)
@@ -194,6 +209,7 @@ module InvoicePrinter
         'provider_name':                @provider_name,
         'provider_tax_id':              @provider_tax_id,
         'provider_tax_id2':             @provider_tax_id2,
+        'provider_address':             @provider_address,
         'provider_street':              @provider_street,
         'provider_street_number':       @provider_street_number,
         'provider_postcode':            @provider_postcode,
@@ -203,6 +219,7 @@ module InvoicePrinter
         'purchaser_name':               @purchaser_name,
         'purchaser_tax_id':             @purchaser_tax_id,
         'purchaser_tax_id2':            @purchaser_tax_id2,
+        'purchaser_address':            @purchaser_address,
         'purchaser_street':             @purchaser_street,
         'purchaser_street_number':      @purchaser_street_number,
         'purchaser_postcode':           @purchaser_postcode,
