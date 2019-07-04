@@ -8,21 +8,11 @@ module InvoicePrinter
   #     provider_name: 'Business s.r.o.',
   #     provider_tax_id: '56565656',
   #     provider_tax_id2: '465454',
-  #     provider_street: 'Rolnicka',
-  #     provider_street_number: '1',
-  #     provider_postcode: '747 05',
-  #     provider_city: 'Opava',
-  #     provider_city_part: 'Katerinky',
-  #     provider_extra_address_line: 'Czech Republic',
+  #     provider_lines: "Rolnicka 1\n747 05 Opava",
   #     purchaser_name: 'Adam',
   #     purchaser_tax_id: '',
   #     purchaser_tax_id2: '',
-  #     purchaser_street: 'Ostravska',
-  #     purchaser_street_number: '1',
-  #     purchaser_postcode: '747 70',
-  #     purchaser_city: 'Opava',
-  #     purchaser_city_part: '',
-  #     purchaser_extra_address_line: '',
+  #     purchaser_lines: "Ostravska 2\n747 05 Opava",
   #     issue_date: '19/03/3939',
   #     due_date: '19/03/3939',
   #     subtotal: '$ 150',
@@ -191,6 +181,8 @@ module InvoicePrinter
       @account_swift                = String(account_swift)
       @items                        = items
       @note                         = String(note)
+
+
 
       raise InvalidInput, 'items are not only a type of InvoicePrinter::Document::Item' \
         unless @items.select{ |i| !i.is_a?(InvoicePrinter::Document::Item) }.empty?
