@@ -29,6 +29,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.bindir        = 'bin'
 
+  spec.required_ruby_version = '>= 2.4'
+
   spec.add_dependency 'json', '~> 2.1'
   spec.add_dependency 'prawn', '~> 2.1.0'
   spec.add_dependency 'prawn-layout', '~> 0.8.4'

@@ -25,6 +25,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.bindir        = 'bin'
 
+  spec.required_ruby_version = '>= 2.4'
+
   spec.add_dependency 'invoice_printer', InvoicePrinter::VERSION
   spec.add_dependency 'json', '~> 2.1'
   spec.add_dependency 'roda', '~> 3.5'
