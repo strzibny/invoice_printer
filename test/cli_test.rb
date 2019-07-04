@@ -5,9 +5,12 @@ class CLITest < Minitest::Test
   include InvoicePrinterHelpers
 
   def setup
+    t = Time.now.strftime("%Y%m%d")
+    tmpname = "/tmp/invoice-#{t}-#{$$}-#{rand(0x100000000).to_s(36)}-fd"
+
     @invoice         = InvoicePrinter::Document.new(default_document_params)
     @invoice_as_json = @invoice.to_json
-    @output_path     = Dir::Tmpname.make_tmpname('/tmp/invoice', nil)
+    @output_path     = tmpname
   end
 
   def teardown
