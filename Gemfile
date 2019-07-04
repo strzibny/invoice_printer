@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in invoice_printer.gemspec
-gemspec
+# Specify server's gemspec since it will have all dependencies
+gemspec name: 'invoice_printer_server'
 
 group :test do
   gem 'pdf-inspector'
