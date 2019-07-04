@@ -38,26 +38,22 @@ item = InvoicePrinter::Document::Item.new(
   amount: '$ 100'
 )
 
+provider_address = <<~ADDRESS
+  Rolnická 1
+  747 05  Opava
+  Kateřinky
+ADDRESS
+
 invoice = InvoicePrinter::Document.new(
   number: '201604030001',
   provider_name: 'Business s.r.o.',
   provider_tax_id: '56565656',
   provider_tax_id2: '465454',
-  provider_street: 'Rolnicka',
-  provider_street_number: '1',
-  provider_postcode: '747 05',
-  provider_city: 'Opava',
-  provider_city_part: 'Katerinky',
-  provider_extra_address_line: 'Czech Republic',
+  provider_lines: provider_address,
   purchaser_name: 'Adam',
   purchaser_tax_id: '',
   purchaser_tax_id2: '',
-  purchaser_street: 'Ostravska',
-  purchaser_street_number: '1',
-  purchaser_postcode: '747 70',
-  purchaser_city: 'Opava',
-  purchaser_city_part: '',
-  purchaser_extra_address_line: '',
+  purchaser_lines: "Ostravská 1\n747 70  Opava",
   issue_date: '19/03/3939',
   due_date: '19/03/3939',
   subtotal: '175',
@@ -72,6 +68,8 @@ invoice = InvoicePrinter::Document.new(
   note: 'A note...'
 )
 ```
+
+**Note**: `provider_lines` and `purchaser_lines` are 4 lines of data separated by new line character`\n`. Other lines are being stripped.
 
 **Note**: There is `variable` field that can be used for any
 extra column. `tax2` and `tax3` for more complex taxes are
