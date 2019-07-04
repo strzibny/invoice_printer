@@ -5,7 +5,7 @@ require 'optparse'
 require 'invoice_printer'
 
 def show_version
-  puts "InvoicePrinter Server v#{InvoicePrinter::VERSION}"
+  puts "InvoicePrinter v#{InvoicePrinter::VERSION}"
 
   exit 0
 end

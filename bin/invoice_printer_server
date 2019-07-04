@@ -7,7 +7,7 @@ require 'invoice_printer/version'
 require 'invoice_printer/server'
 
 def show_version
-  puts "InvoicePrinter v#{InvoicePrinter::VERSION}"
+  puts "InvoicePrinter Server v#{InvoicePrinter::VERSION}"
 
   exit 0
 end
