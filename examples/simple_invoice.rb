@@ -16,11 +16,15 @@ item = InvoicePrinter::Document::Item.new(
 invoice = InvoicePrinter::Document.new(
   number: 'NO. 198900000001',
   provider_name: 'John White',
+  # Deprecated 1.3 API, use provider_lines
+  # Here for compatibility test
   provider_street: '5th Avenue',
   provider_street_number: '1',
   provider_postcode: '747 05',
   provider_city: 'NYC',
   purchaser_name: 'Will Black',
+  # Deprecated 1.3 API, use purchaser_lines
+  # Here for compatibility test
   purchaser_street: '7th Avenue',
   purchaser_street_number: '1',
   purchaser_postcode: '747 70',

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# This is an example of a international invoice with Czech labels and English translation.
+# This is an example of a Czech invoice.
 #
 # Due to the special characters it requires Overpass-Regular.ttf font to be
 # present in this directory.
@@ -29,10 +29,6 @@ labels = {
   total: 'Celkem'
 }
 
-# Default English labels as sublabels
-sublabels = InvoicePrinter::PDFDocument::DEFAULT_LABELS
-labels.merge!({ sublabels: sublabels })
-
 first_item = InvoicePrinter::Document::Item.new(
   name: 'Konzultace',
   quantity: '2',
@@ -53,20 +49,38 @@ provider_address = <<ADDRESS
 Rolnická 1
 747 05  Opava
 Kateřinky
+
+fith line wont show
 ADDRESS
 
 purchaser_address = <<ADDRESS
-8648 Acacia Rd.
-Brooklyn, NY 11203
+Ostravská 1
+747 70  Opava
+
+
+
+fith line wont show
 ADDRESS
 
 invoice = InvoicePrinter::Document.new(
   number: 'č. 198900000001',
   provider_name: 'Petr Nový',
-  provider_lines: provider_address,
   provider_tax_id: '56565656',
-  purchaser_name: 'Adam Black',
+  provider_tax_id2: 'CZ56565656',
+  provider_street: 'Rolnická',
+  provider_street_number: '1',
+  provider_postcode: '747 05',
+  provider_city: 'Opava',
+  provider_city_part: 'Kateřinky',
+  provider_lines: provider_address,
+  purchaser_name: 'Adam Černý',
+  purchaser_street: 'Ostravská',
+  purchaser_street_number: '1',
+  purchaser_postcode: '747 70',
+  purchaser_city: 'Opava',
   purchaser_lines: purchaser_address,
+  purchaser_tax_id: '56565656',
+  purchaser_tax_id2: 'CZ56565656',
   issue_date: '05/03/2016',
   due_date: '19/03/2016',
   subtotal: 'Kč 10.000',
@@ -84,7 +98,7 @@ InvoicePrinter.print(
   labels: labels,
   font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
   logo: 'prawn.png',
-  file_name: 'international_invoice.pdf'
+  file_name: 'provider_purchaser_lines.pdf'
 )
 
 InvoicePrinter.print(
@@ -92,6 +106,6 @@ InvoicePrinter.print(
   labels: labels,
   font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
   logo: 'prawn.png',
-  file_name: 'international_invoice_a4.pdf',
+  file_name: 'provider_purchaser_lines_a4.pdf',
   page_size: :a4
 )

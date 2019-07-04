@@ -25,11 +25,9 @@ module InvoicePrinter
       strings = []
       strings << @document.provider_name
       strings << @labels[:provider]
-      strings << "#{@document.provider_street}    #{@document.provider_street_number}".strip
-      strings << @document.provider_postcode
-      strings << @document.provider_city
-      strings << @document.provider_city_part
-      strings << @document.provider_extra_address_line
+      @document.provider_lines.split("\n").each do |line|
+        strings << line
+      end
       strings << "#{@labels[:tax_id]}:    #{@document.provider_tax_id}" \
         unless @document.provider_tax_id.empty?
       strings << "#{@labels[:tax_id2]}:    #{@document.provider_tax_id2}" \
@@ -42,11 +40,9 @@ module InvoicePrinter
       strings = []
       strings << @document.purchaser_name
       strings << @labels[:purchaser]
-      strings << "#{@document.purchaser_street}    #{@document.purchaser_street_number}".strip
-      strings << @document.purchaser_postcode
-      strings << @document.purchaser_city
-      strings << @document.purchaser_city_part
-      strings << @document.purchaser_extra_address_line
+      @document.purchaser_lines.split("\n").each do |line|
+        strings << line
+      end
       strings << "#{@labels[:tax_id]}:    #{@document.purchaser_tax_id}" \
         unless @document.purchaser_tax_id.empty?
       strings << "#{@labels[:tax_id2]}:    #{@document.purchaser_tax_id2}" \

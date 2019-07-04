@@ -16,21 +16,11 @@ module InvoicePrinterHelpers
       provider_name: 'Business s.r.o.',
       provider_tax_id: '56565656',
       provider_tax_id2: '465454',
-      provider_street: 'Rolnicka',
-      provider_street_number: '1',
-      provider_postcode: '747 05',
-      provider_city: 'Opava',
-      provider_city_part: 'Katerinky',
-      provider_extra_address_line: 'Czech Republic',
+      provider_lines: default_provider_address,
       purchaser_name: 'Adam',
       purchaser_tax_id: nil,
       purchaser_tax_id2: nil,
-      purchaser_street: 'Ostravska',
-      purchaser_street_number: '1',
-      purchaser_postcode: '747 70',
-      purchaser_city: 'Opava',
-      purchaser_city_part: '',
-      purchaser_extra_address_line: '',
+      purchaser_lines: default_purchaser_address,
       issue_date: '19/03/3939',
       due_date: '19/03/3939',
       subtotal: '175',
@@ -47,6 +37,22 @@ module InvoicePrinterHelpers
         )
       ]
     }
+  end
+
+  def default_provider_address
+    <<~ADDRESS
+      Rolnicka 1
+      747 05  Opava
+      Katerinky
+      Czech Republic
+    ADDRESS
+  end
+
+  def default_purchaser_address
+    <<~ADDRESS
+      Ostravska 1
+      747 70  Opava
+    ADDRESS
   end
 
   def default_document_item_params

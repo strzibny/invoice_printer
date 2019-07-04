@@ -8,21 +8,11 @@ module InvoicePrinter
   #     provider_name: 'Business s.r.o.',
   #     provider_tax_id: '56565656',
   #     provider_tax_id2: '465454',
-  #     provider_street: 'Rolnicka',
-  #     provider_street_number: '1',
-  #     provider_postcode: '747 05',
-  #     provider_city: 'Opava',
-  #     provider_city_part: 'Katerinky',
-  #     provider_extra_address_line: 'Czech Republic',
+  #     provider_lines: "Rolnicka 1\n747 05 Opava",
   #     purchaser_name: 'Adam',
   #     purchaser_tax_id: '',
   #     purchaser_tax_id2: '',
-  #     purchaser_street: 'Ostravska',
-  #     purchaser_street_number: '1',
-  #     purchaser_postcode: '747 70',
-  #     purchaser_city: 'Opava',
-  #     purchaser_city_part: '',
-  #     purchaser_extra_address_line: '',
+  #     purchaser_lines: "Ostravska 2\n747 05 Opava",
   #     issue_date: '19/03/3939',
   #     due_date: '19/03/3939',
   #     subtotal: '$ 150',
@@ -48,6 +38,7 @@ module InvoicePrinter
                 :provider_name,
                 :provider_tax_id,
                 :provider_tax_id2,
+                :provider_lines,
                 # Provider address fields
                 :provider_street,
                 :provider_street_number,
@@ -59,6 +50,7 @@ module InvoicePrinter
                 :purchaser_name,
                 :purchaser_tax_id,
                 :purchaser_tax_id2,
+                :purchaser_lines,
                 # Purchaser address fields
                 :purchaser_street,
                 :purchaser_street_number,
@@ -94,6 +86,7 @@ module InvoicePrinter
           provider_city:                json['provider_city'],
           provider_city_part:           json['provider_city_part'],
           provider_extra_address_line:  json['provider_extra_address_line'],
+          provider_lines:               json['provider_lines'],
           purchaser_name:               json['purchaser_name'],
           purchaser_tax_id:             json['purchaser_tax_id'],
           purchaser_tax_id2:            json['purchaser_tax_id2'],
@@ -103,6 +96,7 @@ module InvoicePrinter
           purchaser_city:               json['purchaser_city'],
           purchaser_city_part:          json['purchaser_city_part'],
           purchaser_extra_address_line: json['purchaser_extra_address_line'],
+          purchaser_lines:              json['purchaser_lines'],
           issue_date:                   json['issue_date'],
           due_date:                     json['due_date'],
           subtotal:                     json['subtotal'],
@@ -130,6 +124,7 @@ module InvoicePrinter
                    provider_city:                nil,
                    provider_city_part:           nil,
                    provider_extra_address_line:  nil,
+                   provider_lines:               nil,
                    purchaser_name:               nil,
                    purchaser_tax_id:             nil,
                    purchaser_tax_id2:            nil,
@@ -139,6 +134,7 @@ module InvoicePrinter
                    purchaser_city:               nil,
                    purchaser_city_part:          nil,
                    purchaser_extra_address_line: nil,
+                   purchaser_lines:              nil,
                    issue_date:                   nil,
                    due_date:                     nil,
                    subtotal:                     nil,
@@ -162,6 +158,7 @@ module InvoicePrinter
       @provider_city                = String(provider_city)
       @provider_city_part           = String(provider_city_part)
       @provider_extra_address_line  = String(provider_extra_address_line)
+      @provider_lines               = String(provider_lines)
       @purchaser_name               = String(purchaser_name)
       @purchaser_tax_id             = String(purchaser_tax_id)
       @purchaser_tax_id2            = String(purchaser_tax_id2)
@@ -171,6 +168,7 @@ module InvoicePrinter
       @purchaser_city               = String(purchaser_city)
       @purchaser_city_part          = String(purchaser_city_part)
       @purchaser_extra_address_line = String(purchaser_extra_address_line)
+      @purchaser_lines              = String(purchaser_lines)
       @issue_date                   = String(issue_date)
       @due_date                     = String(due_date)
       @subtotal                     = String(subtotal)
@@ -183,6 +181,8 @@ module InvoicePrinter
       @account_swift                = String(account_swift)
       @items                        = items
       @note                         = String(note)
+
+
 
       raise InvalidInput, 'items are not only a type of InvoicePrinter::Document::Item' \
         unless @items.select{ |i| !i.is_a?(InvoicePrinter::Document::Item) }.empty?
@@ -200,6 +200,7 @@ module InvoicePrinter
         'provider_city':                @provider_city,
         'provider_city_part':           @provider_city_part,
         'provider_extra_address_line':  @provider_extra_address_line,
+        'provider_lines':               @provider_lines,
         'purchaser_name':               @purchaser_name,
         'purchaser_tax_id':             @purchaser_tax_id,
         'purchaser_tax_id2':            @purchaser_tax_id2,
@@ -209,6 +210,7 @@ module InvoicePrinter
         'purchaser_city':               @purchaser_city,
         'purchaser_city_part':          @purchaser_city_part,
         'purchaser_extra_address_line': @purchaser_extra_address_line,
+        'purchaser_lines':              @purchaser_lines,
         'issue_date':                   @issue_date,
         'due_date':                     @due_date,
         'subtotal':                     @subtotal,
