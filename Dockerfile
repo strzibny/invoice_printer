@@ -6,6 +6,12 @@
 # To run it:
 #
 #   $ sudo docker run -d -p 9393:9393 -t printer
+#
+# To push to repository:
+#
+#   $ sudo docker login
+#   $ sudo docker tag printer docker.io/strzibnyj/invoice_printer_server:latest
+#   $ sudo docker push strzibnyj/invoice_printer_server:latest
 FROM alpine:3.10
 MAINTAINER Josef Strzibny <strzibny@strzibny.name>
 
