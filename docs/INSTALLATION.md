@@ -29,3 +29,15 @@ gem 'invoice_printer_server'
 And then execute:
 
     $ bundle
+
+## Using Docker
+
+InvoicePrinter Server is available as a Docker image.
+
+This requires Docker to be installed and running.
+
+To get it:
+
+```bash
+$ sudo docker pull strzibnyj/invoice_printer_server
+```

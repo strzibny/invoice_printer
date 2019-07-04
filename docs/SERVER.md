@@ -6,7 +6,7 @@ Apart from this you can also manually mount the server inside of your Rack appli
 
 ## Running the server
 
-### From command line
+### From a command line
 
 Once installed, InvoicePrinter Server provides `invoice_printer_server` executable that starts the Puma server:
 
@@ -18,7 +18,17 @@ $ invoice_printer_server -h 0.0.0.0 -p 5000
 
 By default server binds to `0.0.0.0:9393`.
 
-### As mountable Rack app
+#### As a Docker image
+
+Get the public image and run it:
+
+```bash
+$ sudo docker pull strzibnyj/invoice_printer_server:latest
+$ sudo docker run -d -p 9393:9393 -t docker.io/strzibnyj/invoice_printer_server
+```
+The server will then be available on `0.0.0.0:9393`.
+
+### As a mountable Rack app
 
 If you want you can always run the server from your custom program or mount it directly from a Rack app.
 
