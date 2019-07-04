@@ -49,20 +49,24 @@ second_item = InvoicePrinter::Document::Item.new(
   amount: 'Kč 9.000'
 )
 
+provider_address = <<ADDRESS
+Rolnická 1
+747 05  Opava
+Kateřinky
+ADDRESS
+
+purchaser_address = <<ADDRESS
+8648 Acacia Rd.
+Brooklyn, NY 11203
+ADDRESS
+
 invoice = InvoicePrinter::Document.new(
   number: 'č. 198900000001',
   provider_name: 'Petr Nový',
+  provider_lines: provider_address,
   provider_tax_id: '56565656',
-  provider_street: 'Rolnická',
-  provider_street_number: '1',
-  provider_postcode: '747 05',
-  provider_city: 'Opava',
-  provider_city_part: 'Kateřinky',
-  purchaser_name: 'Adam Černý',
-  purchaser_street: 'Ostravská',
-  purchaser_street_number: '1',
-  purchaser_postcode: '747 70',
-  purchaser_city: 'Opava',
+  purchaser_name: 'Adam Black',
+  purchaser_lines: purchaser_address,
   issue_date: '05/03/2016',
   due_date: '19/03/2016',
   subtotal: 'Kč 10.000',
