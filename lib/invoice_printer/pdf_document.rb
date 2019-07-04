@@ -237,6 +237,12 @@ module InvoicePrinter
         end
       else
         @pdf.text_box(
+          "#{@document.provider_street}    #{@document.provider_street_number}",
+          size: 10,
+          at: [10, y(620) - @push_down],
+          width: x(240)
+        )
+        @pdf.text_box(
           @document.provider_postcode,
           size: 10,
           at: [10, y(605) - @push_down],
