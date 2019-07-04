@@ -1,6 +1,6 @@
 # InvoicePrinter Server
 
-InvoicePrinter contains a built in server that can be run from a command line with `invoice_printer_server`.
+InvoicePrinter comes with a server that can be run from a command line with `invoice_printer_server`. Since 2.x releases this server is packaged separately in `invoice_printer_server` gem.
 
 Apart from this you can also manually mount the server inside of your Rack application.
 
@@ -8,10 +8,10 @@ Apart from this you can also manually mount the server inside of your Rack appli
 
 ### From command line
 
-Once installed, InvoicePrinter provides `invoice_printer_server` executable that starts the Puma server:
+Once installed, InvoicePrinter Server provides `invoice_printer_server` executable that starts the Puma server:
 
 ```bash
-invoice_printer_server -h 0.0.0.0 -p 5000
+$ invoice_printer_server -h 0.0.0.0 -p 5000
 ```
 
 `-h` defines a host and `-p` defines a port. For help you can run `--help`.
