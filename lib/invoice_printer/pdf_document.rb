@@ -101,6 +101,36 @@ module InvoicePrinter
         end
       end
 
+      # Version 2.1 deprecation warnings
+      warnings = [
+        @document.provider_street,
+        @document.provider_street_number,
+        @document.provider_postcode,
+        @document.provider_city,
+        @document.provider_city_part,
+        @document.provider_extra_address_line,
+        @document.purchaser_street,
+        @document.purchaser_street_number,
+        @document.purchaser_postcode,
+        @document.purchaser_city,
+        @document.purchaser_city_part,
+        @document.purchaser_extra_address_line
+      ].delete_if(&:empty?)
+
+      unless warnings.empty?
+        warning = <<~WARN
+          WARNING: Following values are used in deprecated fields and
+          won't be rendered in future versions of InvoicePrinter:
+
+          #{warnings.join(", ")}
+
+          Use new provider_lines and purchaser_lines fields instead of
+          the old address fields.
+        WARN
+
+        $stderr.puts warning
+      end
+
       build_pdf
     end
 
