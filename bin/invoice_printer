@@ -5,7 +5,7 @@ require 'optparse'
 require 'invoice_printer'
 
 def show_version
-  puts "InvoicePrinter v#{InvoicePrinter::VERSION}"
+  puts "InvoicePrinter Server v#{InvoicePrinter::VERSION}"
 
   exit 0
 end
@@ -25,6 +25,7 @@ def show_help
          --page-size   letter or a4 (letter is the default)
       -f, --filename   output path
         -r, --render   directly render PDF stream (filename option will be ignored)
+       -v, --version   show version
 
   HELP
 

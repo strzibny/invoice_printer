@@ -3,6 +3,7 @@ $LOAD_PATH << File.expand_path('lib')
 
 require 'optparse'
 require 'rack/handler/puma'
+require 'invoice_printer/version'
 require 'invoice_printer/server'
 
 def show_version
@@ -20,6 +21,7 @@ def show_help
         -h, --host   hostname to listen on (default is 0.0.0.0)
         -p, --port   port to listen on (default is 9393)
      -w, --workers   number of Puma workers (default is 2)
+     -v, --version   show version
 
   HELP
 
@@ -39,6 +41,10 @@ parser = OptionParser.new do|opts|
 
   opts.on('-w', '--workers NUMBER') do |number|
     options[:workers] = number.to_i
+  end
+
+  opts.on('-v', '--version') do
+    show_version
   end
 
   opts.on('--debug') do
