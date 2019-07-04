@@ -4,7 +4,8 @@ require 'invoice_printer/version'
 
 SERVER_FILES = [
   'bin/invoice_printer_server',
-  'lib/invoice_printer/server.rb'
+  'lib/invoice_printer/server.rb',
+  'lib/invoice_printer/version.rb'
 ]
 
 Gem::Specification.new do |spec|
