@@ -79,7 +79,7 @@ class InvoicePrinter::Server < Roda
           page_size:  page_size
         )
 
-        { result: 'ok', data: Base64.encode64(stream) }.to_json
+        { result: 'ok', data: Base64.strict_encode64(stream) }.to_json
       rescue => e
         response.status = 400
         response.write({ result: 'error', error: e.message }.to_json)
