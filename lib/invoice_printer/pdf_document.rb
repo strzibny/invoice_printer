@@ -447,7 +447,6 @@ module InvoicePrinter
       end
 
       # Match the height of next box if needed
-      # TODO: it's smaller without sublabels
       min_height = 60
       if used?(@document.issue_date) || used?(@document.due_date)
         min_height = (used?(@document.issue_date) && used?(@document.due_date)) ? 75 : 60
@@ -467,7 +466,8 @@ module InvoicePrinter
           at: [10, y(483) - @push_down],
           width: x(234)
         )
-        @pdf.stroke_rounded_rectangle([0, 508 - @push_down], 270, 45, 6)
+
+        @pdf.stroke_rounded_rectangle([0, y(508) - @push_down], x(266), @payment_box_height, 6)
       else
         @payment_box_height = 60
         @push_iban = 0
@@ -654,6 +654,7 @@ module InvoicePrinter
         height = @payment_box_height if @payment_box_height > height
 
         @pdf.stroke_rounded_rectangle([x(274), y(508) - @push_down], x(266), height, 6)
+        @push_items_table += 12 if @push_items_table <= 18
       end
     end
 
