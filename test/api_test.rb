@@ -73,6 +73,6 @@ class ApiTest < Minitest::Test
     body = JSON.parse last_response.body
 
     assert last_response.ok?
-    assert_equal body, { 'result' => 'ok', 'data' => Base64.encode64(output) }
+    assert_equal body, { 'result' => 'ok', 'data' => Base64.strict_encode64(output) }
   end
 end
