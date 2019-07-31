@@ -28,7 +28,7 @@ RUN apk add build-base bash ruby ruby-etc ruby-dev
 RUN gem install invoice_printer_fonts --no-document
 
 # Install gem from RubyGems.org
-RUN gem install invoice_printer_server --version 2.0.0.beta2 --no-document
+RUN gem install invoice_printer_server --version 2.0.0.beta3 --no-document
 
 # Clean APK cache
 RUN rm -rf /var/cache/apk/*
