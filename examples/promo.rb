@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 # This is an example of a international invoice with Czech labels and English translation.
-#
-# Due to the special characters it requires Overpass-Regular.ttf font to be
-# present in this directory.
 
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -78,7 +75,7 @@ invoice = InvoicePrinter::Document.new(
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
+  font: File.expand_path('../../../assets/fonts/overpass/Overpass-Regular.ttf', __FILE__),
   logo: 'logo.png',
   file_name: 'promo.pdf'
 )
@@ -86,7 +83,7 @@ InvoicePrinter.print(
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
+  font: File.expand_path('../../../assets/fonts/overpass/Overpass-Regular.ttf', __FILE__),
   logo: 'logo.png',
   file_name: 'promo_a4.pdf',
   page_size: :a4

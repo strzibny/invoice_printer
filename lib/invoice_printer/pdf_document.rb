@@ -157,6 +157,7 @@ module InvoicePrinter
         "#{font}" => InvoicePrinter::Fonts.paths_for(font)
       )
       @pdf.font(font)
+
     rescue StandardError
       raise FontFileNotFound, "Font file not found for #{font}"
     end

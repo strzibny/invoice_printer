@@ -11,28 +11,28 @@ class InvoicePrinter::Fonts
 
   def self.opensans
     {
-      :normal      => "#{ASSETS_PATH}/fonts/OpenSans-Regular.ttf",
-      :italic      => "#{ASSETS_PATH}/fonts/OpenSans-Regular.ttf",
-      :bold        => "#{ASSETS_PATH}/fonts/OpenSans-Regular.ttf",
-      :bold_italic => "#{ASSETS_PATH}/fonts/OpenSans-Regular.ttf"
+      :normal      => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf",
+      :italic      => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf",
+      :bold        => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf",
+      :bold_italic => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf"
     }
   end
 
   def self.overpass
     {
-      :normal      => "#{ASSETS_PATH}/fonts/Overpass-Regular.ttf",
-      :italic      => "#{ASSETS_PATH}/fonts/Overpass-Regular.ttf",
-      :bold        => "#{ASSETS_PATH}/fonts/Overpass-Regular.ttf",
-      :bold_italic => "#{ASSETS_PATH}/fonts/Overpass-Regular.ttf"
+      :normal      => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf",
+      :italic      => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf",
+      :bold        => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf",
+      :bold_italic => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf"
     }
   end
 
   def self.roboto
     {
-      :normal      => "#{ASSETS_PATH}/fonts/Roboto-Regular.ttf",
-      :italic      => "#{ASSETS_PATH}/fonts/Roboto-Regular.ttf",
-      :bold        => "#{ASSETS_PATH}/fonts/Roboto-Regular.ttf",
-      :bold_italic => "#{ASSETS_PATH}/fonts/Roboto-Regular.ttf"
+      :normal      => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf",
+      :italic      => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf",
+      :bold        => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf",
+      :bold_italic => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf"
     }
   end
 end
