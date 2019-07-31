@@ -145,28 +145,19 @@ module InvoicePrinter
     def use_font(font)
       if File.exist?(@font)
         set_font_from_path(@font)
-      elsif @font == 'dejavu'
-        set_dejavu_font
       else
-        raise FontFileNotFound, "Font file not found at #{font}"
+        set_builtin_font(@font)
       end
     end
 
-    # DejaVu from dejavu-fonts gem
-    def set_dejavu_font
-      require 'dejavu-fonts'
-      font_name = 'dejavu'
+    def set_builtin_font(font)
+      require 'invoice_printer/fonts'
 
       @pdf.font_families.update(
-        "#{font_name}" => {
-          normal: DejaVu::Fonts.paths[:normal],
-          italic: DejaVu::Fonts.paths[:italic],
-          bold: DejaVu::Fonts.paths[:bold],
-          bold_italic: DejaVu::Fonts.paths[:bold_italic]
-        }
+        "#{font}" => InvoicePrinter::Fonts.paths_for(font)
       )
-      @pdf.font(font_name)
-    rescue
+      @pdf.font(font)
+    rescue StandardError
       raise FontFileNotFound, "Font file not found for #{font}"
     end
 

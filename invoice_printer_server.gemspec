@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'invoice_printer/version'
 
 SERVER_FILES = [
+  'LICENSE.txt',
   'bin/invoice_printer_server',
   'lib/invoice_printer/server.rb',
   'lib/invoice_printer/version.rb'

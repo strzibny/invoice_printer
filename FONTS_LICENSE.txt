@@ -1,0 +1,5 @@
+Fonts found in /assets directory and distributed with the invoice_printer_fonts gem have the following licensing:
+
+- Overpass is licensed under the Open Font License 
+- OpenSans is licensed under the Apache License v2.0
+- Roboto is licensed under the Apache License v2.0

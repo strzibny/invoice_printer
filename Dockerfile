@@ -24,8 +24,8 @@ RUN apk update &&  apk upgrade
 # Install Ruby and build dependencies
 RUN apk add build-base bash ruby ruby-etc ruby-dev
 
-# Install to have DejaVu fonts available
-RUN gem install dejavu-fonts --no-document
+# Install support for builtin fonts
+RUN gem install invoice_printer_fonts --no-document
 
 # Install gem from RubyGems.org
 RUN gem install invoice_printer_server --version 2.0.0.beta2 --no-document

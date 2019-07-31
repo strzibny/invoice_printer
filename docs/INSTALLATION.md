@@ -12,6 +12,10 @@ Or the server version as:
 
     $ gem install invoice_printer_server
 
+To have builtin fonts available install:
+
+    $ gem install invoice_printer_fonts
+
 ### With Bundler
 
 Add this line to your application's Gemfile:
@@ -24,6 +28,12 @@ For the server:
 
 ```ruby
 gem 'invoice_printer_server'
+```
+
+To have builtin fonts available add:
+
+```ruby
+gem 'invoice_printer_fonts'
 ```
 
 And then execute:
