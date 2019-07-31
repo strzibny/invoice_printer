@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Super simple PDF invoicing in pure Ruby'
   spec.description   = 'Super simple and fast PDF invoicing in pure Ruby (based on Prawn library).'
   spec.homepage      = 'https://github.com/strzibny/invoice_printer'
-  spec.license       = 'MIT'
+  spec.licenses      = ['MIT', 'OFL 1.1', 'Apache 2.0']
 
   # Include only font files
   spec.files         = FONTS_FILES
