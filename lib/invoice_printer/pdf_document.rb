@@ -94,11 +94,7 @@ module InvoicePrinter
       end
 
       if used? @font
-        if File.exist?(@font)
-          set_fonts(@font) if @font
-        else
-          raise FontFileNotFound, "Font file not found at #{@font}"
-        end
+        use_font(@font)
       end
 
       # Version 2.1 deprecation warnings
@@ -146,8 +142,36 @@ module InvoicePrinter
 
     private
 
+    def use_font(font)
+      if File.exist?(@font)
+        set_font_from_path(@font)
+      elsif @font == 'dejavu'
+        set_dejavu_font
+      else
+        raise FontFileNotFound, "Font file not found at #{font}"
+      end
+    end
+
+    # DejaVu from dejavu-fonts gem
+    def set_dejavu_font
+      require 'dejavu-fonts'
+      font_name = 'dejavu'
+
+      @pdf.font_families.update(
+        "#{font_name}" => {
+          normal: DejaVu::Fonts.paths[:normal],
+          italic: DejaVu::Fonts.paths[:italic],
+          bold: DejaVu::Fonts.paths[:bold],
+          bold_italic: DejaVu::Fonts.paths[:bold_italic]
+        }
+      )
+      @pdf.font(font_name)
+    rescue
+      raise FontFileNotFound, "Font file not found for #{font}"
+    end
+
     # Add font family in Prawn for a given +font+ file
-    def set_fonts(font)
+    def set_font_from_path(font)
       font_name = Pathname.new(font).basename
       @pdf.font_families.update(
         "#{font_name}" => {
