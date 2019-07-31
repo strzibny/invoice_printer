@@ -233,9 +233,9 @@ InvoicePrinter.print(
 )
 ```
 
-If you don't have a font around, you can install `dejavu-fonts` gem and specify "dejavu" as the font path.
+If you don't have a font around, you can install `invoice_printer_fonts` gem and specify the supported font name instead.
 
-We recommend you DejaVuSans and Overpass fonts.
+Supported builtin fonts are: `overpass`, `opensans`, and `ruboto`. Note that searching the path takes preference.
 
 ### Background
 

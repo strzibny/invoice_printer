@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 # This is an example of a Czech invoice.
-#
-# Due to the special characters it requires Overpass-Regular.ttf font to be
-# present in this directory.
 
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -96,7 +93,7 @@ invoice = InvoicePrinter::Document.new(
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
+  font: 'overpass',
   logo: 'prawn.png',
   file_name: 'provider_purchaser_lines.pdf'
 )
@@ -104,7 +101,7 @@ InvoicePrinter.print(
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  font: File.expand_path('../Overpass-Regular.ttf', __FILE__),
+  font: 'overpass',
   logo: 'prawn.png',
   file_name: 'provider_purchaser_lines_a4.pdf',
   page_size: :a4

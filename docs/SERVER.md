@@ -28,6 +28,8 @@ $ sudo docker run -d -p 9393:9393 -t docker.io/strzibnyj/invoice_printer_server
 ```
 The server will then be available on `0.0.0.0:9393`.
 
+Docker image already contains the optional `invoice_printer_fonts` gem.
+
 ### As a mountable Rack app
 
 If you want you can always run the server from your custom program or mount it directly from a Rack app.
@@ -56,7 +58,7 @@ Options:
 
 - `document` - JSON representation of the document
 - `labels` - JSON for labels
-- `font` - path to font file
+- `font` - path to font file or builtin font name
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
 - `background` - path to background file
@@ -96,7 +98,7 @@ Options:
 
 - `document` - JSON representation of the document
 - `labels` - JSON for labels
-- `font` - path to font file
+- `font` - path to font file or builtin font name
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
 - `background` - path to background file

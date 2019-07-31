@@ -12,7 +12,7 @@ Options:
 
   -d, --document   document as JSON
     -l, --labels   labels as JSON
-          --font   path to font
+          --font   path to font or builtin font name
      -s, --stamp   path to stamp
           --logo   path to logotype
     --background   path to background image
