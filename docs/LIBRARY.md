@@ -233,6 +233,8 @@ InvoicePrinter.print(
 )
 ```
 
+If you don't have a font around, you can install `dejavu-fonts` gem and specify "dejavu" as the font path.
+
 We recommend you DejaVuSans and Overpass fonts.
 
 ### Background
