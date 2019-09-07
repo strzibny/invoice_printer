@@ -44,8 +44,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.4'
 
   spec.add_dependency 'json', '~> 2.1'
-  spec.add_dependency 'prawn', '~> 2.1.0'
-  spec.add_dependency 'prawn-layout', '~> 0.8.4'
+  spec.add_dependency 'prawn', '~> 2.2'
+  spec.add_dependency 'prawn-table', '~> 0.2.2'
 
   spec.add_development_dependency 'bundler', '>= 1.7'
   spec.add_development_dependency 'rake', '>= 10.0'

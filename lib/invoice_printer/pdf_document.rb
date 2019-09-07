@@ -700,26 +700,30 @@ module InvoicePrinter
       items_params = determine_items_structure
       items = build_items_data(items_params)
       headers = build_items_header(items_params)
+      data = items.prepend(headers)
 
-      styles = {
-        headers: headers,
+      options = {
+        header: true,
         row_colors: ['F5F5F5', nil],
         width: x(540, 2),
-        align: {
-          0 => :left,
-          1 => :right,
-          2 => :right,
-          3 => :right,
-          4 => :right,
-          5 => :right,
-          6 => :right,
-          7 => :right,
-          8 => :right
-        },
-        font_size: 10
+        cell_style: {
+          position: {
+            0 => :left,
+            1 => :right,
+            2 => :right,
+            3 => :right,
+            4 => :right,
+            5 => :right,
+            6 => :right,
+            7 => :right,
+            8 => :right
+          }
+        }
       }
 
-      @pdf.table(items, styles) unless items.empty?
+      @pdf.font_size(10) do
+        @pdf.table(data, options) unless items.empty?
+      end
     end
 
     # Determine sections of the items table to show based on provided data
@@ -759,15 +763,15 @@ module InvoicePrinter
     # Include only relevant headers
     def build_items_header(items_params)
       headers = []
-      headers << { text: label_with_sublabel(:item) } if items_params[:names]
-      headers << { text: label_with_sublabel(:variable) } if items_params[:variables]
-      headers << { text: label_with_sublabel(:quantity) } if items_params[:quantities]
-      headers << { text: label_with_sublabel(:unit) } if items_params[:units]
-      headers << { text: label_with_sublabel(:price_per_item) } if items_params[:prices]
-      headers << { text: label_with_sublabel(:tax) } if items_params[:taxes]
-      headers << { text: label_with_sublabel(:tax2) } if items_params[:taxes2]
-      headers << { text: label_with_sublabel(:tax3) } if items_params[:taxes3]
-      headers << { text: label_with_sublabel(:amount) } if items_params[:amounts]
+      headers << label_with_sublabel(:item) if items_params[:names]
+      headers << label_with_sublabel(:variable) if items_params[:variables]
+      headers << label_with_sublabel(:quantity) if items_params[:quantities]
+      headers << label_with_sublabel(:unit) if items_params[:units]
+      headers << label_with_sublabel(:price_per_item) if items_params[:prices]
+      headers << label_with_sublabel(:tax) if items_params[:taxes]
+      headers << label_with_sublabel(:tax2) if items_params[:taxes2]
+      headers << label_with_sublabel(:tax3) if items_params[:taxes3]
+      headers << label_with_sublabel(:amount) if items_params[:amounts]
       headers
     end
 
@@ -810,16 +814,17 @@ module InvoicePrinter
         "#{@labels[:tax3]}#{@document.tax3}".size
       ].max * 8
 
-      styles = {
-        border_width: 0,
-        align: {
-          0 => :right,
-          1 => :left
+      options = {
+        cell_style: {
+          position: {
+            0 => :right,
+            1 => :left
+          }
         }
       }
 
       @pdf.span(x(width), position: :right) do
-        @pdf.table(items, styles) unless items.empty?
+        @pdf.table(items, options) unless items.empty?
       end
 
       @pdf.move_down(15)
