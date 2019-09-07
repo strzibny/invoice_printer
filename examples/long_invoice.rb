@@ -55,16 +55,16 @@ invoice = InvoicePrinter::Document.new(
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  stamp: 'stamp.png',
-  logo: 'prawn.png',
+  stamp: File.expand_path('../stamp.png', __FILE__),
+  logo: File.expand_path('../prawn.png', __FILE__),
   file_name: 'long_invoice.pdf'
 )
 
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  stamp: 'stamp.png',
-  logo: 'prawn.png',
+  stamp: File.expand_path('../stamp.png', __FILE__),
+  logo: File.expand_path('../prawn.png', __FILE__),
   file_name: 'long_invoice_a4.pdf',
   page_size: :a4
 )

@@ -75,16 +75,16 @@ invoice = InvoicePrinter::Document.new(
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  font: File.expand_path('../../../assets/fonts/overpass/Overpass-Regular.ttf', __FILE__),
-  logo: 'logo.png',
+  font: File.expand_path('../../assets/fonts/overpass/Overpass-Regular.ttf', __FILE__),
+  logo: File.expand_path('../logo.png', __FILE__),
   file_name: 'promo.pdf'
 )
 
 InvoicePrinter.print(
   document: invoice,
   labels: labels,
-  font: File.expand_path('../../../assets/fonts/overpass/Overpass-Regular.ttf', __FILE__),
-  logo: 'logo.png',
+  font: File.expand_path('../../assets/fonts/overpass/Overpass-Regular.ttf', __FILE__),
+  logo: File.expand_path('../logo.png', __FILE__),
   file_name: 'promo_a4.pdf',
   page_size: :a4
 )
