@@ -718,6 +718,8 @@ module InvoicePrinter
             row(0).background_color = 'e3e3e3'
             row(0).border_color = 'aaaaaa'
             row(0).borders = [:bottom]
+            row(items.size - 1).borders = [:bottom]
+            row(items.size - 1).border_color = 'd9d9d9'
           end
         end
       end
