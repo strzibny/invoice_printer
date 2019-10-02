@@ -181,6 +181,7 @@ module InvoicePrinter
       @push_down = 0
       @push_items_table = 0
       @pdf.fill_color '000000'
+      @pdf.stroke_color 'aaaaaa'
       build_header
       build_provider_box
       build_purchaser_box
@@ -707,7 +708,7 @@ module InvoicePrinter
         row_colors: [nil, 'ededed'],
         width: x(540, 2),
         cell_style: {
-          borders: [:left, :right],
+          borders: []
         }
       }
 
@@ -715,8 +716,8 @@ module InvoicePrinter
         @pdf.font_size(10) do
           @pdf.table(data, options) do
             row(0).background_color = 'e3e3e3'
-            row(0).borders = [:top, :bottom, :left, :right]
-            row(items.size - 1).borders = [:bottom, :left, :right]
+            row(0).border_color = 'aaaaaa'
+            row(0).borders = [:bottom]
           end
         end
       end
