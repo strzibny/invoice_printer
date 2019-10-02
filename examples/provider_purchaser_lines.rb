@@ -94,7 +94,7 @@ InvoicePrinter.print(
   document: invoice,
   labels: labels,
   font: 'overpass',
-  logo: 'prawn.png',
+  logo: File.expand_path('../prawn.png', __FILE__),
   file_name: 'provider_purchaser_lines.pdf'
 )
 
@@ -102,7 +102,7 @@ InvoicePrinter.print(
   document: invoice,
   labels: labels,
   font: 'overpass',
-  logo: 'prawn.png',
+  logo: File.expand_path('../prawn.png', __FILE__),
   file_name: 'provider_purchaser_lines_a4.pdf',
   page_size: :a4
 )

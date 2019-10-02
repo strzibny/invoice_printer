@@ -181,6 +181,7 @@ module InvoicePrinter
       @push_down = 0
       @push_items_table = 0
       @pdf.fill_color '000000'
+      @pdf.stroke_color 'aaaaaa'
       build_header
       build_provider_box
       build_purchaser_box
@@ -700,26 +701,28 @@ module InvoicePrinter
       items_params = determine_items_structure
       items = build_items_data(items_params)
       headers = build_items_header(items_params)
+      data = items.prepend(headers)
 
-      styles = {
-        headers: headers,
-        row_colors: ['F5F5F5', nil],
+      options = {
+        header: true,
+        row_colors: [nil, 'ededed'],
         width: x(540, 2),
-        align: {
-          0 => :left,
-          1 => :right,
-          2 => :right,
-          3 => :right,
-          4 => :right,
-          5 => :right,
-          6 => :right,
-          7 => :right,
-          8 => :right
-        },
-        font_size: 10
+        cell_style: {
+          borders: []
+        }
       }
 
-      @pdf.table(items, styles) unless items.empty?
+      unless items.empty?
+        @pdf.font_size(10) do
+          @pdf.table(data, options) do
+            row(0).background_color = 'e3e3e3'
+            row(0).border_color = 'aaaaaa'
+            row(0).borders = [:bottom]
+            row(items.size - 1).borders = [:bottom]
+            row(items.size - 1).border_color = 'd9d9d9'
+          end
+        end
+      end
     end
 
     # Determine sections of the items table to show based on provided data
@@ -743,15 +746,15 @@ module InvoicePrinter
     def build_items_data(items_params)
       @document.items.map do |item|
         line = []
-        line << item.name if items_params[:names]
-        line << item.variable if items_params[:variables]
-        line << item.quantity if items_params[:quantities]
-        line << item.unit if items_params[:units]
-        line << item.price if items_params[:prices]
-        line << item.tax if items_params[:taxes]
-        line << item.tax2 if items_params[:taxes2]
-        line << item.tax3 if items_params[:taxes3]
-        line << item.amount if items_params[:amounts]
+        line << { content: item.name, borders: [:bottom], align: :left } if items_params[:names]
+        line << { content: item.variable, align: :right } if items_params[:variables]
+        line << { content: item.quantity, align: :right } if items_params[:quantities]
+        line << { content: item.unit, align: :right } if items_params[:units]
+        line << { content: item.price, align: :right } if items_params[:prices]
+        line << { content: item.tax, align: :right } if items_params[:taxes]
+        line << { content: item.tax2, align: :right } if items_params[:taxes2]
+        line << { content: item.tax3, align: :right } if items_params[:taxes3]
+        line << { content: item.amount, align: :right } if items_params[:amounts]
         line
       end
     end
@@ -759,15 +762,15 @@ module InvoicePrinter
     # Include only relevant headers
     def build_items_header(items_params)
       headers = []
-      headers << { text: label_with_sublabel(:item) } if items_params[:names]
-      headers << { text: label_with_sublabel(:variable) } if items_params[:variables]
-      headers << { text: label_with_sublabel(:quantity) } if items_params[:quantities]
-      headers << { text: label_with_sublabel(:unit) } if items_params[:units]
-      headers << { text: label_with_sublabel(:price_per_item) } if items_params[:prices]
-      headers << { text: label_with_sublabel(:tax) } if items_params[:taxes]
-      headers << { text: label_with_sublabel(:tax2) } if items_params[:taxes2]
-      headers << { text: label_with_sublabel(:tax3) } if items_params[:taxes3]
-      headers << { text: label_with_sublabel(:amount) } if items_params[:amounts]
+      headers << { content: label_with_sublabel(:item), align: :left } if items_params[:names]
+      headers << { content: label_with_sublabel(:variable), align: :right } if items_params[:variables]
+      headers << { content: label_with_sublabel(:quantity), align: :right } if items_params[:quantities]
+      headers << { content: label_with_sublabel(:unit), align: :right } if items_params[:units]
+      headers << { content: label_with_sublabel(:price_per_item), align: :right } if items_params[:prices]
+      headers << { content: label_with_sublabel(:tax), align: :right } if items_params[:taxes]
+      headers << { content: label_with_sublabel(:tax2), align: :right } if items_params[:taxes2]
+      headers << { content: label_with_sublabel(:tax3), align: :right } if items_params[:taxes3]
+      headers << { content: label_with_sublabel(:amount), align: :right } if items_params[:amounts]
       headers
     end
 
@@ -794,13 +797,13 @@ module InvoicePrinter
       @pdf.move_down(25)
 
       items = []
-      items << ["#{@labels[:subtotal]}:#{build_sublabel_for_total_table(:subtotal)}", @document.subtotal] \
+      items << [{ content: "#{@labels[:subtotal]}:#{build_sublabel_for_total_table(:subtotal)}", align: :right }, @document.subtotal] \
         unless @document.subtotal.empty?
-      items << ["#{@labels[:tax]}:#{build_sublabel_for_total_table(:tax)}", @document.tax] \
+      items << [{ content: "#{@labels[:tax]}:#{build_sublabel_for_total_table(:tax)}", align: :right }, @document.tax] \
         unless @document.tax.empty?
-      items << ["#{@labels[:tax2]}:#{build_sublabel_for_total_table(:tax2)}", @document.tax2] \
+      items << [{ content: "#{@labels[:tax2]}:#{build_sublabel_for_total_table(:tax2)}", align: :right }, @document.tax2] \
         unless @document.tax2.empty?
-      items << ["#{@labels[:tax3]}:#{build_sublabel_for_total_table(:tax3)}", @document.tax3] \
+      items << [{ content: "#{@labels[:tax3]}:#{build_sublabel_for_total_table(:tax3)}", align: :right }, @document.tax3] \
         unless @document.tax3.empty?
 
       width = [
@@ -810,16 +813,14 @@ module InvoicePrinter
         "#{@labels[:tax3]}#{@document.tax3}".size
       ].max * 8
 
-      styles = {
-        border_width: 0,
-        align: {
-          0 => :right,
-          1 => :left
+      options = {
+        cell_style: {
+          borders: []
         }
       }
 
       @pdf.span(x(width), position: :right) do
-        @pdf.table(items, styles) unless items.empty?
+        @pdf.table(items, options) unless items.empty?
       end
 
       @pdf.move_down(15)
