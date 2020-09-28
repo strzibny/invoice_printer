@@ -34,7 +34,7 @@ invoice = InvoicePrinter::Document.new(
   total: '$ 900',
   bank_account_number: '156546546465',
   items: [item],
-  note: 'This is a note at the end.'
+  note: "This is a note at the end.\nA note with two lines."
 )
 
 InvoicePrinter.print(

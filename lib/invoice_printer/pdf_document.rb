@@ -859,7 +859,7 @@ module InvoicePrinter
     # If a note is present, position it on top of it.
     def build_logo
       if @logo && !@logo.empty?
-        bottom = @document.note.empty? ? 75 : 85
+        bottom = @document.note.empty? ? 75 : (75 + note_height)
         @pdf.image(@logo, at: [0, bottom], fit: [200, 50])
       end
     end
@@ -877,10 +877,17 @@ module InvoicePrinter
       @pdf.text_box(
         "#{@document.note}",
         size: 10,
-        at: [0, 10],
+        at: [0, note_height],
         width: x(450),
         align: :left
       )
+    end
+
+    def note_height
+      @note_height ||= begin
+        num_of_lines = @document.note.lines.count
+        (num_of_lines * 11)
+      end
     end
 
     # Include page numbers if we got more than one page
