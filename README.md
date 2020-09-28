@@ -20,23 +20,30 @@ See more usecases in the `examples/` directory.
 
 ## Features
 
-- A4 and US letter paper size
-- Invoice/document name and number
-- Purchaser and provider boxes with addresses and identificaton numbers
-- Payment method box showing banking details including SWIFT and IBAN fields
-- Issue/due dates box
-- Configurable items' table with item description, quantity, unit, price per unit, tax and item's total amount fields
-- Final subtotal/tax/total info box
+### Format / Style
+- Page size (A4 or US letter)
 - Page numbers
-- Configurable labels & sublabels (optional little labels)
 - Configurable font file
 - Logotype (as image scaled to fit 50px of height)
 - Background (as image)
 - Stamp & signature (as image)
+
+### Information / Fields
+- Configurable field labels or descriptors (e.g. "Address: ") and field values ("1000 Main Streeet ....")
+- Invoice/document name and number
+- Purchaser and provider boxes with addresses and identificaton numbers
+- Payment method box showing banking details including SWIFT and IBAN fields
+- Issue/due dates box
+- Configurable items table with item description, quantity, unit, price per unit, tax and item's total amount fields
+- Final subtotal/tax/total info box
 - Note
-- JSON format
+
+### Input Methods
 - CLI
 - Server
+- JSON format
+
+### Other
 - Well tested
 
 ## Documentation
