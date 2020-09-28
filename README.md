@@ -28,7 +28,7 @@ See more usecases in the `examples/` directory.
 - Configurable items' table with item description, quantity, unit, price per unit, tax and item's total amount fields
 - Final subtotal/tax/total info box
 - Page numbers
-- Configurable labels & sublabels (optional little labels)
+- Configurable labels & sublabels (to adjust static wording on the default invoice template)
 - Configurable font file
 - Logotype (as image scaled to fit 50px of height)
 - Background (as image)
