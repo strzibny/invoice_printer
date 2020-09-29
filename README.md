@@ -48,4 +48,4 @@ See more usecases in the `examples/` directory.
 
 ## Copyright
 
-Copyright 2015-2019 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
+Copyright 2015-2020 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
