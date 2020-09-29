@@ -47,7 +47,8 @@ Rolnická 1
 747 05  Opava
 Kateřinky
 
-fith line wont show
+
+6th line wont show
 ADDRESS
 
 purchaser_address = <<ADDRESS
@@ -55,8 +56,7 @@ Ostravská 1
 747 70  Opava
 
 
-
-fith line wont show
+6th line wont show
 ADDRESS
 
 invoice = InvoicePrinter::Document.new(
@@ -64,20 +64,11 @@ invoice = InvoicePrinter::Document.new(
   provider_name: 'Petr Nový',
   provider_tax_id: '56565656',
   provider_tax_id2: 'CZ56565656',
-  provider_street: 'Rolnická',
-  provider_street_number: '1',
-  provider_postcode: '747 05',
-  provider_city: 'Opava',
-  provider_city_part: 'Kateřinky',
   provider_lines: provider_address,
   purchaser_name: 'Adam Černý',
-  purchaser_street: 'Ostravská',
-  purchaser_street_number: '1',
-  purchaser_postcode: '747 70',
-  purchaser_city: 'Opava',
-  purchaser_lines: purchaser_address,
   purchaser_tax_id: '56565656',
   purchaser_tax_id2: 'CZ56565656',
+  purchaser_lines: purchaser_address,
   issue_date: '05/03/2016',
   due_date: '19/03/2016',
   subtotal: 'Kč 10.000',
