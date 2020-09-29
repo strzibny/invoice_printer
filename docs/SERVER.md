@@ -23,9 +23,11 @@ By default server binds to `0.0.0.0:9393`.
 Get the public image and run it:
 
 ```bash
-$ sudo docker pull strzibnyj/invoice_printer_server:latest
+$ sudo docker pull strzibnyj/invoice_printer_server:$VERSION
 $ sudo docker run -d -p 9393:9393 -t docker.io/strzibnyj/invoice_printer_server
 ```
+You can use `latest` as a `$VERSION`.
+
 The server will then be available on `0.0.0.0:9393`.
 
 Docker image already contains the optional `invoice_printer_fonts` gem.
@@ -63,6 +65,8 @@ Options:
 - `logo` - path to logotype file
 - `background` - path to background file
 - `page_size` - letter or A4 page size
+
+These parameters are the same as for the [command line](./COMMAND_LINE.md).
 
 On success a `200` response is returned:
 

@@ -72,13 +72,11 @@ invoice = InvoicePrinter::Document.new(
 **Note**: `provider_lines` and `purchaser_lines` are 4 lines of data separated by new line character`\n`. Other lines are being stripped.
 
 **Note**: There is `variable` field that can be used for any
-extra column. `tax2` and `tax3` for more complex taxes are
-available as well.
+extra column.
 
 ### Ruby on Rails
 
-If you want to use InvoicePrinter for printing PDF documents directly from Rails
-actions, you can:
+If you want to use InvoicePrinter for printing PDF documents directly from Rails actions, you can:
 
 ```ruby
 # GET /invoices/1
@@ -109,10 +107,7 @@ InvoicePrinter.print(
   document:  document,
   ...
 )
-
 ```
-
-
 
 ## Customization
 
@@ -153,8 +148,7 @@ InvoicePrinter.print(
 )
 ```
 
-Here is the full list of labels to configure. You can paste and edit this block
-to `initializers/invoice_printer.rb` if you are using Rails.
+Here is the full list of labels to configure. You can paste and edit this block to `initializers/invoice_printer.rb` if you are using Rails.
 
 ```ruby
 InvoicePrinter.labels = {
