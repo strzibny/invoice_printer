@@ -137,7 +137,7 @@ All labels:
 
 ## Built-in fonts
 
-Supported builtin fonts are: `overpass`, `opensans`, and `ruboto`.
+Supported builtin fonts are: `overpass`, `opensans`, and `roboto`.
 
 ## Examples
 

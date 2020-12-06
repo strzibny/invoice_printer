@@ -229,7 +229,7 @@ InvoicePrinter.print(
 
 If you don't have a font around, you can install `invoice_printer_fonts` gem and specify the supported font name instead.
 
-Supported builtin fonts are: `overpass`, `opensans`, and `ruboto`. Note that searching the path takes preference.
+Supported builtin fonts are: `overpass`, `opensans`, and `roboto`. Note that searching the path takes preference.
 
 ### Background
 
