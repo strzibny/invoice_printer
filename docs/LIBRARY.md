@@ -227,7 +227,7 @@ InvoicePrinter.print(
 )
 ```
 
-If you don't have a font around, you can install `invoice_printer_fonts` gem and specify the supported font name instead.
+If you don't have a font around, you can install `invoice_printer_fonts` gem and specify the supported font name instead:
 
 ```ruby
 InvoicePrinter.print(
