@@ -220,7 +220,7 @@ Now the document will have little sublabels next to the original labels in Czech
 
 To support specific characters you might need to specify a TTF font to be used:
 
-``` ruby
+```ruby
 InvoicePrinter.print(
   ...
   font: File.expand_path('../Overpass-Regular.ttf', __FILE__)
@@ -228,6 +228,13 @@ InvoicePrinter.print(
 ```
 
 If you don't have a font around, you can install `invoice_printer_fonts` gem and specify the supported font name instead.
+
+```ruby
+InvoicePrinter.print(
+  document: invoice,
+  font: "roboto"
+)
+```
 
 Supported builtin fonts are: `overpass`, `opensans`, and `roboto`. Note that searching the path takes preference.
 
