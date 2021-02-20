@@ -24,7 +24,7 @@ Get the public image and run it:
 
 ```bash
 $ sudo docker pull strzibnyj/invoice_printer_server:$VERSION
-$ sudo docker run -d -p 9393:9393 -v ~/path/to/invocies:/data -t docker.io/strzibnyj/invoice_printer_server
+$ sudo docker run -d -p 9393:9393 -v ~/path/to/invocies:/data:Z -t docker.io/strzibnyj/invoice_printer_server
 ```
 You can use `latest` as a `$VERSION`. Specifying the `-v` option is only required when using the `/print` action to create the documents at certain path. It will allow you to provide the desired filename as "/data/invoice-name.pdf".
 
