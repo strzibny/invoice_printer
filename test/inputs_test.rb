@@ -28,12 +28,12 @@ class InputsTest < Minitest::Test
     )
 
     # No exceptions should be raised
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     InvoicePrinter.render(document: invoice)
   end
 
   def test_missing_font_raises_an_exception
-    invoice = InvoicePrinter::Document.new(default_document_params)
+    invoice = InvoicePrinter::Document.new(**default_document_params)
 
     assert_raises(InvoicePrinter::PDFDocument::FontFileNotFound) do
       InvoicePrinter.render(document: invoice, font: 'missing.font')
@@ -41,7 +41,7 @@ class InputsTest < Minitest::Test
   end
 
   def test_missing_logo_raises_an_exception
-    invoice = InvoicePrinter::Document.new(default_document_params)
+    invoice = InvoicePrinter::Document.new(**default_document_params)
 
     assert_raises(InvoicePrinter::PDFDocument::LogoFileNotFound) do
       InvoicePrinter.render(document: invoice, logo: 'missing.png')
@@ -49,7 +49,7 @@ class InputsTest < Minitest::Test
   end
 
   def test_missing_stamp_raises_an_exception
-    invoice = InvoicePrinter::Document.new(default_document_params)
+    invoice = InvoicePrinter::Document.new(**default_document_params)
 
     assert_raises(InvoicePrinter::PDFDocument::StampFileNotFound) do
       InvoicePrinter.render(document: invoice, stamp: 'missing.png')

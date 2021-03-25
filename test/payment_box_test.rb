@@ -8,7 +8,7 @@ class PaymentBoxTest < Minitest::Test
       bank_account_number: nil,
       account_iban: 'IBAN'
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -24,7 +24,7 @@ class PaymentBoxTest < Minitest::Test
       account_iban: nil,
       account_swift: nil
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -41,7 +41,7 @@ class PaymentBoxTest < Minitest::Test
       account_iban: 'SAMPLE_IBAN',
       account_swift: nil
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -59,7 +59,7 @@ class PaymentBoxTest < Minitest::Test
       account_iban: nil,
       account_swift: 'SAMPLE_SWIFT'
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -77,7 +77,7 @@ class PaymentBoxTest < Minitest::Test
       account_iban: 'SAMPLE_IBAN',
       account_swift: 'SAMPLE_SWIFT'
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 

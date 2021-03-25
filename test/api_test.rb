@@ -31,7 +31,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_print_with_valid_document
-    invoice = InvoicePrinter::Document.new(default_document_params)
+    invoice = InvoicePrinter::Document.new(**default_document_params)
 
     json = {
       'document' => invoice.to_h,
@@ -60,7 +60,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_render_with_valid_document
-    invoice  = InvoicePrinter::Document.new(default_document_params)
+    invoice  = InvoicePrinter::Document.new(**default_document_params)
     output   = InvoicePrinter.render(document: invoice)
 
     json = {

@@ -4,7 +4,7 @@ class BackgroundTest < Minitest::Test
   include InvoicePrinterHelpers
 
   def setup
-    @invoice = InvoicePrinter::Document.new(default_document_params)
+    @invoice = InvoicePrinter::Document.new(**default_document_params)
   end
 
   def test_background_render

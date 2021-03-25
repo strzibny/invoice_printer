@@ -5,11 +5,11 @@ class PageNumbersTest < Minitest::Test
 
   # If there is only one page, we skip numbering
   def test_do_not_number_1_page
-    item = InvoicePrinter::Document::Item.new(default_document_item_params)
+    item = InvoicePrinter::Document::Item.new(**default_document_item_params)
     params = default_document_params.merge(
       items: [item]
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -17,12 +17,12 @@ class PageNumbersTest < Minitest::Test
   end
 
   def test_number_2_and_more_pages
-    item = InvoicePrinter::Document::Item.new(default_document_item_params)
+    item = InvoicePrinter::Document::Item.new(**default_document_item_params)
     items = [item] * 50
     params = default_document_params.merge(
       items: items
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
