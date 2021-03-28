@@ -41,10 +41,10 @@ class ItemsTableTest < Minitest::Test
 
   def invoice_without_item_column(column)
     InvoicePrinter::Document.new(
-      default_document_params.merge(
+      **default_document_params.merge(
         items: [
           InvoicePrinter::Document::Item.new(
-            default_document_item_params.merge("#{column}": nil)
+            **default_document_item_params.merge("#{column}": nil)
           )
         ]
       )

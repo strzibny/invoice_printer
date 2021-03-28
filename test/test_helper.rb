@@ -33,7 +33,7 @@ module InvoicePrinterHelpers
       account_swift: 'SWIFT5456',
       items: [
         InvoicePrinter::Document::Item.new(
-          default_document_item_params
+          **default_document_item_params
         )
       ]
     }

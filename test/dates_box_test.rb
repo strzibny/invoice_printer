@@ -8,7 +8,7 @@ class DatesBoxTest < Minitest::Test
       issue_date: '05/03/2016',
       due_date: '14/03/2016'
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -21,7 +21,7 @@ class DatesBoxTest < Minitest::Test
       issue_date: '05/03/2016',
       due_date: ''
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -34,7 +34,7 @@ class DatesBoxTest < Minitest::Test
       issue_date: nil,
       due_date: '05/03/2016'
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -47,7 +47,7 @@ class DatesBoxTest < Minitest::Test
       issue_date: '',
       due_date: nil
     )
-    invoice = InvoicePrinter::Document.new(params)
+    invoice = InvoicePrinter::Document.new(**params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 

@@ -6,7 +6,7 @@ class LabelsTest < Minitest::Test
   def test_setting_global_labels
     labels = { provider: 'Default Provider', purchaser: 'Default Purchaser' }
     InvoicePrinter.labels = labels
-    invoice = InvoicePrinter::Document.new(default_document_params)
+    invoice = InvoicePrinter::Document.new(**default_document_params)
     rendered_pdf = InvoicePrinter.render(document: invoice)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 
@@ -16,7 +16,7 @@ class LabelsTest < Minitest::Test
 
   def test_setting_instant_labels
     labels = { provider: 'Current Provider', purchaser: 'Current Purchaser' }
-    invoice = InvoicePrinter::Document.new(default_document_params)
+    invoice = InvoicePrinter::Document.new(**default_document_params)
     rendered_pdf = InvoicePrinter.render(document: invoice, labels: labels)
     pdf_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
 

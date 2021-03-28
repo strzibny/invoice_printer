@@ -27,51 +27,51 @@ JSON document with all possible fields filled:
 
 ```json
 {
-   "number":"c. 198900000001",
-   "provider_name":"Petr Novy",
-   "provider_tax_id":"56565656",
-   "provider_tax_id2":"",
-   "provider_lines":"Rolnická 1\n747 05  Opava\nKateřinky",
-   "purchaser_name":"Adam Cerny",
-   "purchaser_tax_id":"",
-   "purchaser_tax_id2":"",
-   "purchaser_lines":"Ostravská 1\n747 70  Opava",
-   "issue_date":"05/03/2016",
-   "due_date":"19/03/2016",
-   "subtotal":"Kc 10.000",
-   "tax":"Kc 2.100",
-   "tax2":"",
-   "tax3":"",
-   "variable":"Extra column",
-   "total":"Kc 12.100,-",
-   "bank_account_number":"156546546465",
-   "account_iban":"IBAN464545645",
-   "account_swift":"SWIFT5456",
-   "items":[
-      {
-         "name":"Konzultace",
-         "variable": "",
-         "quantity":"2",
-         "unit":"hod",
-         "price":"Kc 500",
-         "tax":"",
-         "tax2":"",
-         "tax3":"",
-         "amount":"Kc 1.000"
-      },
-      {
-         "name":"Programovani",
-         "variable": "",
-         "quantity":"10",
-         "unit":"hod",
-         "price":"Kc 900",
-         "tax":"",
-         "tax2":"",
-         "tax3":"",
-         "amount":"Kc 9.000"
-      }
-   ],
-   "note":"Osoba je zapsána v zivnostenském rejstríku."
+  "number":"c. 198900000001",
+  "provider_name":"Petr Novy",
+  "provider_tax_id":"56565656",
+  "provider_tax_id2":"",
+  "provider_lines":"Rolnická 1\n747 05  Opava\nKateřinky",
+  "purchaser_name":"Adam Cerny",
+  "purchaser_tax_id":"",
+  "purchaser_tax_id2":"",
+  "purchaser_lines":"Ostravská 1\n747 70  Opava",
+  "issue_date":"05/03/2016",
+  "due_date":"19/03/2016",
+  "subtotal":"Kc 10.000",
+  "tax":"Kc 2.100",
+  "tax2":"",
+  "tax3":"",
+  "variable":"Extra column",
+  "total":"Kc 12.100,-",
+  "bank_account_number":"156546546465",
+  "account_iban":"IBAN464545645",
+  "account_swift":"SWIFT5456",
+  "items":[
+    {
+       "name":"Konzultace",
+       "variable": "",
+       "quantity":"2",
+       "unit":"hod",
+       "price":"Kc 500",
+       "tax":"",
+       "tax2":"",
+       "tax3":"",
+       "amount":"Kc 1.000"
+    },
+    {
+       "name":"Programovani",
+       "variable": "",
+       "quantity":"10",
+       "unit":"hod",
+       "price":"Kc 900",
+       "tax":"",
+       "tax2":"",
+       "tax3":"",
+       "amount":"Kc 9.000"
+    }
+  ],
+  "note":"Osoba je zapsána v zivnostenském rejstríku."
 }
 ```
 
