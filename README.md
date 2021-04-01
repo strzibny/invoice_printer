@@ -46,6 +46,12 @@ See more usecases in the `examples/` directory.
 - [Server](./docs/SERVER.md)
 - [Command line](./docs/COMMAND_LINE.md)
 
+## Support
+
+I am developing InvoicePrinter as a free and MIT-licensed library for several years now.
+
+I would appreciate if you consider [buying my book](https://deploymentfromscratch.com/).
+
 ## Copyright
 
 Copyright 2015-2021 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
