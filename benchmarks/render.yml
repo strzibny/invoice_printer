@@ -1,21 +1,22 @@
 # Run the benchmark with benchmark_driver as:
 #
-#   $ benchmark-driver benchmarks/render.yml --output gruff --runner ips -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0 --jit'
-#   $ benchmark-driver benchmarks/render.yml --output compare --runner memory -e '/path/to/bin/ruby;/path/to/bin/ruby-2.6.0 --jit--jit'
-loop_count: 10000
+#   $ benchmark-driver benchmarks/render.yml --output gruff --runner ips -e '/path/to/bin/ruby;/path/to/bin/ruby-3.0.0 --jit'
+#   $ benchmark-driver benchmarks/render.yml --output compare --runner memory -e '/path/to/bin/ruby;/path/to/bin/ruby-3.0.0 --jit'
+#   $ benchmark-driver benchmarks/render.yml -e '/home/strzibny/.rubies/ruby-2.7.0/bin/ruby;/home/strzibny/.rubies/ruby-3.0.0/bin/ruby;/home/strzibny/.rubies/ruby-3.0.0/bin/ruby --jit'
+#
+# Note: You need to install invoice_printer as a gem for the require to work.
+loop_count: 3000
 prelude: |
-  lib = File.expand_path('../lib', __FILE__)
-  $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
   require 'invoice_printer'
 
   provider_address = <<ADDRESS
-  Rolnická 1
+  Rolnicka 1
   747 05  Opava
-  Kateřinky
+  Katerinky
   ADDRESS
 
   purchaser_address = <<ADDRESS
-  Ostravská 1
+  Ostravska 1
   747 70  Opava
   ADDRESS
 

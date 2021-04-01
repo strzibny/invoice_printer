@@ -10,7 +10,7 @@ group :test do
 end
 
 group :benchmark do
-  gem 'benchmark_driver', '0.14.11'
+  gem 'benchmark_driver', '0.15.17'
   # For generating benchmark reports with --output gruff
   gem 'benchmark_driver-output-gruff'
 end
