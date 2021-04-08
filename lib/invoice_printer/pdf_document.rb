@@ -441,6 +441,10 @@ module InvoicePrinter
       end
       @payment_box_height = min_height
 
+      if big_info_box?
+        @payment_box_height = 110
+      end
+
       if @document.bank_account_number.empty?
         @pdf.text_box(
           @labels[:payment],
@@ -552,6 +556,7 @@ module InvoicePrinter
           @payment_box_height += 30
           @push_items_table += 18
         end
+
         if min_height > @payment_box_height
           @payment_box_height = min_height
           @push_items_table += 25
@@ -676,7 +681,7 @@ module InvoicePrinter
       end
 
       if issue_date_present || due_date_present || variable_symbol_present
-        big_box = (issue_date_present && due_date_present && variable_symbol_present && info_box_sublabels_used)
+        big_box = (issue_date_present && due_date_present && variable_symbol_present && info_box_sublabels_used?)
         height = (issue_date_present && due_date_present) ? 75 : 60
         height = big_box ? 110 : height
         height = @payment_box_height if @payment_box_height > height
@@ -689,7 +694,14 @@ module InvoicePrinter
       end
     end
 
-    def info_box_sublabels_used
+    def big_info_box?
+      !@document.issue_date.empty? &&
+      !@document.due_date.empty? &&
+      !@document.variable_symbol.empty? &&
+      info_box_sublabels_used?
+    end
+
+    def info_box_sublabels_used?
       used?(@labels[:sublabels][:issue_date]) ||
       used?(@labels[:sublabels][:due_date]) ||
       used?(@labels[:sublabels][:variable_symbol])
