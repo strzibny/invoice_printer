@@ -11,6 +11,7 @@
 #
 #   $ sudo docker login
 #   $ sudo docker tag printer docker.io/strzibnyj/invoice_printer_server:latest
+#   $ sudo docker push strzibnyj/invoice_printer_server:$VERSION
 #   $ sudo docker push strzibnyj/invoice_printer_server:latest
 FROM alpine:3.13
 MAINTAINER Josef Strzibny <strzibny@strzibny.name>
@@ -24,11 +25,11 @@ RUN apk update && apk upgrade
 # Install Ruby and build dependencies
 RUN apk add build-base bash ruby ruby-etc ruby-dev
 
-# Install support for builtin fonts
-RUN gem install invoice_printer_fonts --version 2.1.0.rc1 --no-document
+# Install builtin fonts
+RUN gem install invoice_printer_fonts --version 2.1.0 --no-document
 
-# Install gem from RubyGems.org
-RUN gem install invoice_printer_server --version 2.1.0.rc1 --no-document
+# Install the gem from RubyGems.org
+RUN gem install invoice_printer_server --version 2.1.0 --no-document
 
 # Clean APK cache
 RUN rm -rf /var/cache/apk/*
