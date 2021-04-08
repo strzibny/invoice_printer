@@ -15,6 +15,7 @@ module InvoicePrinter
   #     purchaser_lines: "Ostravska 2\n747 05 Opava",
   #     issue_date: '19/03/3939',
   #     due_date: '19/03/3939',
+  #     variable_symbol: '198900000001',
   #     subtotal: '$ 150',
   #     tax: '$ 50',
   #     total: '$ 200',
@@ -46,6 +47,7 @@ module InvoicePrinter
                 :purchaser_lines,
                 :issue_date,
                 :due_date,
+                :variable_symbol,
                 # Account details
                 :subtotal,
                 :tax,
@@ -73,6 +75,7 @@ module InvoicePrinter
           purchaser_lines: json['purchaser_lines'],
           issue_date: json['issue_date'],
           due_date: json['due_date'],
+          variable_symbol: json['variable_symbol'],
           subtotal: json['subtotal'],
           tax: json['tax'],
           tax2: json['tax2'],
@@ -99,6 +102,7 @@ module InvoicePrinter
                    purchaser_lines: nil,
                    issue_date: nil,
                    due_date: nil,
+                   variable_symbol: nil,
                    subtotal: nil,
                    tax: nil,
                    tax2: nil,
@@ -121,6 +125,7 @@ module InvoicePrinter
       @purchaser_lines = String(purchaser_lines)
       @issue_date = String(issue_date)
       @due_date = String(due_date)
+      @variable_symbol = String(variable_symbol)
       @subtotal = String(subtotal)
       @tax = String(tax)
       @tax2 = String(tax2)
@@ -149,6 +154,7 @@ module InvoicePrinter
         'purchaser_lines': @purchaser_lines,
         'issue_date': @issue_date,
         'due_date': @due_date,
+        'variable_symbol': @variable_symbol,
         'subtotal': @subtotal,
         'tax': @tax,
         'tax2': @tax2,

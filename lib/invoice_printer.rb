@@ -37,6 +37,7 @@ module InvoicePrinter
   #     iban: 'IBAN:',
   #     issue_date: 'Issue date:',
   #     due_date: 'Due date:',
+  #     variable_symbol: 'Variable symbol:'
   #     item: 'Item',
   #     quantity: 'Quantity',
   #     unit: 'Unit',

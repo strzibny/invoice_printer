@@ -36,6 +36,7 @@ module InvoicePrinter
       iban: 'IBAN',
       issue_date: 'Issue date',
       due_date: 'Due date',
+      variable_symbol: 'Variable symbol',
       item: 'Item',
       variable: '',
       quantity: 'Quantity',
@@ -571,6 +572,8 @@ module InvoicePrinter
     #   | Issue date sublabel            |
     #   | Due date:            03/03/2016|
     #   | Due date sublabel              |
+    #   | Variable symbol:     VS12345678|
+    #   | Variable symbol sublabel       |
     #    --------------------------------
     #
     def build_info_box
@@ -590,17 +593,17 @@ module InvoicePrinter
           width: x(146),
           align: :right
         )
-      end
 
-      if used? @labels[:sublabels][:issue_date]
-        position = issue_date_present ? 483 : 498
+        if used? @labels[:sublabels][:issue_date]
+          position = issue_date_present ? 483 : 498
 
-        @pdf.text_box(
-          @labels[:sublabels][:issue_date],
-          size: 10,
-          at: [x(284), y(position) - @push_down],
-          width: x(240)
-        )
+          @pdf.text_box(
+            @labels[:sublabels][:issue_date],
+            size: 10,
+            at: [x(284), y(position) - @push_down],
+            width: x(240)
+          )
+        end
       end
 
       due_date_present = !@document.due_date.empty?
@@ -622,27 +625,74 @@ module InvoicePrinter
           width: x(146),
           align: :right
         )
+
+        if used? @labels[:sublabels][:due_date]
+          position = issue_date_present ? 463 : 478
+          position -= 10 if used? @labels[:sublabels][:issue_date]
+
+          @pdf.text_box(
+            @labels[:sublabels][:due_date],
+            size: 10,
+            at: [x(284), y(position) - @push_down],
+            width: x(240)
+          )
+        end
       end
 
-      if used? @labels[:sublabels][:due_date]
-        position = issue_date_present ? 463 : 478
+      variable_symbol_present = !@document.variable_symbol.empty?
+
+      if variable_symbol_present
+        position = (issue_date_present || due_date_present) ? 483 : 498
+        position = issue_date_present && due_date_present ? 458 : 463
         position -= 10 if used? @labels[:sublabels][:issue_date]
+        position -= 10 if used? @labels[:sublabels][:due_date]
 
         @pdf.text_box(
-          @labels[:sublabels][:due_date],
-          size: 10,
+          @labels[:variable_symbol],
+          size: 11,
           at: [x(284), y(position) - @push_down],
           width: x(240)
         )
+        @pdf.text_box(
+          @document.variable_symbol,
+          size: 13,
+          at: [x(384), y(position) - @push_down],
+          width: x(146),
+          align: :right
+        )
+
+        if used? @labels[:sublabels][:variable_symbol]
+          position = issue_date_present ? 443 : 458
+          position -= 10 if used? @labels[:sublabels][:issue_date]
+          position -= 10 if used? @labels[:sublabels][:due_date]
+
+          @pdf.text_box(
+            @labels[:sublabels][:variable_symbol],
+            size: 10,
+            at: [x(284), y(position) - @push_down],
+            width: x(240)
+          )
+        end
       end
 
-      if issue_date_present || due_date_present
+      if issue_date_present || due_date_present || variable_symbol_present
+        big_box = (issue_date_present && due_date_present && variable_symbol_present && info_box_sublabels_used)
         height = (issue_date_present && due_date_present) ? 75 : 60
+        height = big_box ? 110 : height
         height = @payment_box_height if @payment_box_height > height
 
         @pdf.stroke_rounded_rectangle([x(274), y(508) - @push_down], x(266), height, 6)
-        @push_items_table += 12 if @push_items_table <= 18
+        @push_items_table += 23 if @push_items_table <= 18
+        @push_items_table += 24 if big_box
+
+        #@push_items_table += 30
       end
+    end
+
+    def info_box_sublabels_used
+      used?(@labels[:sublabels][:issue_date]) ||
+      used?(@labels[:sublabels][:due_date]) ||
+      used?(@labels[:sublabels][:variable_symbol])
     end
 
     # Build the following table for document items:
