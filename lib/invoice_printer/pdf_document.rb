@@ -253,41 +253,6 @@ module InvoicePrinter
             width: x(240)
           )
         end
-      else
-        @pdf.text_box(
-          "#{@document.provider_street}    #{@document.provider_street_number}",
-          size: 10,
-          at: [10, y(620) - @push_down],
-          width: x(240)
-        )
-        @pdf.text_box(
-          @document.provider_postcode,
-          size: 10,
-          at: [10, y(605) - @push_down],
-          width: x(240)
-        )
-        @pdf.text_box(
-          @document.provider_city,
-          size: 10,
-          at: [60, y(605) - @push_down],
-          width: x(240)
-        )
-        unless @document.provider_city_part.empty?
-          @pdf.text_box(
-            @document.provider_city_part,
-            size: 10,
-            at: [60, y(590) - @push_down],
-            width: x(240)
-          )
-        end
-        unless @document.provider_extra_address_line.empty?
-          @pdf.text_box(
-            @document.provider_extra_address_line,
-            size: 10,
-            at: [10, y(575) - @push_down],
-            width: x(240)
-          )
-        end
       end
       unless @document.provider_tax_id.empty?
         @pdf.text_box(
@@ -355,41 +320,6 @@ module InvoicePrinter
             "#{line}",
             size: 10,
             at: [x(284), y(line_y - index*15) - @push_down],
-            width: x(240)
-          )
-        end
-      else
-        @pdf.text_box(
-          "#{@document.purchaser_street}    #{@document.purchaser_street_number}",
-          size: 10,
-          at: [x(284), y(620) - @push_down],
-          width: x(240)
-        )
-        @pdf.text_box(
-          @document.purchaser_postcode,
-          size: 10,
-          at: [x(284), y(605) - @push_down],
-          width: x(240)
-        )
-        @pdf.text_box(
-          @document.purchaser_city,
-          size: 10,
-          at: [x(334), y(605) - @push_down],
-          width: x(240)
-        )
-        unless @document.purchaser_city_part.empty?
-          @pdf.text_box(
-            @document.purchaser_city_part,
-            size: 10,
-            at: [x(334), y(590) - @push_down],
-            width: x(240)
-          )
-        end
-        unless @document.purchaser_extra_address_line.empty?
-          @pdf.text_box(
-            @document.purchaser_extra_address_line,
-            size: 10,
-            at: [x(284), y(575) - @push_down],
             width: x(240)
           )
         end
