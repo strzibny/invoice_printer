@@ -61,7 +61,7 @@ parser.parse!
 puma_options = { :Host => '0.0.0.0', :Port => 9393, :workers => 2 }.merge(options)
 
 begin
-  puts 'Starting InvoicePrinter Server...'
+  puts "Starting InvoicePrinter Server v#{InvoicePrinter::VERSION}..."
   Rack::Handler::Puma.run(InvoicePrinter::Server.freeze.app, **puma_options)
 rescue => e
   STDERR.puts "ERROR: #{e.message}"
