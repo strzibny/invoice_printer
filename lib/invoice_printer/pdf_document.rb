@@ -759,52 +759,40 @@ module InvoicePrinter
       @pdf.move_down(25)
 
       items = []
-      items << [{ content: "#{@labels[:subtotal]}:#{build_sublabel_for_total_table(:subtotal)}", align: :right }, @document.subtotal] \
-        unless @document.subtotal.empty?
-      items << [{ content: "#{@labels[:tax]}:#{build_sublabel_for_total_table(:tax)}", align: :right }, @document.tax] \
-        unless @document.tax.empty?
-      items << [{ content: "#{@labels[:tax2]}:#{build_sublabel_for_total_table(:tax2)}", align: :right }, @document.tax2] \
-        unless @document.tax2.empty?
-      items << [{ content: "#{@labels[:tax3]}:#{build_sublabel_for_total_table(:tax3)}", align: :right }, @document.tax3] \
-        unless @document.tax3.empty?
 
-      width = [
-        "#{@labels[:subtotal]}#{@document.subtotal}".size,
-        "#{@labels[:tax]}#{@document.tax}".size,
-        "#{@labels[:tax2]}#{@document.tax2}".size,
-        "#{@labels[:tax3]}#{@document.tax3}".size
-      ].max * 8
+      items << [
+        { content: "#{@labels[:subtotal]}:#{build_sublabel_for_total_table(:subtotal)}", align: :left },
+        { content: @document.subtotal, align: :right }
+      ] unless @document.subtotal.empty?
+
+      items << [
+        { content: "#{@labels[:tax]}:#{build_sublabel_for_total_table(:tax)}", align: :left },
+        { content:  @document.tax, align: :right }
+      ] unless @document.tax.empty?
+
+      items << [
+        { content: "#{@labels[:tax2]}:#{build_sublabel_for_total_table(:tax2)}", align: :left },
+        { content:  @document.tax2, align: :right }
+      ] unless @document.tax2.empty?
+
+      items << [
+        { content: "#{@labels[:tax3]}:#{build_sublabel_for_total_table(:tax3)}", align: :left },
+        { content:  @document.tax3, align: :right }
+      ] unless @document.tax3.empty?
+
+      items << [
+        { content: "\n#{@labels[:total]}:#{build_sublabel_for_total_table(:total)}", align: :left, font_style: :bold, size: 16 },
+        { content:  "\n#{@document.total}", align: :right, font_style: :bold, size: 16 }
+      ] unless @document.total.empty?
 
       options = {
         cell_style: {
           borders: []
-        }
+        },
+        position: :right
       }
 
-      @pdf.span(x(width), position: :right) do
-        @pdf.table(items, options) unless items.empty?
-      end
-
-      @pdf.move_down(15)
-
-      unless @document.total.empty?
-        @pdf.text(
-          "#{@labels[:total]}:   #{@document.total}",
-          size: 16,
-          align: :right,
-          style: :bold
-        )
-
-        @pdf.move_down(5)
-
-        if used? @labels[:sublabels][:total]
-          @pdf.text(
-            "#{@labels[:sublabels][:total]}:   #{@document.total}",
-            size: 12,
-            align: :right
-          )
-        end
-      end
+      @pdf.table(items, options) unless items.empty?
     end
 
     # Return sublabel on a new line or empty string
