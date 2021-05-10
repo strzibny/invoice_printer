@@ -1,9 +1,7 @@
 require 'invoice_printer'
 
-# Module setting paths for fonts.
-#
-# Only Regular and Bold versions are used and therefor
-# provided as invoice-printer-fonts gem.
+# Only Regular and Bold versions are used in the template
+# and therefore provided in the invoice_printer_fonts gem.
 class InvoicePrinter::Fonts
   ASSETS_PATH = File.expand_path('../../../assets', __FILE__)
 
