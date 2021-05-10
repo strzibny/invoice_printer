@@ -1,5 +1,9 @@
 require 'invoice_printer'
 
+# Module setting paths for fonts.
+#
+# Only Regular and Bold versions are used and therefor
+# provided as invoice-printer-fonts gem.
 class InvoicePrinter::Fonts
   ASSETS_PATH = File.expand_path('../../../assets', __FILE__)
 
@@ -13,8 +17,8 @@ class InvoicePrinter::Fonts
     {
       :normal      => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf",
       :italic      => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf",
-      :bold        => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf",
-      :bold_italic => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Regular.ttf"
+      :bold        => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Bold.ttf",
+      :bold_italic => "#{ASSETS_PATH}/fonts/opensans/OpenSans-Bold.ttf"
     }
   end
 
@@ -22,8 +26,8 @@ class InvoicePrinter::Fonts
     {
       :normal      => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf",
       :italic      => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf",
-      :bold        => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf",
-      :bold_italic => "#{ASSETS_PATH}/fonts/overpass/Overpass-Regular.ttf"
+      :bold        => "#{ASSETS_PATH}/fonts/overpass/Overpass-Bold.ttf",
+      :bold_italic => "#{ASSETS_PATH}/fonts/overpass/Overpass-Bold.ttf"
     }
   end
 
@@ -31,8 +35,8 @@ class InvoicePrinter::Fonts
     {
       :normal      => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf",
       :italic      => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf",
-      :bold        => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf",
-      :bold_italic => "#{ASSETS_PATH}/fonts/roboto/Roboto-Regular.ttf"
+      :bold        => "#{ASSETS_PATH}/fonts/roboto/Roboto-Bold.ttf",
+      :bold_italic => "#{ASSETS_PATH}/fonts/roboto/Roboto-Bold.ttf"
     }
   end
 end
