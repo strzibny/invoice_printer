@@ -61,6 +61,7 @@ Options:
 - `document` - JSON representation of the document
 - `labels` - JSON for labels
 - `font` - path to font file or builtin font name
+- `bold_font` - path to bold font file or builtin font name
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
 - `background` - path to background file
@@ -103,6 +104,7 @@ Options:
 - `document` - JSON representation of the document
 - `labels` - JSON for labels
 - `font` - path to font file or builtin font name
+- `bold_font` - path to bold font file or builtin font name
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
 - `background` - path to background file

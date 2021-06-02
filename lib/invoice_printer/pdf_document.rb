@@ -11,6 +11,7 @@ module InvoicePrinter
   #     document: invoice,
   #     labels: {},
   #     font: 'font.ttf',
+  #     bold_font: 'bold_font.ttf',
   #     stamp: 'stamp.jpg',
   #     logo: 'example.jpg'
   #   )
@@ -20,7 +21,7 @@ module InvoicePrinter
     class StampFileNotFound < StandardError; end
     class InvalidInput < StandardError; end
 
-    attr_reader :invoice, :labels, :file_name, :font, :stamp, :logo
+    attr_reader :invoice, :labels, :file_name, :font, :bold_font, :stamp, :logo
 
     DEFAULT_LABELS = {
       name: 'Invoice',
@@ -66,10 +67,20 @@ module InvoicePrinter
       @@labels = DEFAULT_LABELS.merge(labels)
     end
 
-    def initialize(document: Document.new, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: :letter)
+    def initialize(
+      document: Document.new,
+      labels: {},
+      font: nil,
+      bold_font: nil,
+      stamp: nil,
+      logo: nil,
+      background: nil,
+      page_size: :letter
+    )
       @document  = document
       @labels    = merge_custom_labels(labels)
       @font      = font
+      @bold_font = bold_font
       @stamp     = stamp
       @logo      = logo
       @page_size = page_size ? PAGE_SIZES[page_size.to_sym] : PAGE_SIZES[:letter]
@@ -94,8 +105,10 @@ module InvoicePrinter
         end
       end
 
-      if used? @font
-        use_font(@font)
+      if used?(@font) && used?(@bold_font)
+        use_font(@font, @bold_font)
+      elsif used?(@font)
+        use_font(@font, @font)
       end
 
       build_pdf
@@ -113,11 +126,11 @@ module InvoicePrinter
 
     private
 
-    def use_font(font)
-      if File.exist?(@font)
-        set_font_from_path(@font)
+    def use_font(font, bold_font)
+      if File.exist?(font) && File.exist?(bold_font)
+        set_font_from_path(font, bold_font)
       else
-        set_builtin_font(@font)
+        set_builtin_font(font)
       end
     end
 
@@ -134,14 +147,14 @@ module InvoicePrinter
     end
 
     # Add font family in Prawn for a given +font+ file
-    def set_font_from_path(font)
+    def set_font_from_path(font, bold_font)
       font_name = Pathname.new(font).basename
       @pdf.font_families.update(
         "#{font_name}" => {
           normal: font,
           italic: font,
-          bold: font,
-          bold_italic: font
+          bold: bold_font,
+          bold_italic: bold_font
         }
       )
       @pdf.font(font_name)

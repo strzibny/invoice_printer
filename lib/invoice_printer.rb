@@ -15,6 +15,7 @@ Prawn::Font::AFM.hide_m17n_warning = true
 #   InvoicePrinter.print(
 #     document: invoice,
 #     font: 'path-to-font-file.ttf',
+#     bold_font: 'path-to-font-file.ttf',
 #     stamp: 'stamp.jpg',
 #     logo: 'logo.jpg',
 #     file_name: 'invoice.pdf'
@@ -65,16 +66,28 @@ module InvoicePrinter
   # document - InvoicePrinter::Document object
   # labels - labels to override
   # font - font file to use
+  # bold_font - bold font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
   # background - background (image)
   # page_size - :letter or :a4
   # file_name - output file
-  def self.print(document:, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: :letter, file_name:)
+  def self.print(
+    document:,
+    labels: {},
+    font: nil,
+    bold_font: nil,
+    stamp: nil,
+    logo: nil,
+    background: nil,
+    page_size: :letter,
+    file_name:
+  )
     PDFDocument.new(
       document: document,
       labels: labels,
       font: font,
+      bold_font: bold_font,
       stamp: stamp,
       logo: logo,
       background: background,
@@ -87,15 +100,26 @@ module InvoicePrinter
   # document - InvoicePrinter::Document object
   # labels - labels to override
   # font - font file to use
+  # bold_font - bold font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
   # background - background (image)
   # page_size - :letter or :a4
-  def self.render(document:, labels: {}, font: nil, stamp: nil, logo: nil, background: nil, page_size: :letter)
+  def self.render(
+    document:,
+    labels: {},
+    font: nil,
+    bold_font: nil,
+    stamp: nil,
+    logo: nil,
+    background: nil,
+    page_size: :letter
+  )
     PDFDocument.new(
       document: document,
       labels: labels,
       font: font,
+      bold_font: bold_font,
       stamp: stamp,
       logo: logo,
       background: background,

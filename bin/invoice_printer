@@ -19,6 +19,7 @@ def show_help
       -d, --document   document as JSON
         -l, --labels   labels as JSON
               --font   path to font or builtin font name
+         --bold-font   path to bold font or builtin font name
          -s, --stamp   path to stamp
               --logo   path to logotype
         --background   path to background image
@@ -45,6 +46,10 @@ parser = OptionParser.new do|opts|
 
   opts.on('--font PATH') do |path|
     options[:font] = path
+  end
+
+  opts.on('--bold-font PATH') do |path|
+    options[:bold_font] = path
   end
 
   opts.on('-s', '--stamp PATH') do |path|
@@ -116,6 +121,7 @@ begin
       document:   document,
       labels:     labels,
       font:       options[:font],
+      bold_font:  options[:bold_font],
       stamp:      options[:stamp],
       logo:       options[:logo],
       background: options[:background],
@@ -130,6 +136,7 @@ begin
       document:   document,
       labels:     labels,
       font:       options[:font],
+      bold_font:  options[:bold_font],
       stamp:      options[:stamp],
       logo:       options[:logo],
       file_name:  options[:filename],

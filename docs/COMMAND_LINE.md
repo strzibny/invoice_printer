@@ -13,6 +13,7 @@ Options:
   -d, --document   document as JSON
     -l, --labels   labels as JSON
           --font   path to font or builtin font name
+     --bold-font   path to bold font or builtin font name
      -s, --stamp   path to stamp
           --logo   path to logotype
     --background   path to background image
@@ -139,7 +140,7 @@ All labels:
 
 ## Built-in fonts
 
-Supported builtin fonts are: `overpass`, `opensans`, and `roboto`.
+Supported builtin fonts are: `overpass`, `opensans`, and `roboto`. They ship with bold versions.
 
 ## Examples
 

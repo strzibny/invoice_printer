@@ -4,14 +4,16 @@ require 'test_helper'
 class ExamplesTest < Minitest::Test
   def setup
     examples_directory = File.expand_path('../../examples', __FILE__)
+    assets_directory = File.expand_path('../../assets', __FILE__)
     @examples = Dir.glob("#{examples_directory}/*.rb")
     @test_dir = File.absolute_path('./tmp/invoice_printer_examples')
     FileUtils.mkdir_p @test_dir
     FileUtils.copy_entry examples_directory, @test_dir
+    FileUtils.cp_r assets_directory, File.absolute_path('./tmp/')
   end
 
   def teardown
-    FileUtils.rm_rf @test_dir if File.exist?(@test_dir)
+    #FileUtils.rm_rf @test_dir if File.exist?(@test_dir)
   end
 
   # 1, copy example to the test directory
