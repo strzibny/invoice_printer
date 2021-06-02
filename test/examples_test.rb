@@ -13,7 +13,7 @@ class ExamplesTest < Minitest::Test
   end
 
   def teardown
-    #FileUtils.rm_rf @test_dir if File.exist?(@test_dir)
+    FileUtils.rm_rf @test_dir if File.exist?(@test_dir)
   end
 
   # 1, copy example to the test directory
