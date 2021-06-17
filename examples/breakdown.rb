@@ -20,6 +20,7 @@ item = InvoicePrinter::Document::Item.new(
 
 item2 = InvoicePrinter::Document::Item.new(
   name: 'Consulting',
+  breakdown: "Excludes 1 hour free consultation",
   quantity: '10',
   unit: 'h',
   price: '$ 30',
@@ -27,8 +28,14 @@ item2 = InvoicePrinter::Document::Item.new(
   amount: '$ 300'
 )
 
+breakdown = <<BREAKDOWN
+Issue 404: 15h
+Issue 505: 5h
+BREAKDOWN
+
 item3 = InvoicePrinter::Document::Item.new(
   name: 'Support',
+  breakdown: breakdown,
   quantity: '20',
   unit: 'h',
   price: '$ 15',
@@ -48,7 +55,7 @@ invoice = InvoicePrinter::Document.new(
   tax: '$ 100',
   total: '$ 1,100',
   bank_account_number: '156546546465',
-  items: [item, item2, item3] * 20,
+  items: [item, item2, item3],
   note: 'This is a note at the end.'
 )
 
@@ -57,7 +64,7 @@ InvoicePrinter.print(
   labels: labels,
   stamp: File.expand_path('../stamp.png', __FILE__),
   logo: File.expand_path('../prawn.png', __FILE__),
-  file_name: 'long_invoice.pdf'
+  file_name: 'breakdown.pdf'
 )
 
 InvoicePrinter.print(
@@ -65,6 +72,6 @@ InvoicePrinter.print(
   labels: labels,
   stamp: File.expand_path('../stamp.png', __FILE__),
   logo: File.expand_path('../prawn.png', __FILE__),
-  file_name: 'long_invoice_a4.pdf',
+  file_name: 'breakdown_a4.pdf',
   page_size: :a4
 )
