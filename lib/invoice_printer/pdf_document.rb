@@ -721,7 +721,8 @@ module InvoicePrinter
     def build_items_data(items_params)
       @document.items.map do |item|
         line = []
-        line << { content: item.name, borders: [:bottom], align: :left } if items_params[:names]
+        line << { content: name_cell(item), borders: [:bottom] } if items_params[:names]
+        #line << { content: item.name, borders: [:bottom], align: :left } if items_params[:names]
         line << { content: item.variable, align: :right } if items_params[:variables]
         line << { content: item.quantity, align: :right } if items_params[:quantities]
         line << { content: item.unit, align: :right } if items_params[:units]
@@ -731,6 +732,27 @@ module InvoicePrinter
         line << { content: item.tax3, align: :right } if items_params[:taxes3]
         line << { content: item.amount, align: :right } if items_params[:amounts]
         line
+      end
+    end
+
+    # Display item's name and breakdown if present
+    def name_cell(item)
+      data = if used?(item.breakdown)
+        data = [
+          [{ content: item.name, padding: [5, 0, 0, 5] }],
+          [{ content: item.breakdown, size: 8, padding: [2, 0, 5, 5] }]
+        ]
+
+        options = {
+          cell_style: {
+            borders: []
+          },
+          position: :left
+        }
+
+        @pdf.make_table(data, options)
+      else
+        item.name
       end
     end
 

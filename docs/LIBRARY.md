@@ -31,6 +31,7 @@ Here is an full example for creating the document object:
 ```ruby
 item = InvoicePrinter::Document::Item.new(
   name: 'Web consultation',
+  breakdown: 'Excludes 1h free consultation',
   quantity: nil,
   unit: 'hours',
   price: '$ 25',

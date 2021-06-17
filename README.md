@@ -25,7 +25,7 @@ See more usecases in the `examples/` directory.
 - Purchaser and provider boxes with addresses and identificaton numbers
 - Payment method box showing banking details including SWIFT and IBAN fields
 - Issue/due dates box
-- Configurable items' table with item description, quantity, unit, price per unit, tax and item's total amount fields
+- Configurable items' table with item description, breakdown, quantity, unit, price per unit, tax and item's total amount fields
 - Final subtotal/tax/total info box
 - Page numbers
 - Configurable field labels & sublabels (optional little labels)
