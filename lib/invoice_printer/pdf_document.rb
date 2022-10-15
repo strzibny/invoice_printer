@@ -853,7 +853,7 @@ module InvoicePrinter
     def build_stamp
       if @stamp && !@stamp.empty?
         @pdf.move_down(15)
-        @pdf.image(@stamp, position: :right)
+        @pdf.image(@stamp, position: :right, fit: [200, 40])
       end
     end
 
