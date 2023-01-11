@@ -47,6 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json', '~> 2.1'
   spec.add_dependency 'prawn', '~> 2.2'
   spec.add_dependency 'prawn-table', '~> 0.2.2'
+  spec.add_dependency 'matrix'
 
   spec.add_development_dependency 'bundler', '>= 1.7'
   spec.add_development_dependency 'rake', '>= 10.0'
