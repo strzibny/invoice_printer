@@ -254,18 +254,14 @@ module InvoicePrinter
       end
       # Render provider_lines if present
       if !@document.provider_lines.empty?
-        lines = @document.provider_lines.split("\n")
-        line_y = 618
-        lines.each_with_index do |line, index|
-          next if index > 3
-
-          @pdf.text_box(
-            "#{line}",
-            size: 10,
-            at: [10, y(line_y - index*15) - @push_down],
-            width: x(240)
-          )
-        end
+        @pdf.text_box(
+          @document.provider_lines,
+          size: 10,
+          at: [x(10), y(618) - @push_down],
+          width: x(246),
+          height: y(68),
+          leading: 3,
+        )
       end
       unless @document.provider_tax_id.empty?
         @pdf.text_box(
