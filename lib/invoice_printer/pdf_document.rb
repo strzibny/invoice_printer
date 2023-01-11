@@ -845,7 +845,7 @@ module InvoicePrinter
     def build_logo
       if @logo && !@logo.empty?
         bottom = @document.note.empty? ? 75 : (75 + note_height)
-        @pdf.image(@logo, at: [0, bottom], fit: [200, 50])
+        @pdf.image(@logo, at: [0, bottom], fit: [x(200), y(50)])
       end
     end
 
