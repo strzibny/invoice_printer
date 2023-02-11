@@ -26,6 +26,7 @@ See more usecases in the `examples/` directory.
 - Payment method box showing banking details including SWIFT and IBAN fields
 - Issue/due dates box
 - Configurable items' table with item description, breakdown, quantity, unit, price per unit, tax and item's total amount fields
+- Description above the table
 - Final subtotal/tax/total info box
 - Page numbers
 - Configurable field labels & sublabels (optional little labels)
@@ -50,8 +51,8 @@ See more usecases in the `examples/` directory.
 
 I am developing InvoicePrinter as a free and MIT-licensed library for several years now.
 
-I would appreciate if you consider [buying my book](https://deploymentfromscratch.com/).
+Please consider [buying my book](https://deploymentfromscratch.com/) or [SaaS starter kit](https://businessclasskit.com/) so I can work more on Open Source.
 
 ## Copyright
 
-Copyright 2015-2021 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
+Copyright 2015-2023 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
