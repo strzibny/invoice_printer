@@ -171,6 +171,7 @@ module InvoicePrinter
       build_purchaser_box
       build_payment_method_box
       build_info_box
+      build_description
       build_items
       build_total
       build_stamp
@@ -640,6 +641,25 @@ module InvoicePrinter
       used?(@labels[:sublabels][:issue_date]) ||
       used?(@labels[:sublabels][:due_date]) ||
       used?(@labels[:sublabels][:variable_symbol])
+    end
+
+    def build_description
+      unless @document.description.empty?
+        @pdf.text_box(
+          @document.description,
+          size: 11,
+          align: :left,
+          at: [0, y(450) - @push_down - 26]
+        )
+        @push_items_table += description_height + 8
+      end
+    end
+
+     def description_height
+      @description_height ||= begin
+        num_of_lines = @document.description.lines.count
+        (num_of_lines * 13)
+      end
     end
 
     # Build the following table for document items:

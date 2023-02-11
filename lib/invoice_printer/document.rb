@@ -22,6 +22,7 @@ module InvoicePrinter
   #     bank_account_number: '156546546465',
   #     account_iban: 'IBAN464545645',
   #     account_swift: 'SWIFT5456',
+  #     description: "We are invoicing you the following items:",
   #     items: [
   #       InvoicePrinter::Document::Item.new,
   #       InvoicePrinter::Document::Item.new
@@ -57,6 +58,7 @@ module InvoicePrinter
                 :bank_account_number,
                 :account_iban,
                 :account_swift,
+                :description,
                 # Collection of InvoicePrinter::Invoice::Items
                 :items,
                 :note
@@ -84,6 +86,7 @@ module InvoicePrinter
           bank_account_number: json['bank_account_number'],
           account_iban: json['account_iban'],
           account_swift: json['account_swift'],
+          description: json['description'],
           note: json['note'],
 
           items: (json['items'] || []).map { |item_json| Item.from_json(item_json) }
@@ -111,6 +114,7 @@ module InvoicePrinter
                    bank_account_number: nil,
                    account_iban: nil,
                    account_swift:  nil,
+                   description: nil,
                    items: nil,
                    note: nil)
 
@@ -134,6 +138,7 @@ module InvoicePrinter
       @bank_account_number = String(bank_account_number)
       @account_iban = String(account_iban)
       @account_swift = String(account_swift)
+      @description = String(description)
       @items = items
       @note = String(note)
 
@@ -163,6 +168,7 @@ module InvoicePrinter
         'bank_account_number': @bank_account_number,
         'account_iban': @account_iban,
         'account_swift': @account_swift,
+        'description': @description,
         'items': @items.map(&:to_h),
         'note': @note
       }

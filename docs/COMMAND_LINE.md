@@ -49,6 +49,7 @@ JSON document with all possible fields filled:
   "bank_account_number":"156546546465",
   "account_iban":"IBAN464545645",
   "account_swift":"SWIFT5456",
+  "description": "We are invoicing the following items:",
   "items":[
     {
        "name":"Konzultace",

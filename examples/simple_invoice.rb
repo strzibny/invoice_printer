@@ -27,11 +27,13 @@ invoice = InvoicePrinter::Document.new(
   number: 'NO. 198900000001',
   provider_name: 'John White',
   provider_lines: provider_address,
+  purchaser_name: 'Will Black',
   purchaser_lines: purchaser_address,
   issue_date: '05/03/2016',
   due_date: '19/03/2016',
   total: '$ 900',
   bank_account_number: '156546546465',
+  description: "You can use 20% discount for the next order with the code:\nDISCOUNT",
   items: [item],
   note: "This is a note at the end.\nA note with two lines."
 )
