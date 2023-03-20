@@ -297,8 +297,10 @@ module InvoicePrinter
     #    ------------------------------------------
     #
     def build_purchaser_box
+      purchaser = [@document.purchaser_name, @document.purchaser_lines].join("\n")
+
       @pdf.text_box(
-        @document.purchaser_name,
+        purchaser.lines.first,
         size: 15,
         at: [x(284), y(640) - @push_down],
         width: x(240)
@@ -320,9 +322,9 @@ module InvoicePrinter
         )
       end
       # Render purchaser_lines if present
-      if !@document.purchaser_lines.empty?
+      if purchaser.lines.size > 1
         @pdf.text_box(
-          @document.purchaser_lines,
+          purchaser.lines(chomp: true)[1..].join("\n"),
           size: 10,
           at: [x(284), y(618) - @push_down],
           width: x(246),
