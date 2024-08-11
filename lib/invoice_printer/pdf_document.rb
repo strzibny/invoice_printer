@@ -694,7 +694,6 @@ module InvoicePrinter
 
       options = {
         header: true,
-        row_colors: [nil, 'ededed'],
         width: x(540, 2),
         cell_style: {
           borders: []
@@ -733,10 +732,13 @@ module InvoicePrinter
 
     # Include only items params with provided data
     def build_items_data(items_params)
-      @document.items.map do |item|
+      colspan = items_params.select { |k, v| v }.count
+      color_background = false
+
+      items = []
+      @document.items.each do |item|
         line = []
-        line << { content: name_cell(item), borders: [:bottom] } if items_params[:names]
-        #line << { content: item.name, borders: [:bottom], align: :left } if items_params[:names]
+        line << { content: item.name, align: :left } if items_params[:names]
         line << { content: item.variable, align: :right } if items_params[:variables]
         line << { content: item.quantity, align: :right } if items_params[:quantities]
         line << { content: item.unit, align: :right } if items_params[:units]
@@ -745,29 +747,19 @@ module InvoicePrinter
         line << { content: item.tax2, align: :right } if items_params[:taxes2]
         line << { content: item.tax3, align: :right } if items_params[:taxes3]
         line << { content: item.amount, align: :right } if items_params[:amounts]
-        line
+
+        line.each {|c| c[:background_color] = 'ededed'} if color_background
+
+        items << line
+
+        if used?(item.breakdown)
+          items << [{ content: item.breakdown, align: :left, size: 8, colspan: colspan, padding: [0, 0, 5, 5] }]
+          items.last.first[:background_color] = 'ededed' if color_background
+        end
+
+        color_background = !color_background
       end
-    end
-
-    # Display item's name and breakdown if present
-    def name_cell(item)
-      data = if used?(item.breakdown)
-        data = [
-          [{ content: item.name, padding: [5, 0, 0, 5] }],
-          [{ content: item.breakdown, size: 8, padding: [2, 0, 5, 5] }]
-        ]
-
-        options = {
-          cell_style: {
-            borders: []
-          },
-          position: :left
-        }
-
-        @pdf.make_table(data, options)
-      else
-        item.name
-      end
+      items
     end
 
     # Include only relevant headers
