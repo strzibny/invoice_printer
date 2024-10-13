@@ -29,6 +29,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - run: \
-        apt-get install libmagickwand-dev
+      - run: |
+        sudo apt-get install -y libmagickwand-dev
         bundle exec rake test
