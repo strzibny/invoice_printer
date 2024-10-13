@@ -24,11 +24,14 @@ jobs:
           - "3.2"
           - "ruby-head"
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - name: Install system dependencies
+        run: sudo apt-get install
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Install Ruby dependencies
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - run: |
-          sudo apt-get install -y libmagickwand-dev
-          bundle exec rake test
+      - name: Run tests
+        run: bundle exec rake test
