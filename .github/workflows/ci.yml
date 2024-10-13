@@ -25,7 +25,7 @@ jobs:
           - "ruby-head"
     steps:
       - name: Install system dependencies
-        run: sudo apt-get install
+        run: sudo apt-get install imagemagick libmagickwand-dev
       - name: Check out code
         uses: actions/checkout@v4
       - name: Install Ruby dependencies
