@@ -51,8 +51,16 @@ See more usecases in the `examples/` directory.
 
 I am developing InvoicePrinter as a free and MIT-licensed library for several years now.
 
-Please consider [buying my book](https://deploymentfromscratch.com/) or [SaaS starter kit](https://businessclasskit.com/) so I can work more on Open Source.
+Please consider [buying my book](https://deploymentfromscratch.com/) or [my Rails starter kit](https://businessclasskit.com/) so I can work more on Open Source.
+
+## Contributing
+
+Contributions are welcome. Make sure the tests are passing before submitting a PR:
+
+```bash
+$ bundle && bundle exec rake test
+```
 
 ## Copyright
 
-Copyright 2015-2023 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
+Copyright 2015-2024 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
