@@ -33,8 +33,8 @@ Gem::Specification.new do |spec|
   package_files = `git ls-files -z`.split("\x0")
                     .reject{ |file| ONLY_SERVER_FILES.include?(file) }
                     .reject{ |file| ONLY_FONTS_FILES.include?(file) }
-                    .reject{ |file| file.match /.*\.png/ }
-                    .reject{ |file| file.match /.*\.pdf/ }
+                    .reject{ |file| file.match(/.*\.png/) }
+                    .reject{ |file| file.match(/.*\.pdf/) }
 
   spec.files         = package_files
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }

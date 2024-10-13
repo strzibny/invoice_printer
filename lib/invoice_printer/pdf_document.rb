@@ -657,7 +657,7 @@ module InvoicePrinter
       end
     end
 
-     def description_height
+    def description_height
       @description_height ||= begin
         num_of_lines = @document.description.lines.count
         (num_of_lines * 13)
