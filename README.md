@@ -61,6 +61,12 @@ Contributions are welcome. Make sure the tests are passing before submitting a P
 $ bundle && bundle exec rake test
 ```
 
+You can also quickly regenerate the examples if necessary:
+
+```bash
+$ ruby regenerate.rb
+```
+
 ## Copyright
 
 Copyright 2015-2024 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
