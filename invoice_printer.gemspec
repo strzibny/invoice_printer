@@ -11,10 +11,13 @@ ONLY_FONTS_FILES = [
   'FONTS_LICENSE.txt',
   'assets/fonts/overpass/OFL-1.1.txt',
   'assets/fonts/overpass/Overpass-Regular.ttf',
+  'assets/fonts/overpass/Overpass-Bold.ttf',
   'assets/fonts/opensans/Apache-2.0.txt',
   'assets/fonts/opensans/OpenSans-Regular.ttf',
+  'assets/fonts/opensans/OpenSans-Bold.ttf',
   'assets/fonts/roboto/Apache-2.0.txt',
   'assets/fonts/roboto/Roboto-Regular.ttf',
+  'assets/fonts/roboto/Roboto-Bold.ttf',
   'lib/invoice_printer/fonts.rb'
 ]
 
