@@ -28,7 +28,7 @@ jobs:
       - name: Install system dependencies
         run: sudo apt-get install imagemagick libmagickwand-dev
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install Ruby dependencies
         uses: ruby/setup-ruby@v1
         with:
