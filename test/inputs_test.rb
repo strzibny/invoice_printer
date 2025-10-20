@@ -55,4 +55,12 @@ class InputsTest < Minitest::Test
       InvoicePrinter.render(document: invoice, stamp: 'missing.png')
     end
   end
+
+  def test_missing_qr_raises_an_exception
+    invoice = InvoicePrinter::Document.new(**default_document_params)
+
+    assert_raises(InvoicePrinter::PDFDocument::QRFileNotFound) do
+      InvoicePrinter.render(document: invoice, qr: 'missing.png')
+    end
+  end
 end

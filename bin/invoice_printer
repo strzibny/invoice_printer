@@ -22,6 +22,7 @@ def show_help
          --bold-font   path to bold font or builtin font name
          -s, --stamp   path to stamp
               --logo   path to logotype
+                --qr   path to QR image
         --background   path to background image
          --page-size   letter or a4 (letter is the default)
       -f, --filename   output path
@@ -58,6 +59,10 @@ parser = OptionParser.new do|opts|
 
   opts.on('--logo PATH') do |path|
     options[:logo] = path
+  end
+
+  opts.on('--qr PATH') do |path|
+    options[:qr] = path
   end
 
   opts.on('--background PATH') do |path|
@@ -124,6 +129,7 @@ begin
       bold_font:  options[:bold_font],
       stamp:      options[:stamp],
       logo:       options[:logo],
+      qr:         options[:qr],
       background: options[:background],
       page_size:  options[:page_size]
     )
@@ -139,6 +145,7 @@ begin
       bold_font:  options[:bold_font],
       stamp:      options[:stamp],
       logo:       options[:logo],
+      qr:         options[:qr],
       file_name:  options[:filename],
       background: options[:background],
       page_size:  options[:page_size]

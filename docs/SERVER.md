@@ -64,6 +64,7 @@ Options:
 - `bold_font` - path to bold font file or builtin font name
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
+- `qr` - path to QR image file
 - `background` - path to background file
 - `page_size` - letter or A4 page size
 
@@ -107,6 +108,7 @@ Options:
 - `bold_font` - path to bold font file or builtin font name
 - `stamp` - path to stamp file
 - `logo` - path to logotype file
+- `qr` - path to QR image file
 - `background` - path to background file
 - `page_size` - letter or A4 page size
 - `filename` - path for saving the generated output PDF

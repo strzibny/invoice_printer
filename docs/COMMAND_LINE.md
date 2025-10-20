@@ -16,6 +16,7 @@ Options:
      --bold-font   path to bold font or builtin font name
      -s, --stamp   path to stamp
           --logo   path to logotype
+            --qr   path to QR image
     --background   path to background image
      --page-size   letter or a4 (letter is the default)
   -f, --filename   output path
