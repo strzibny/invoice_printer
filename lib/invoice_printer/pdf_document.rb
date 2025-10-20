@@ -874,9 +874,17 @@ module InvoicePrinter
     def build_qr
       if @qr && !@qr.empty?
         bottom = @document.note.empty? ? 75 : (75 + note_height)
-        # Place QR at the right within the content width (approx 540) minus its width (200)
-        right_x = x(540 - 200)
-        @pdf.image(@qr, at: [right_x, bottom], fit: [x(200), y(50)])
+        # Place QR at page width minus its fit width to keep it at the right edge.
+
+        image_info = Prawn::Images::PNG.new(File.read(@qr))
+        image_width  = image_info.width.to_f
+
+        if image_width > x(50)
+          image_width = x(50)
+        end
+
+        left = @pdf.bounds.right - image_width
+        @pdf.image(@qr, at: [left, bottom], fit: [x(50), y(50)])
       end
     end
 
