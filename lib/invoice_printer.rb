@@ -18,6 +18,7 @@ Prawn::Font::AFM.hide_m17n_warning = true
 #     bold_font: 'path-to-font-file.ttf',
 #     stamp: 'stamp.jpg',
 #     logo: 'logo.jpg',
+#     qr: 'qr.png',
 #     file_name: 'invoice.pdf'
 #   )
 module InvoicePrinter
@@ -69,6 +70,7 @@ module InvoicePrinter
   # bold_font - bold font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
+  # qr - QR image (image)
   # background - background (image)
   # page_size - :letter or :a4
   # file_name - output file
@@ -79,6 +81,7 @@ module InvoicePrinter
     bold_font: nil,
     stamp: nil,
     logo: nil,
+    qr: nil,
     background: nil,
     page_size: :letter,
     file_name:
@@ -90,6 +93,7 @@ module InvoicePrinter
       bold_font: bold_font,
       stamp: stamp,
       logo: logo,
+      qr: qr,
       background: background,
       page_size: page_size
     ).print(file_name)
@@ -103,6 +107,7 @@ module InvoicePrinter
   # bold_font - bold font file to use
   # stamp - stamp & signature (image)
   # logo - logotype (image)
+  # qr - QR image (image)
   # background - background (image)
   # page_size - :letter or :a4
   def self.render(
@@ -112,6 +117,7 @@ module InvoicePrinter
     bold_font: nil,
     stamp: nil,
     logo: nil,
+    qr: nil,
     background: nil,
     page_size: :letter
   )
@@ -122,6 +128,7 @@ module InvoicePrinter
       bold_font: bold_font,
       stamp: stamp,
       logo: logo,
+      qr: qr,
       background: background,
       page_size: page_size
     ).render

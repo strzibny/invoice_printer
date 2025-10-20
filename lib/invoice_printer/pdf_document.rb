@@ -13,15 +13,17 @@ module InvoicePrinter
   #     font: 'font.ttf',
   #     bold_font: 'bold_font.ttf',
   #     stamp: 'stamp.jpg',
-  #     logo: 'example.jpg'
+  #     logo: 'example.jpg',
+  #     qr: 'qr.png'
   #   )
   class PDFDocument
     class FontFileNotFound < StandardError; end
     class LogoFileNotFound < StandardError; end
     class StampFileNotFound < StandardError; end
+    class QRFileNotFound < StandardError; end
     class InvalidInput < StandardError; end
 
-    attr_reader :invoice, :labels, :file_name, :font, :bold_font, :stamp, :logo
+    attr_reader :invoice, :labels, :file_name, :font, :bold_font, :stamp, :logo, :qr
 
     DEFAULT_LABELS = {
       name: 'Invoice',
@@ -74,6 +76,7 @@ module InvoicePrinter
       bold_font: nil,
       stamp: nil,
       logo: nil,
+      qr: nil,
       background: nil,
       page_size: :letter
     )
@@ -83,6 +86,7 @@ module InvoicePrinter
       @bold_font = bold_font
       @stamp     = stamp
       @logo      = logo
+      @qr        = qr
       @page_size = page_size ? PAGE_SIZES[page_size.to_sym] : PAGE_SIZES[:letter]
       @pdf       = Prawn::Document.new(background: background, page_size: @page_size.name)
 
@@ -102,6 +106,14 @@ module InvoicePrinter
           @stamp = stamp
         else
           raise StampFileNotFound, "Stamp file not found at #{@stamp}"
+        end
+      end
+
+      if used? @qr
+        if File.exist?(@qr)
+          @qr = qr
+        else
+          raise QRFileNotFound, "QR image file not found at #{@qr}"
         end
       end
 
@@ -176,6 +188,7 @@ module InvoicePrinter
       build_total
       build_stamp
       build_logo
+      build_qr
       build_note
       build_footer
     end
@@ -852,6 +865,18 @@ module InvoicePrinter
       if @logo && !@logo.empty?
         bottom = @document.note.empty? ? 75 : (75 + note_height)
         @pdf.image(@logo, at: [0, bottom], fit: [x(200), y(50)])
+      end
+    end
+
+    # Insert a QR image at the right bottom of the document
+    #
+    # If a note is present, position it on top of it.
+    def build_qr
+      if @qr && !@qr.empty?
+        bottom = @document.note.empty? ? 75 : (75 + note_height)
+        # Place QR at the right within the content width (approx 540) minus its width (200)
+        right_x = x(540 - 200)
+        @pdf.image(@qr, at: [right_x, bottom], fit: [x(200), y(50)])
       end
     end
 

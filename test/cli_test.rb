@@ -22,6 +22,7 @@ class CLITest < Minitest::Test
               "--document '#{@invoice_as_json}' " +
               "--labels '#{labels_hash.to_json}' " +
               "--logo '#{logo_path}' " +
+              "--qr '#{qr_path}' " +
               "--background '#{background_path}' " +
               "--filename #{@output_path}"
 
@@ -44,6 +45,7 @@ class CLITest < Minitest::Test
       document:   @invoice,
       labels:     labels_hash,
       logo:       logo_path,
+      qr:         qr_path,
       background: background_path,
       page_size:  :letter,
       file_name:  expected_pdf_path
@@ -60,6 +62,7 @@ class CLITest < Minitest::Test
               "--document '#{@invoice_as_json}' " +
               "--labels '#{labels_hash.to_json}' " +
               "--logo '#{logo_path}' " +
+              "--qr '#{qr_path}' " +
               "--background '#{background_path}' " +
               "--page-size a4 " +
               "--filename #{@output_path}"
@@ -83,6 +86,7 @@ class CLITest < Minitest::Test
       document:   @invoice,
       labels:     labels_hash,
       logo:       logo_path,
+      qr:         qr_path,
       background: background_path,
       page_size:  :a4,
       file_name:  expected_pdf_path
@@ -105,6 +109,10 @@ class CLITest < Minitest::Test
 
   def logo_path
     File.expand_path('../../examples/logo.png', __FILE__)
+  end
+
+  def qr_path
+    File.expand_path('../../assets/qr.png', __FILE__)
   end
 
   def background_path

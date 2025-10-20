@@ -22,6 +22,7 @@ class InvoicePrinter::Server < Roda
       bold_font  = params[:bold_font]
       stamp      = params[:stamp]
       logo       = params[:logo]
+      qr         = params[:qr]
       background = params[:background]
       page_size  = params[:page_size]
     else
@@ -60,6 +61,7 @@ class InvoicePrinter::Server < Roda
           bold_font:  bold_font,
           stamp:      stamp,
           logo:       logo,
+          qr:         qr,
           background: background,
           page_size:  page_size,
           file_name:  filename
@@ -83,6 +85,7 @@ class InvoicePrinter::Server < Roda
           bold_font:  bold_font,
           stamp:      stamp,
           logo:       logo,
+          qr:         qr,
           background: background,
           page_size:  page_size
         )
