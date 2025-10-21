@@ -34,6 +34,7 @@ See more usecases in the `examples/` directory.
 - Logotype (as image scaled to fit 50px of height)
 - Background (as image)
 - Stamp & signature (as image)
+- QR code (as image)
 - Note
 - JSON format
 - CLI
@@ -69,4 +70,4 @@ $ ruby regenerate.rb
 
 ## Copyright
 
-Copyright 2015-2024 &copy; [Josef Strzibny](http://strzibny.name/). MIT licensed.
+Copyright 2015-2025 &copy; [Josef Strzibny](http://strzibny.name/). Sponsored by [LakyAI](https://lakyai.com/). MIT licensed.
