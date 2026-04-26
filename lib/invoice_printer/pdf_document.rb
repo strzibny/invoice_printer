@@ -93,11 +93,15 @@ module InvoicePrinter
       raise InvalidInput, 'document is not a type of InvoicePrinter::Document' \
         unless @document.is_a?(InvoicePrinter::Document)
 
+      [@logo, @stamp, @qr].compact.reject(&:empty?).each do |path|
+        raise InvalidInput, 'Invalid file path' unless InvoicePrinter.allowed_path?(path)
+      end
+
       if used? @logo
         if File.exist?(@logo)
           @logo = logo
         else
-          raise LogoFileNotFound, "Logotype file not found at #{@logo}"
+          raise LogoFileNotFound, 'Logotype file not found'
         end
       end
 
@@ -105,7 +109,7 @@ module InvoicePrinter
         if File.exist?(@stamp)
           @stamp = stamp
         else
-          raise StampFileNotFound, "Stamp file not found at #{@stamp}"
+          raise StampFileNotFound, 'Stamp file not found'
         end
       end
 
@@ -113,7 +117,7 @@ module InvoicePrinter
         if File.exist?(@qr)
           @qr = qr
         else
-          raise QRFileNotFound, "QR image file not found at #{@qr}"
+          raise QRFileNotFound, 'QR image file not found'
         end
       end
 
