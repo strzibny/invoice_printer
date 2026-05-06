@@ -25,6 +25,12 @@ class InvoicePrinter::Server < Roda
       qr         = params[:qr]
       background = params[:background]
       page_size  = params[:page_size]
+
+      unless [logo, stamp, qr].all? { |path| InvoicePrinter.allowed_path?(path) }
+        response.status = 400
+        response.write({ result: 'error', error: 'Invalid file path.' }.to_json)
+        r.halt
+      end
     else
       response.status = 400
       response.write(
@@ -52,6 +58,11 @@ class InvoicePrinter::Server < Roda
     # POST /print
     r.post 'print' do
       filename = params[:filename] || 'document.pdf'
+      unless InvoicePrinter.allowed_path?(filename)
+        response.status = 400
+        response.write({ result: 'error', error: 'Invalid filename.' }.to_json)
+        r.halt
+      end
 
       begin
         InvoicePrinter.print(

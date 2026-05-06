@@ -54,6 +54,11 @@ module InvoicePrinter
   #     ...
   #     sublabels: { tax: 'Daň', amount: 'Celkem' }
   #   }
+  def self.allowed_path?(path)
+    return true if path.nil? || path.to_s.empty?
+    !path.to_s.include?('..') && !path.to_s.include?("\0")
+  end
+
   def self.labels=(labels)
     PDFDocument.labels = labels
   end
